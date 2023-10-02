@@ -1,11 +1,19 @@
 import { Button } from "react-bootstrap";
-import { MdLinkOff } from "react-icons/md";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
 
-const ButtonComponent = ({icon}) => {
+const ButtonComponent = ({ btnTip, icon, text, text2 }) => {
   return (
-    <Button variant="transparent bg-white p-1 btns rounded border">
-      {icon}
-    </Button>
+    <OverlayTrigger
+      placement="top"
+      overlay={<Tooltip className=""> &nbsp; {btnTip} &nbsp; </Tooltip>}
+    >
+      <Button variant="transparent bg-white p-1 btns rounded border">
+        {text}
+        {icon}
+        {text2}
+      </Button>
+    </OverlayTrigger>
   );
 };
 

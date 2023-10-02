@@ -1,22 +1,20 @@
 import React from "react";
 import { Card, ButtonGroup } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
-import ButtonComponent from "./ButtonComponent";
-import {
-  MdLinkOff,
-  MdPlaylistRemove,
-  MdLink,
-  MdOutlineSort,
-  MdContentCopy,
-} from "react-icons/md";
-import { LuArrowUpDown } from "react-icons/lu";
-import { RiDeleteBin5Line } from "react-icons/ri";
 
 const FormInputCard = ({
   listTitle,
   lines,
   duplicates,
   headerBarClassName,
+  linkOffBtn,
+  joinLinesBtn,
+  trimDuplicatesBtn,
+  sortBtn,
+  reverseOrderBtn,
+  copyBtn,
+  deleteBtn,
+  moveBtn,
 }) => {
   return (
     <Card style={{ width: "28rem" }}>
@@ -38,15 +36,14 @@ const FormInputCard = ({
       </Form>
       <div className="d-flex justify-content-end bg-body-tertiary p-2">
         <ButtonGroup aria-label="Basic example" className="gap-2 d-flex p-2">
-          <ButtonComponent icon={<MdLinkOff className="fs-4 " />} />
-          <ButtonComponent icon={<MdLink className="fs-4" />} />
-          <ButtonComponent icon={<MdPlaylistRemove className="fs-4" />} />
-          <ButtonComponent
-            icon={<MdOutlineSort className="text-dark fs-4" />}
-          />
-          <ButtonComponent icon={<LuArrowUpDown className="fs-6" />} />
-          <ButtonComponent icon={<MdContentCopy className="fs-4" />} />
-          <ButtonComponent icon={<RiDeleteBin5Line className="fs-4" />} />
+          {moveBtn}
+          {linkOffBtn}
+          {joinLinesBtn}
+          {trimDuplicatesBtn}
+          {sortBtn}
+          {reverseOrderBtn}
+          {copyBtn}
+          {deleteBtn}
         </ButtonGroup>
       </div>
     </Card>
