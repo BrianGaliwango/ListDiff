@@ -2,13 +2,16 @@ import { Button } from "react-bootstrap";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 
-const ButtonComponent = ({ btnTip, icon, text, text2 }) => {
+const ButtonComponent = ({ styleClass, btnTip, icon, text, text2 }) => {
   return (
     <OverlayTrigger
       placement="top"
       overlay={<Tooltip className=""> &nbsp; {btnTip} &nbsp; </Tooltip>}
     >
-      <Button variant="transparent bg-white p-1 btns rounded border">
+      <Button
+        variant="transparent p-1 btns rounded border"
+        className={styleClass}
+      >
         {text}
         {icon}
         {text2}

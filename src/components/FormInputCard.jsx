@@ -17,7 +17,7 @@ const FormInputCard = ({
   moveBtn,
 }) => {
   return (
-    <Card style={{ width: "28rem" }}>
+    <Card >
       <Form>
         <h4 className={headerBarClassName}>
           <Form.Label className="">{listTitle}</Form.Label>
