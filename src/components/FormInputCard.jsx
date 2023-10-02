@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, ButtonGroup, Button } from "react-bootstrap";
+import { Card, ButtonGroup } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import ButtonComponent from "./ButtonComponent";
 import {
@@ -38,15 +38,15 @@ const FormInputCard = ({
       </Form>
       <div className="d-flex justify-content-end bg-body-tertiary p-2">
         <ButtonGroup aria-label="Basic example" className="gap-2 d-flex p-2">
-          <ButtonComponent icon={<MdLinkOff className="fs-2 " />} />
-          <ButtonComponent icon={<MdLink className="fs-2" />} />
-          <ButtonComponent icon={<MdPlaylistRemove className="fs-2" />} />
+          <ButtonComponent icon={<MdLinkOff className="fs-4 " />} />
+          <ButtonComponent icon={<MdLink className="fs-4" />} />
+          <ButtonComponent icon={<MdPlaylistRemove className="fs-4" />} />
           <ButtonComponent
-            icon={<MdOutlineSort className="text-dark fs-2" />}
+            icon={<MdOutlineSort className="text-dark fs-4" />}
           />
-          <ButtonComponent icon={<LuArrowUpDown className="fs-4" />} />
-          <ButtonComponent icon={<MdContentCopy className="fs-2" />} />
-          <ButtonComponent icon={<RiDeleteBin5Line className="fs-2" />} />
+          <ButtonComponent icon={<LuArrowUpDown className="fs-6" />} />
+          <ButtonComponent icon={<MdContentCopy className="fs-4" />} />
+          <ButtonComponent icon={<RiDeleteBin5Line className="fs-4" />} />
         </ButtonGroup>
       </div>
     </Card>
