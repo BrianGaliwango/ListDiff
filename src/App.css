@@ -1,3 +1,5 @@
+/* header-panel-outputB */
+
 * {
   padding: 0 !important;
   margin: 0 !important;
@@ -6,9 +8,81 @@
 
 body {
   width: 100vw !important;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif !important;
 }
 
 .btns {
-  width: 50px !important;
+  display: inline-block !important;
+  /* width: 50px !important; */
+  min-width: 50px !important;
   height: 45px !important;
+  background: #fff !important;
+  color: #333 !important;
+  padding: 8px 14px !important;
+  border-color: #ccc !important;
+  font-weight: 500 !important;
+}
+
+button:active {
+  transform: scale(0.95) !important;
+}
+
+.header-panel-inputA {
+  background: #d9edf7 !important;
+  border-bottom: 1px solid transparent !important;
+  color: #31708f !important;
+  border-color: #bce8f1 !important;
+  /* border-top-left-radius: 3px !important;
+  border-top-right-radius: 3px !important; */
+}
+
+.header-panel-outputB {
+  background: #dff0d8 !important;
+  border-bottom: 1px solid transparent !important;
+  /* color:#3c763d !important;  */
+  border-color: #d6e9c6 !important;
+  /* border-top-left-radius: 3px !important;
+  border-top-right-radius: 3px !important; */
+}
+
+.line-styles-inputA,
+.duplicates-styles-inputA {
+  min-width: 10px !important;
+  background-color: #31708f !important ;
+  color: #d9edf7 !important;
+  line-height: 1 !important;
+  /* border-radius: 10px !important; */
+  /* padding: 3px 7px !important; */
+}
+
+.line-styles-outputB,
+.duplicates-styles-outputB {
+  min-width: 10px !important;
+  background-color: #3c763d !important ;
+  color: #dff0d8 !important;
+  line-height: 1 !important;
+  /* border-radius: 10px !important; */
+  /* padding: 3px 7px !important; */
+}
+
+.lines-styles {
+  color: #3c763d !important ;
+}
+
+.footer-panel {
+  background-color: #f5f5f5 !important;
+}
+
+.go-btn {
+  /* width: 65px !important;
+  min-width: 65px !important; */
+  height: 45px !important;
+  display:  inline-block !important;
+  background-color: #5cb85c !important;
+  border-color: #4cae4c !important;
+  font-size: 18px !important;
+  color: #fff !important;
+  text-align: center !important;
+  /* padding: 0 !important; */
+  /* padding: 10px 16px !important; */
 }
