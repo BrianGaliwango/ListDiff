@@ -3,6 +3,7 @@ import { Card, ButtonGroup } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 
 const FormInputCard = ({
+  cardStyles,
   listTitle,
   linesStyles,
   lines,
@@ -20,7 +21,7 @@ const FormInputCard = ({
   moveBtn,
 }) => {
   return (
-    <Card>
+    <Card className={cardStyles}>
       {/* <Form> */}
       <div className={headerBarClassName}>
         <h4 className="fs-5">{listTitle}</h4>

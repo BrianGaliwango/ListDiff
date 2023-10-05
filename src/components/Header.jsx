@@ -10,7 +10,7 @@ const Header = () => {
     <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary border-bottom">
       <Container fluid className="px-5 py-3">
         <Navbar.Brand href="#home" className="">ListDiff.Com</Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" className="px-2 py-1" />
         <Navbar.Collapse className="">
           <Nav className="mx-auto gap-4">
             <Nav.Link href="#CompareLists">Compare Lists</Nav.Link>
