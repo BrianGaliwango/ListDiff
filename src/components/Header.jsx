@@ -9,13 +9,13 @@ const Header = () => {
   return (
     <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary border-bottom">
       <Container fluid className="px-5 py-3">
-        <Navbar.Brand href="#home" className="">ListDiff.Com</Navbar.Brand>
+        <Navbar.Brand href="/" className="">ListDiff.Com</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" className="px-2 py-1" />
         <Navbar.Collapse className="">
           <Nav className="mx-auto gap-4">
-            <Nav.Link href="#CompareLists">Compare Lists</Nav.Link>
-            <Nav.Link href="#CompareText">Compare Text</Nav.Link>
-            <Nav.Link href="#textFilter">Text Filter</Nav.Link>
+            <Nav.Link href="/">Compare Lists</Nav.Link>
+            <Nav.Link href="/compareText">Compare Text</Nav.Link>
+            <Nav.Link href="/textFixer">Text Filter</Nav.Link>
             <Nav.Link href="#CSVsplitter">CSV Splitter</Nav.Link>
             <Nav.Link href="#textColumnizer">Text Columnizer</Nav.Link>
             <Nav.Link href="#columnExtractor">Column Extractor</Nav.Link>

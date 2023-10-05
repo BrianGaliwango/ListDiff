@@ -1,10 +1,9 @@
 import React from "react";
 import FormInputCard from "./FormInputCard";
-import { Container, Row, Col, Form, ListGroup } from "react-bootstrap";
+import { Container, Row, Col, Form } from "react-bootstrap";
 import ButtonComponent from "./ButtonComponent";
 import {
   MdLinkOff,
-  MdLink,
   MdPlaylistRemove,
   MdOutlineSort,
   MdContentCopy,
@@ -12,36 +11,38 @@ import {
 } from "react-icons/md";
 import { LuArrowUpDown, LuLaptop2 } from "react-icons/lu";
 import { RiDeleteBin5Line } from "react-icons/ri";
-import { BsArrowLeft } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 
 const CompareLists = () => {
   return (
     <Container
       fluid
-      className="d-flex flex-column justify-content-center p-5  "
+      className="d-flex flex-column align-items-center justify-content-center p-5 "
     >
-      <Form className="">
+      <Form className=" compare-lists-form w-100">
         <Row className="d-md-flex gap-5 mb-5 ">
           <Col>
             <FormInputCard
-              cardStyles="inputB-card"
-              headerBarClassName="w-100 d-inline-flex justify-content-between p-3 header-panel-outputB text-success"
+              cardStyles="green-shades-border-color"
+              headerBarClassName="w-100 d-inline-flex justify-content-between p-3 green-shades-header-panel text-success"
               listTitle="List A"
-              linesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold fs-4 px-2 py-1 line-styles-outputB "
-              duplicatesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold fs-4 px-2 py-1 duplicates-styles-outputB "
+              linesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold fs-4 px-2 py-1 green-shades-lines "
+              duplicatesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold fs-4 px-2 py-1 green-shades-duplicates "
               lines="0"
               duplicates="0"
+              readOnlyTextareaStyles="d-none"
+              textareaStyles="p-2 list-textarea"
               buttonGroupStyles="w-100 d-flex justify-content-between d-flex p-2 gap-2"
               moveBtn={
                 <ButtonComponent
                   btnTip="Move B To A"
                   styleClass="fs-6 move-btn"
                   text="A "
-                  icon={<BsArrowLeft className="mb-3 fw-bold fs-5" />}
+                  icon={<BsArrowRight className="mb-3 fw-bold fs-5" />}
                   text2=" B"
                 />
               }
+              fileInputStyles="d-none "
               linkOffBtn={
                 <ButtonComponent
                   btnTip="Split CSV Lines On , : ; "
@@ -82,13 +83,15 @@ const CompareLists = () => {
           </Col>
           <Col>
             <FormInputCard
-              cardStyles="inputB-card"
-              headerBarClassName="w-100 d-inline-flex justify-content-between p-3 header-panel-outputB text-success"
+              cardStyles="green-shades-border-color"
+              headerBarClassName="w-100 d-inline-flex justify-content-between p-3 green-shades-header-panel text-success"
               listTitle="List B"
-              linesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold fs-4 px-2 py-1 line-styles-outputB "
-              duplicatesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold fs-4 px-2 py-1 duplicates-styles-outputB "
+              linesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold fs-4 px-2 py-1 green-shades-lines "
+              duplicatesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold fs-4 px-2 py-1 green-shades-duplicates "
               lines="0"
               duplicates="0"
+              readOnlyTextareaStyles="d-none"
+              textareaStyles="p-2 list-textarea"
               buttonGroupStyles="w-100 d-flex justify-content-between d-flex p-2 gap-2"
               moveBtn={
                 <ButtonComponent
@@ -99,6 +102,7 @@ const CompareLists = () => {
                   text2=" B"
                 />
               }
+              fileInputStyles="d-none "
               linkOffBtn={
                 <ButtonComponent
                   btnTip="Split CSV Lines On , : ; "
@@ -138,6 +142,7 @@ const CompareLists = () => {
             />
           </Col>
         </Row>
+
         <Row className="gap-5 mb-5">
           <Col className="d-flex justify-content-end ">
             <ButtonComponent
@@ -158,6 +163,7 @@ const CompareLists = () => {
             />
           </Col>
         </Row>
+
         <Row className="mb-5 check-inputs-wrapper p-5">
           <Col className="d-flex flex-md-row flex-column ">
             {/* <Form className="d-flex flex-row gap-1"> */}
@@ -225,17 +231,22 @@ const CompareLists = () => {
           </Col>
         </Row>
 
-        <Row className="d-md-flex gap-5 mb-5 ">
-          <Col>
+        {/* Only  */}
+
+        <Row className="d-flex align-items-center justify-content-between gap-2 mb-5 only-wrapper ">
+          <Col className="d-flex mb-3">
             <FormInputCard
-              cardStyles="inputB-card"
-              headerBarClassName="w-100 d-inline-flex justify-content-between p-3 header-panel-outputB text-success"
+              cardStyles="only-cards blue-shades-border-color"
+              headerBarClassName="w-100 d-inline-flex justify-content-between p-3 blue-shades-header-panel"
               listTitle="A Only"
-              linesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold fs-4 px-2 py-1 line-styles-outputB "
+              linesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold fs-4 px-2 py-1 blue-shades-lines "
               duplicatesStyles="d-none "
               lines="0"
+              readOnlyTextareaStyles="d-none"
+              textareaStyles="p-2 only-textarea"
               textAreaPlaceholder="Values in A Only"
               buttonGroupStyles="w-100 d-flex justify-content-between d-flex p-2 gap-2"
+              fileInputStyles="d-none "
               trimDuplicatesBtn={
                 <ButtonComponent
                   btnTip="Trim Spaces & Duplicates"
@@ -262,16 +273,19 @@ const CompareLists = () => {
               }
             />
           </Col>
-          <Col>
+          <Col className=" mb-3">
             <FormInputCard
-              cardStyles="inputB-card"
-              headerBarClassName="w-100 d-inline-flex justify-content-between p-3 header-panel-outputB text-success"
+              cardStyles="only-cards"
+              headerBarClassName="w-100 d-inline-flex justify-content-between p-3 red-shades-header-panel"
               listTitle="A n B"
-              linesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold fs-4 px-2 py-1 line-styles-outputB "
+              linesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold fs-4 px-2 py-1 red-shades-lines "
               duplicatesStyles="d-none"
               lines="0"
+              readOnlyTextareaStyles="d-none"
+              textareaStyles="p-2 only-textarea"
               textAreaPlaceholder="Values in A AND B"
               buttonGroupStyles="w-100 d-flex justify-content-between d-flex p-2 gap-2"
+              fileInputStyles="d-none "
               trimDuplicatesBtn={
                 <ButtonComponent
                   btnTip="Trim Spaces & Duplicates"
@@ -298,16 +312,19 @@ const CompareLists = () => {
               }
             />
           </Col>
-          <Col>
+          <Col className=" mb-3">
             <FormInputCard
-              cardStyles="inputB-card"
-              headerBarClassName="w-100 d-inline-flex justify-content-between p-3 header-panel-outputB text-success"
+              cardStyles="only-cards blue-shades-border-color"
+              headerBarClassName="w-100 d-inline-flex justify-content-between p-3 blue-shades-header-panel"
               listTitle="B Only"
-              linesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold fs-4 px-2 py-1 line-styles-outputB "
+              linesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold fs-4 px-2 py-1 blue-shades-lines "
               duplicatesStyles="d-none "
               lines="0"
+              readOnlyTextareaStyles="d-none"
+              textareaStyles="p-2 only-textarea"
               textAreaPlaceholder="Values in B Only"
               buttonGroupStyles="w-100 d-flex justify-content-between d-flex p-2 gap-2"
+              fileInputStyles="d-none "
               trimDuplicatesBtn={
                 <ButtonComponent
                   btnTip="Trim Spaces & Duplicates"
@@ -335,17 +352,20 @@ const CompareLists = () => {
             />
           </Col>
         </Row>
-        <Row className="mb-5">
-          <Col>
+        <Row className="mb-5 aub-wrapper ">
+          <Col xs={12} className="position-relative">
             <FormInputCard
-              cardStyles="inputB-card"
-              headerBarClassName="w-100 d-inline-flex justify-content-between p-3 header-panel-outputB text-success"
+              cardStyles="only-cards green-shades-border-color position-absolute bottom-0 start-50 translate-middle-x "
+              headerBarClassName="w-100 d-inline-flex justify-content-between p-3 green-shades-header-panel text-success"
               listTitle="A u B"
-              linesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold fs-4 px-2 py-1 line-styles-outputB "
+              linesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold fs-4 px-2 py-1 green-shades-lines "
               duplicatesStyles="d-none "
               lines="0"
-              buttonGroupStyles="w-100 d-flex justify-content-between d-flex p-2 gap-2"
+              readOnlyTextareaStyles="d-none"
+              textareaStyles="p-2 only-textarea"
               textAreaPlaceholder="Values in A OR B"
+              buttonGroupStyles="w-100 d-flex justify-content-between d-flex p-2 gap-2"
+              fileInputStyles="d-none "
               trimDuplicatesBtn={
                 <ButtonComponent
                   btnTip="Trim Spaces & Duplicates"

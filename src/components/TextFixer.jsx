@@ -1,6 +1,6 @@
 import React from "react";
 import FormInputCard from "./FormInputCard";
-import { Container, Row, Col, Form, ListGroup } from "react-bootstrap";
+import { Container, Row, Col, Form} from "react-bootstrap";
 import ButtonComponent from "./ButtonComponent";
 import {
   MdLinkOff,
@@ -25,14 +25,16 @@ const Main = () => {
         <Row className="d-md-flex gap-5 mb-5 ">
           <Col>
             <FormInputCard
-              cardStyles="inputA-card"
-              headerBarClassName="w-100 d-inline-flex justify-content-between p-3 header-panel-inputA  "
+              cardStyles="blue-shades-border-color"
+              headerBarClassName="w-100 d-inline-flex justify-content-between p-3 blue-shades-header-panel  "
               listTitle="Input A"
-              linesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold fs-4 px-2 py-1 line-styles-inputA "
-              duplicatesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold fs-4 px-2 py-1 duplicates-styles-inputA"
+              linesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold fs-4 px-2 py-1 blue-shades-lines "
+              duplicatesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold fs-4 px-2 py-1 blue-shades-duplicates"
               lines="0"
               duplicates="0"
+              readOnlyTextareaStyles="d-none"
               buttonGroupStyles="w-100 d-inline-flex justify-content-end d-flex p-2"
+              fileInputStyles="d-none "
               linkOffBtn={
                 <ButtonComponent
                   btnTip="Split CSV Lines On , : ; "
@@ -79,18 +81,20 @@ const Main = () => {
           </Col>
           <Col>
             <FormInputCard
-              cardStyles="inputB-card"
-              headerBarClassName="w-100 d-inline-flex justify-content-between p-3 header-panel-outputB text-success"
+              cardStyles="green-shades-border-color"
+              headerBarClassName="w-100 d-inline-flex justify-content-between p-3 green-shades-header-panel"
               listTitle="Output B"
-              linesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold fs-4 px-2 py-1 line-styles-outputB "
-              duplicatesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold fs-4 px-2 py-1 duplicates-styles-outputB "
+              linesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold fs-4 px-2 py-1 green-shades-lines "
+              duplicatesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold fs-4 px-2 py-1 green-shades-duplicates "
               lines="0"
               duplicates="0"
+              readOnlyTextareaStyles="d-none"
               buttonGroupStyles="w-100 d-flex justify-content-between d-flex p-2 gap-2"
+              fileInputStyles="d-none "
               moveBtn={
                 <ButtonComponent
                   btnTip="Move B To A"
-                  styleClass="fs-6"
+                  styleClass="fs-6 move-btn"
                   text="A "
                   icon={<BsArrowLeft className="mb-3 fw-bold fs-5" />}
                   text2=" B"
@@ -148,26 +152,31 @@ const Main = () => {
             {/* <Form className="d-flex flex-row gap-1"> */}
             <div className=" d-flex flex-column mb-3 col-md-3 col-sm-8">
               <Form.Check
+                checked
                 type="checkbox"
                 label="Remove Start Spaces"
                 className="d-inline-flex align-items-center gap-2"
               />
               <Form.Check
+                checked
                 type="checkbox"
                 label="Remove End Spaces"
                 className="d-inline-flex align-items-center gap-2"
               />
               <Form.Check
+                checked
                 type="checkbox"
                 label="Remove Extra Spaces"
                 className="d-inline-flex align-items-center gap-2"
               />
               <Form.Check
+                checked
                 type="checkbox"
                 label="Remove Leading Zeroes"
                 className="d-inline-flex align-items-center gap-2"
               />
               <Form.Check
+                checked
                 type="checkbox"
                 label="Remove Duplicates"
                 className="d-inline-flex align-items-center gap-2"
