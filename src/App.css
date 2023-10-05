@@ -22,6 +22,11 @@ body {
   font-weight: 500 !important;
 }
 
+.move-btn {
+  min-width: 80px !important;
+  text-wrap: nowrap !important;
+}
+
 a {
   text-decoration: none !important;
 }
@@ -83,11 +88,12 @@ button:active {
 }
 
 textarea {
-  font-family: Consolas, Lucida Console, courier, monospace;
-  white-space: pre;
-  overflow-wrap: normal;
-  overflow-x: scroll;
-  resize: none;
+  font-family: Consolas, Lucida Console, courier, monospace !important;
+  /* font-family: inherit !important; */
+  white-space: pre !important;
+  overflow-wrap: normal !important;
+  overflow-x: scroll !important;
+  resize: none !important;
   border: 0.12rem solid #ccc !important;
 }
 
@@ -103,8 +109,6 @@ form input:focus {
   box-shadow: 0 0px 3px #7ebeff, 0 0px 5px #fff !important;
   -webkit-box-shadow: 0 0px 3px #7ebeff, 0 0px 5px #fff !important;
 }
-
-
 
 form input[type="text"] {
   color: #555 !important;
@@ -135,6 +139,11 @@ select {
   font-size: 18px !important;
   color: #fff !important;
   text-align: center !important;
+}
+
+.compare-lists-btn {
+  background-color: #337ab7 !important;
+  border-color: #337ab7 !important ;
 }
 
 .text-list {

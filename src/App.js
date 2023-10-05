@@ -4,7 +4,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Container } from "react-bootstrap";
 
 import Header from "./components/Header";
-import Main from "./components/Main";
+import TextFixer from "./components/TextFixer";
+import CompareLists from "./components/CompareLists";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Footer from "./components/Footer";
@@ -15,7 +16,8 @@ function App() {
       <Container fluid className="p-0">
         <Header />
         <Routes>
-          <Route exact path="/" element={<Main />} />
+          <Route exact path="/" element={<CompareLists />} />
+          <Route exact path="/textFixer" element={<TextFixer />} />
         </Routes>
         <Footer />
       </Container>

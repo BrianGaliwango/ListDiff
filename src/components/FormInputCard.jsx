@@ -10,6 +10,7 @@ const FormInputCard = ({
   duplicatesStyles,
   duplicates,
   headerBarClassName,
+  textAreaPlaceholder ,
   buttonGroupStyles,
   linkOffBtn,
   joinLinesBtn,
@@ -31,7 +32,7 @@ const FormInputCard = ({
         </div>
       </div>
       <Form.Group className="" controlId="exampleForm.ControlTextarea1">
-        <Form.Control as="textarea" rows={16} className="p-2" />
+        <Form.Control as="textarea" rows={16} className="p-2" placeholder={textAreaPlaceholder} />
       </Form.Group>
       {/* </Form> */}
       <div className="d-flex p-2 footer-panel">
