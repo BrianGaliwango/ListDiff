@@ -1,4 +1,4 @@
-/* check-inputs-wrapper */
+/* select */
 
 * {
   padding: 0 !important;
@@ -161,6 +161,7 @@ form input[type="text"] {
 select {
   border: 0 !important;
   border-left: 1px solid #ccc !important;
+  /* overflow: auto !important; */
 }
 
 .check-inputs-wrapper {
@@ -263,6 +264,10 @@ select {
 .compare-text-li ,
 em {
   color: #c7254e !important;
+}
+
+.select-wrapper {
+  min-height: 240px !important;
 }
 
 @media screen and (max-width: 1070px) {

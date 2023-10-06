@@ -3,7 +3,7 @@ import FormInputCard from "./FormInputCard";
 import { Container, Row, Col, Form, ListGroup } from "react-bootstrap";
 import ButtonComponent from "./ButtonComponent";
 import { MdOutlineSort, MdContentCopy, MdLockOpen } from "react-icons/md";
-import { LuArrowUpDown, LuLaptop2 } from "react-icons/lu";
+import { LuArrowUpDown } from "react-icons/lu";
 import { RiDeleteBin5Line } from "react-icons/ri";
 import {
   BsArrowLeft,

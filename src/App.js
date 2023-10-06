@@ -7,6 +7,7 @@ import Header from "./components/Header";
 import CompareLists from "./components/CompareLists";
 import TextFixer from "./components/TextFixer";
 import CompareText from "./components/CompareText";
+import CSVSplitter from "./components/CSVSplitter";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Footer from "./components/Footer";
@@ -20,6 +21,7 @@ function App() {
           <Route exact path="/" element={<CompareLists />} />
           <Route exact path="/compareText" element={<CompareText />} />
           <Route exact path="/textFixer" element={<TextFixer />} />
+          <Route exact path="/csvSplitter" element={<CSVSplitter />} />
         </Routes>
         <Footer />
       </Container>
