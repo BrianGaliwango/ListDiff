@@ -15,7 +15,7 @@ const Header = () => {
           <Nav className="mx-auto gap-4">
             <Nav.Link href="/">Compare Lists</Nav.Link>
             <Nav.Link href="/compareText">Compare Text</Nav.Link>
-            <Nav.Link href="/textFixer">Text Filter</Nav.Link>
+            <Nav.Link href="/textFixer">Text Fixer</Nav.Link>
             <Nav.Link href="/csvSplitter">CSV Splitter</Nav.Link>
             <Nav.Link href="#textColumnizer">Text Columnizer</Nav.Link>
             <Nav.Link href="#columnExtractor">Column Extractor</Nav.Link>

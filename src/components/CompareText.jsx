@@ -30,6 +30,7 @@ const CompareText = () => {
               linesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold fs-4 px-2 py-1 blue-shades-lines "
               duplicatesStyles="d-none "
               lines="0"
+              textareaRows="15"
               readOnlyTextareaStyles="position-absolute top-0 start-0 border-0 rounded-0 text-center readonly-textarea"
               textareaStyles="p-2 border-0 rounded-0 "
               buttonGroupStyles="w-100 d-flex justify-content-between d-flex p-2 gap-2"
@@ -90,6 +91,7 @@ const CompareText = () => {
               duplicatesStyles="d-none "
               lines="0"
               readOnlyTextareaStyles="position-absolute top-0 start-0 border-0 rounded-0 text-center readonly-textarea p-2"
+              textareaRows="15"
               textareaStyles="p-2 border-0 rounded-0 "
               buttonGroupStyles="w-100 d-flex justify-content-between d-flex p-2 gap-2"
               moveBtn={

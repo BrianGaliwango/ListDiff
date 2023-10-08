@@ -14,6 +14,7 @@ const FormInputCard = ({
   duplicates,
   toolTipStyles,
   headerBarClassName,
+  textareaRows ,
   textareaStyles,
   readOnlyTextareaStyles,
   textAreaPlaceholder,
@@ -28,6 +29,9 @@ const FormInputCard = ({
   moveBtn,
   fileInputStyles,
   lockScrolling,
+  toggleQuotesBtn ,
+  viewBtn ,
+  
 }) => {
   return (
     <Card className={cardStyles}>
@@ -62,7 +66,7 @@ const FormInputCard = ({
       >
         <Form.Control
           as="textarea"
-          rows="auto"
+          rows={textareaRows}
           className={textareaStyles}
           placeholder={textAreaPlaceholder}
         />
@@ -111,6 +115,7 @@ const FormInputCard = ({
           </div>
 
           <div className="d-inline-flex gap-1">
+            {toggleQuotesBtn}
             {linkOffBtn}
             {joinLinesBtn}
             {trimDuplicatesBtn}
@@ -118,6 +123,7 @@ const FormInputCard = ({
             {reverseOrderBtn}
             {copyBtn}
             {deleteBtn}
+            {viewBtn}
           </div>
         </ButtonGroup>
       </div>

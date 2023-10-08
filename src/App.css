@@ -1,4 +1,6 @@
-/* select */
+/* split-csv-options-wrapper */
+/* list-textarea */
+/* type */
 
 * {
   padding: 0 !important;
@@ -131,7 +133,7 @@ button:active {
 }
 
 textarea {
-  height: 350px !important;
+  /* height: 350px !important; */
   font-family: Consolas, Lucida Console, courier, monospace !important;
   white-space: pre !important;
   overflow-wrap: normal !important;
@@ -208,6 +210,13 @@ select {
   /* font-size: 16px !important; */
 }
 
+.text-list2 {
+  list-style-type: circle !important;
+}
+.text-list3 {
+  list-style-type: square !important;
+}
+
 .a-only-wrapper {
   /* width: 100% !important;
   min-width: 250px !important;
@@ -222,7 +231,7 @@ select {
 
 .list-textarea,
 .only-textarea {
-  height: 215px !important;
+  /* height: auto !important; */
 }
 
 .header-panel-a-only {
@@ -268,7 +277,9 @@ em {
 
 .select-wrapper {
   min-height: 240px !important;
+  
 }
+
 
 @media screen and (max-width: 1070px) {
   .only-wrapper {
@@ -282,5 +293,12 @@ em {
   .only-cards {
     width: 100% !important;
     max-width: none !important;
+  }
+
+  .split-csv-options-wrapper {
+    width: 100% !important;
+  }
+  .csv-textarea {
+    max-height: 400px !important;
   }
 }
