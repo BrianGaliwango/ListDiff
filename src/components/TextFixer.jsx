@@ -19,7 +19,7 @@ const Main = () => {
   return (
     <Container
       fluid
-      className="d-flex flex-column justify-content-center p-5  "
+      className="d-flex flex-column align-items-center justify-content-center p-5  "
     >
       <Form className="">
         <Row className="d-md-flex gap-5 mb-5 ">
@@ -80,6 +80,7 @@ const Main = () => {
               }
             />
           </Col>
+          
           <Col>
             <FormInputCard
               cardStyles="green-shades-border-color"

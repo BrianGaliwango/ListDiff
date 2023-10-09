@@ -17,7 +17,7 @@ const CSVSplitter = () => {
   return (
     <Container
       fluid
-      className="d-flex flex-column justify-content-center p-5  "
+      className="d-flex flex-column align-items-center justify-content-center p-5  "
     >
       <Form className="">
         <Row className="d-md-flex gap-3 mb-5 ">
