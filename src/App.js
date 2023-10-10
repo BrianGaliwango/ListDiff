@@ -11,6 +11,8 @@ import TextFixer from "./components/TextFixer";
 import CompareText from "./components/CompareText";
 import CSVSplitter from "./components/CSVSplitter";
 import TextColumnizer from "./components/textColumnizer";
+import ColumnExtractor from "./components/ColumnExtractor";
+
 
 
 import Footer from "./components/Footer";
@@ -27,6 +29,7 @@ function App() {
           <Route exact path="/textFixer" element={<TextFixer />} />
           <Route exact path="/csvSplitter" element={<CSVSplitter />} />
           <Route exact path="/textColumnizer" element={<TextColumnizer />} />
+          <Route exact path="/columnExtractor" element={<ColumnExtractor />} />
           
         </Routes>
         <Footer />

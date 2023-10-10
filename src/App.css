@@ -3,6 +3,7 @@
 /* type */
 /* go-btn */
 /* focus */
+/* square */
 
 * {
   padding: 0 !important;
@@ -33,7 +34,7 @@ form {
   text-align: center !important;
 }
 
-.btns:hover ,
+.btns:hover,
 .file-input-label:hover {
   background: #e1e0e0 !important;
 }
@@ -155,8 +156,8 @@ form input {
   box-shadow: none !important;
 }
 
-form input:focus ,
-.text-columnizer-select:focus  {
+form input:focus,
+.text-columnizer-select:focus {
   border-color: #7ebeff !important;
   box-shadow: 0 0px 3px #7ebeff, 0 0px 5px #fff !important;
   -webkit-box-shadow: 0 0px 3px #7ebeff, 0 0px 5px #fff !important;
@@ -220,25 +221,19 @@ select {
 .text-list2 {
   list-style-type: circle !important;
 }
+
 .text-list3 {
   list-style-type: square !important;
 }
 
+
 .a-only-wrapper {
-  /* width: 100% !important;
-  min-width: 250px !important;
-  max-width: 300px !important; */
   width: 30% !important;
 }
 
 .only-cards {
   width: 100% !important;
   max-width: 350px !important;
-}
-
-.list-textarea,
-.only-textarea {
-  /* height: auto !important; */
 }
 
 .header-panel-a-only {
@@ -274,19 +269,17 @@ select {
 .compare-text-ul {
   background-color: #f4f4f4 !important;
   font-size: 14px !important;
-  
 }
 
-.compare-text-li ,
+.compare-text-li,
 em {
   color: #c7254e !important;
 }
 
 .select-wrapper {
   min-height: 240px !important;
-  
 }
-.text-columnizer-btn-wrapper ,
+.text-columnizer-btn-wrapper,
 .text-columnizer-checkbox-wrapper {
   width: 50% !important;
 }
@@ -307,6 +300,21 @@ em {
   width: 400px !important;
 }
 
+.column-extractor-control {
+  max-width: 250px !important;
+}
+
+.column-extractor-control::placeholder {
+  color: #ccc !important;
+  opacity: 1 !important; /* Firefox */
+  font-weight: 500 !important;
+}
+
+.column-extractor-control::-ms-input-placeholder {
+  /* Edge 12 -18 */
+  color: #ccc !important;
+  font-weight: bold !important;
+}
 
 @media screen and (max-width: 1070px) {
   .only-wrapper {
@@ -330,13 +338,13 @@ em {
   }
 }
 
-@media screen and (max-width: 680px ) {
+@media screen and (max-width: 680px) {
   .text-columnizer-options-wrapper {
     flex-direction: column !important;
     align-items: center !important;
   }
 
-  .text-columnizer-btn-wrapper ,
+  .text-columnizer-btn-wrapper,
   .text-columnizer-checkbox-wrapper {
     width: 100% !important;
     flex-direction: row !important;

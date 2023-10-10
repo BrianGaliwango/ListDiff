@@ -13,9 +13,9 @@ import ButtonComponent from "./ButtonComponent";
 import { MdPlaylistRemove, MdOutlineSort, MdContentCopy } from "react-icons/md";
 import { LuArrowUpDown } from "react-icons/lu";
 import { RiDeleteBin5Line } from "react-icons/ri";
-import { columnAligned, columnAlignedAb } from "./assets/images/image";
+import { columnExtract } from "./assets/images/image";
 
-const textColumnizer = () => {
+const ColumnExtractor = () => {
   return (
     <Container
       fluid
@@ -70,12 +70,12 @@ const textColumnizer = () => {
             />
           </Col>
           <Col xs={12} className="d-flex text-columnizer-options-wrapper">
-            <div className="d-flex justify-content-center rounded-3 mb-3 gap-4 text-columnizer-btn-wrapper">
+            <div className="d-flex justify-content-center flex-wrap rounded-3 mb-3 gap-4 text-columnizer-btn-wrapper">
               <OverlayTrigger
                 placement="top"
                 overlay={<Tooltip>&nbsp;Input delimited by...&nbsp;</Tooltip>}
               >
-                <select className="p-2 px-4 border rounded-2 text-columnizer-select ">
+                <select className="p-2 px-4 border rounded-2 text-columnizer-select">
                   <option value="T" className=" p-1">
                     Tab
                   </option>
@@ -138,30 +138,33 @@ const textColumnizer = () => {
                   </option>
                 </select>
               </OverlayTrigger>
+              <OverlayTrigger
+                placement="top"
+                overlay={<Tooltip>&nbsp;Filter For columns&nbsp;</Tooltip>}
+              >
+                <Form.Control
+                  placeholder="Columns to extract"
+                  className="p-2 px-4 border rounded-2 column-extractor-control"
+                />
+              </OverlayTrigger>
 
               <ButtonComponent
-                text="Columnize"
+                text="Extract"
                 styleClass="compare-text-btn text-light "
-                btnTip="Align Input"
+                btnTip="Extract Columns"
               />
             </div>
 
             <div className="gap-3 mb-2 pe-3 text-columnizer-checkbox-wrapper">
               <Form.Check
-                type="checkbox"
+                type="radio"
                 label="2x Spacers"
                 className="d-inline-flex align-items-center gap-2 flex-nowrap"
                 checked
               />
               <Form.Check
-                type="checkbox"
-                label="Include Delimiter "
-                className="d-inline-flex align-items-center gap-2"
-              />
-              <Form.Check
-                type="checkbox"
-                label="Right Justify
-                "
+                type="radio"
+                label="Delimiter "
                 className="d-inline-flex align-items-center gap-2"
               />
             </div>
@@ -216,101 +219,47 @@ const textColumnizer = () => {
 
         <Row className="pt-5">
           <h2 className="mb-4">
-            Columnizer - Align Text Columns & Format String Alignments
+            Extract Columns From CSV Text & Tabulated Data
           </h2>
-          <Col className="ps-5">
-            <Card className="border-0 mb-4 d-flex flex-column ">
+          <Col className="">
+            <Card className="border-0 mb-4 d-flex ps-5 ">
               <ul className="mb-3 text-list text-start">
                 <li className="">
-                  Many times when you cut and paste values from Excel or any
-                  spreadsheets into text, the alignments always inherently goes
-                  wrong.
+                  A complementary tool to the <span className="text-blue">Column Alignment Tool</span> is this
+                  column extraction utility.
                 </li>
                 <li>
-                  With the Text to Column Alignment Tool (i.e. Text Columnizer),
-                  you can quickly fix mis-alignments so the data become readable
-                  again in neat columns
+                  Like the Columnizer Tool, you can now extract just the columns
+                  you want from a list of comma separated dataset or CSV-like
+                  data.
                 </li>
                 <li>
-                  Like the{" "}
-                  <span className="text-blue">
-                    {" "}
-                    List Comparison Tool, Text Fixer{" "}
-                  </span>{" "}
-                  and <span className="text-blue"> CSV Delimiter Tool</span>
-                  , aligning columns of data can be frustratingly tedious
-                  but highly useful
+                  Specify the delimiter being used to delimit your dataset; then
+                  list the columns you want to extract and let the tool extract
+                  those values.
                 </li>
                 <li>
-                  Whether you want to fix a Cut & Paste string formatting issue
-                  or convert CSV driven data to tabulated columns. This simple
-                  utility will certainly be helpful.
+                  The behavior is similar to the Unix <span className="text-blue">Cut</span> commandline function.
+                </li>
+                <li>
+                  You can reorder the extraction output by specifying the column
+                  order.
+                </li>
+                <li>
+                  You can also retain the original delimiter or leave the
+                  default double spaced delimiter in the output
                 </li>
                 <br />
                 <br />
                 <Card className="w-100 d-flex align-items-center justify-content-center border-0">
                   <Card.Img
                     variant="bottom"
-                    src={columnAligned}
+                    src={columnExtract}
                     className="w-75"
                   />
                 </Card>
                 <br />
                 <br />
-                <li>
-                  There are a few options which you can use as part of this tool
-                  <br />
-                  <br />
-                  <ul className="ps-5">
-                    <li>
-                      Select the Separation delimiter of your data, this is
-                      usually TABS or CSV, but could be one of the many other
-                      common delimiter symbol
-                    </li>
-                    <li>
-                      Data will be divided into column based on the Separator
-                      Character
-                    </li>
-                    <li>
-                      The tool will calculate the number of spaces required and
-                      align each column to fit your data
-                    </li>
-                    <li>
-                      You can change the alignment justification of the output
-                      with the Left or <b>Right Justify</b> checkbox
-                    </li>
-                    <li>
-                      By default, the output has a 2 spacing separated between
-                      each column. You can switch that back to just one by
-                      unchecking the <b>2x Spacer</b> box
-                    </li>
-                    <li>
-                      There are cases where you may want to keep the separate
-                      character in the output for further formatting etc. Just
-                      check the <b>Include Delimiter</b> box.
-                    </li>
-                  </ul>
-                  <br />
-                  <Card className="d-flex flex-column align-items-center justify-content-center border-0">
-                    <Card.Img
-                      src={columnAlignedAb}
-                      className=" text-columnizer-img "
-                    />
-                  </Card>
-                </li>
-                <br />
-                <br />
-                <li>
-                  This formatting tool will not only make your text and
-                  string-based tables more readable, but help present your data
-                  in a grid-like form without special layouts
-                </li>
-                <li>Hopefully you will find it useful!</li>
-                <li>
-                  NOTE: Certain results may not format well if you have long
-                  sentence-like data, wrapped text, rogue or inline delimiters,
-                  or badly formatted text
-                </li>
               </ul>
             </Card>
           </Col>
@@ -320,4 +269,4 @@ const textColumnizer = () => {
   );
 };
 
-export default textColumnizer;
+export default ColumnExtractor;
