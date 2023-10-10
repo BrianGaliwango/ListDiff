@@ -1,6 +1,6 @@
 import React from "react";
 import FormInputCard from "./FormInputCard";
-import { Container, Row, Col, Form} from "react-bootstrap";
+import { Container, Row, Col, Form } from "react-bootstrap";
 import ButtonComponent from "./ButtonComponent";
 import {
   MdLinkOff,
@@ -28,8 +28,8 @@ const Main = () => {
               cardStyles="blue-shades-border-color"
               headerBarClassName="w-100 d-inline-flex justify-content-between p-3 blue-shades-header-panel  "
               listTitle="Input A"
-              linesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold fs-4 px-2 py-1 blue-shades-lines "
-              duplicatesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold fs-4 px-2 py-1 blue-shades-duplicates"
+              linesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold px-2 py-1 blue-shades-lines "
+              duplicatesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold px-2 py-1 blue-shades-duplicates"
               lines="0"
               duplicates="0"
               textareaRows="17"
@@ -80,14 +80,14 @@ const Main = () => {
               }
             />
           </Col>
-          
+
           <Col>
             <FormInputCard
               cardStyles="green-shades-border-color"
               headerBarClassName="w-100 d-inline-flex justify-content-between p-3 green-shades-header-panel"
               listTitle="Output B"
-              linesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold fs-4 px-2 py-1 green-shades-lines "
-              duplicatesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold fs-4 px-2 py-1 green-shades-duplicates "
+              linesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold px-2 py-1 green-shades-lines "
+              duplicatesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold px-2 py-1 green-shades-duplicates "
               lines="0"
               duplicates="0"
               textareaRows="17"
@@ -134,18 +134,20 @@ const Main = () => {
           <Col className="d-flex justify-content-end ">
             <ButtonComponent
               text="Go!"
-              styleClass="go-btn "
+              btnStyleClass="go-btn "
               toolTipStyles="d-none"
             />
           </Col>
           <Col className="d-flex justify-content-end gap-3 ">
             <ButtonComponent
               btnTip="Options"
+              toolTipStyles="tip-style"
               icon={<MdChecklistRtl className="text-dark fs-4" />}
             />
 
             <ButtonComponent
               btnTip="Switch Desktop / Laptop View"
+              toolTipStyles="tip-style"
               icon={<LuLaptop2 className="fs-5" />}
             />
           </Col>

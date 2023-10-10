@@ -7,18 +7,21 @@ import { BsFileEarmarkArrowUp } from "react-icons/bs";
 
 const FormInputCard = ({
   cardStyles,
+  headerBarClassName,
   listTitle,
   linesStyles,
   lines,
+  rowsColumns,
+  rowsColumnsStyles,
   duplicatesStyles,
   duplicates,
   toolTipStyles,
-  headerBarClassName,
-  textareaRows ,
+  textareaRows,
   textareaStyles,
   readOnlyTextareaStyles,
   textAreaPlaceholder,
   buttonGroupStyles,
+  addHeaderRowBtn,
   linkOffBtn,
   joinLinesBtn,
   trimDuplicatesBtn,
@@ -29,15 +32,16 @@ const FormInputCard = ({
   moveBtn,
   fileInputStyles,
   lockScrolling,
-  toggleQuotesBtn ,
-  viewBtn ,
-  
+  columnsInputStyle,
+  vLookCheckboxStyles ,
+  toggleQuotesBtn,
+  viewBtn,
 }) => {
   return (
     <Card className={cardStyles}>
       {/* <Form> */}
       <div className={headerBarClassName}>
-        <h4 className="fs-5">{listTitle}</h4>
+        <h4 className="card-title">{listTitle}</h4>
         <div className="ml-auto d-inline-flex gap-2">
           <OverlayTrigger
             placement="top"
@@ -53,10 +57,21 @@ const FormInputCard = ({
           <OverlayTrigger
             placement="top"
             overlay={
-              <Tooltip className={toolTipStyles}> &nbsp; Lines &nbsp; </Tooltip>
+              <Tooltip className={toolTipStyles}>&nbsp; Lines &nbsp; </Tooltip>
             }
           >
             <span className={linesStyles}>{lines}</span>
+          </OverlayTrigger>
+          <OverlayTrigger
+            placement="top"
+            overlay={
+              <Tooltip className={toolTipStyles}>
+                {" "}
+                &nbsp; Rows x Columns &nbsp;{" "}
+              </Tooltip>
+            }
+          >
+            <span className={rowsColumnsStyles}>{rowsColumns}</span>
           </OverlayTrigger>
         </div>
       </div>
@@ -87,7 +102,7 @@ const FormInputCard = ({
             {moveBtn}
             <div className={fileInputStyles}>
               <OverlayTrigger
-              placement="top"
+                placement="top"
                 overlay={<Tooltip> &nbsp; Upload File &nbsp; </Tooltip>}
               >
                 <Form.Group
@@ -111,6 +126,57 @@ const FormInputCard = ({
                 </Form.Group>
               </OverlayTrigger>
             </div>
+
+            <div className={columnsInputStyle}>
+              <OverlayTrigger
+                placement="top"
+                overlay={<Tooltip> &nbsp; Columns wanted 2 3 &nbsp; </Tooltip>}
+              >
+                <Form.Group
+                  controlId="formFile"
+                  className="d-inline-flex rounded gap-2 h-100"
+                >
+                  <Form.Label className="d-flex align-items-center text-center h-75 vLookup-select-label">
+                    Delimiter:
+                  </Form.Label>
+                  <Form.Select className="vLookup-select h-75 px-2 ">
+                    <option value="," selected>
+                      ,
+                    </option>
+                    <option value="tab">Tab</option>
+                    <option value="S">Space</option>
+                    <option value=":">:</option>
+                    <option value=";">;</option>
+                    <option value="|">|</option>
+                    <option value="^">^</option>
+                    <option value="-">-</option>
+                    <option value="=">=</option>
+                  </Form.Select>
+                </Form.Group>
+              </OverlayTrigger>
+            </div>
+            
+            <div className={columnsInputStyle}>
+              <OverlayTrigger
+                placement="top"
+                overlay={<Tooltip> &nbsp; Columns wanted 2 3 &nbsp; </Tooltip>}
+              >
+                <Form.Group controlId="formFile" className="rounded h-100">
+                  <Form.Control
+                    type="text"
+                    placeholder="Columns wanted"
+                    className="h-75 px-3 vLookup-input"
+                  />
+                </Form.Group>
+              </OverlayTrigger>
+            </div>
+            <div className={vLookCheckboxStyles}>
+              <Form.Check
+                type="checkbox"
+                label="Match Exact"
+                className="d-inline-flex align-items-center gap-2 text-center h-75 vLookup-checkbox "
+              />
+            </div>
             {lockScrolling}
           </div>
 
@@ -118,6 +184,7 @@ const FormInputCard = ({
             {toggleQuotesBtn}
             {linkOffBtn}
             {joinLinesBtn}
+            {addHeaderRowBtn}
             {trimDuplicatesBtn}
             {sortBtn}
             {reverseOrderBtn}

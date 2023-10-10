@@ -12,6 +12,7 @@ import CompareText from "./components/CompareText";
 import CSVSplitter from "./components/CSVSplitter";
 import TextColumnizer from "./components/textColumnizer";
 import ColumnExtractor from "./components/ColumnExtractor";
+import VLookupOnline from "./components/VLookupOnline";
 
 
 
@@ -30,6 +31,7 @@ function App() {
           <Route exact path="/csvSplitter" element={<CSVSplitter />} />
           <Route exact path="/textColumnizer" element={<TextColumnizer />} />
           <Route exact path="/columnExtractor" element={<ColumnExtractor />} />
+          <Route exact path="/VLookupOnline" element={<VLookupOnline />} />
           
         </Routes>
         <Footer />

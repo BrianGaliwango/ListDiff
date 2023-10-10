@@ -27,7 +27,7 @@ const CompareText = () => {
               cardStyles="blue-shades-border-color"
               headerBarClassName="w-100 d-inline-flex justify-content-between p-3 blue-shades-header-panel"
               listTitle="Input A"
-              linesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold fs-4 px-2 py-1 blue-shades-lines "
+              linesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold px-2 py-1 blue-shades-lines "
               duplicatesStyles="d-none "
               lines="0"
               textareaRows="15"
@@ -87,7 +87,7 @@ const CompareText = () => {
               cardStyles="green-shades-border-color"
               headerBarClassName="w-100 d-inline-flex justify-content-between p-3 green-shades-header-panel text-success"
               listTitle="Input B"
-              linesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold fs-4 px-2 py-1 green-shades-lines "
+              linesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold px-2 py-1 green-shades-lines "
               duplicatesStyles="d-none "
               lines="0"
               readOnlyTextareaStyles="position-absolute top-0 start-0 border-0 rounded-0 text-center readonly-textarea p-2"
@@ -155,12 +155,14 @@ const CompareText = () => {
           <Col className="d-flex justify-content-end gap-1 ">
             <ButtonComponent
               btnTip="Show / Hide Results"
+              toolTipStyles="tip-style"
               icon={<BsEyeSlash className="text-dark fs-4 fw-bolder" />}
               styleClass="p-0 "
             />
 
             <ButtonComponent
               btnTip="Switch Desktop / Laptop View"
+              toolTipStyles="tip-style"
               icon={<BsLaptop className="fs-4 fw-bolder" />}
               styleClass="p-0 "
             />

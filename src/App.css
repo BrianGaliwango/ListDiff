@@ -1,9 +1,5 @@
-/* split-csv-options-wrapper */
-/* list-textarea */
-/* type */
-/* go-btn */
-/* focus */
-/* square */
+/* vLookup-dup-styles */
+/* go */
 
 * {
   padding: 0 !important;
@@ -21,6 +17,10 @@ form {
   max-width: 1280px !important;
 }
 
+.card-title {
+  font-size: 18px !important;
+}
+
 .btns {
   display: inline-block !important;
   /* width: 50px !important; */
@@ -32,6 +32,7 @@ form {
   border-color: #ccc !important;
   font-weight: 500 !important;
   text-align: center !important;
+  font-size: 14px !important;
 }
 
 .btns:hover,
@@ -55,9 +56,11 @@ form {
   font-weight: 500 !important;
 }
 
-.move-btn {
+.move-btn ,
+.vLookup-btn {
   min-width: 80px !important;
   text-wrap: nowrap !important;
+  font-size: 18px !important;
 }
 
 a {
@@ -92,6 +95,7 @@ button:active {
   background-color: #31708f !important ;
   color: #d9edf7 !important;
   line-height: 1 !important;
+  font-size: 1.3em !important;
   /* border-radius: 10px !important; */
   /* padding: 3px 7px !important; */
 }
@@ -116,6 +120,7 @@ button:active {
   background-color: #3c763d !important ;
   color: #dff0d8 !important;
   line-height: 1 !important;
+  font-size: 1.3em !important;
   /* border-radius: 10px !important; */
   /* padding: 3px 7px !important; */
 }
@@ -124,6 +129,7 @@ button:active {
   color: #a94442 !important;
   background-color: #f2dede !important;
   border-color: #ebccd1 !important;
+
 }
 
 .red-shades-lines,
@@ -132,6 +138,7 @@ button:active {
   background-color: #a94442 !important;
   color: #f2dede !important;
   line-height: 1 !important;
+  font-size: 1.3em !important;
 }
 
 .red-shades-border-color {
@@ -141,7 +148,7 @@ button:active {
 
 textarea {
   /* height: 350px !important; */
-  font-family: Consolas, Lucida Console, courier, monospace !important;
+  font-family: Consolas, Lucida Console, courier !important;
   white-space: pre !important;
   overflow-wrap: normal !important;
   overflow-x: scroll !important;
@@ -195,7 +202,8 @@ select {
 }
 
 .go-btn:hover,
-.compare-text-btn:hover {
+.compare-text-btn:hover ,
+.vLookup-btn:hover {
   background-color: #4f9a4f !important;
 }
 
@@ -208,9 +216,11 @@ select {
   background-color: #4388c5 !important;
 }
 
-.compare-text-btn {
+.compare-text-btn ,
+.vLookup-btn {
   background-color: #5cb85c !important;
   border-color: #4cae4c !important;
+  color: #fff !important;
 }
 
 .text-list {
@@ -225,7 +235,6 @@ select {
 .text-list3 {
   list-style-type: square !important;
 }
-
 
 .a-only-wrapper {
   width: 30% !important;
@@ -314,6 +323,64 @@ em {
   /* Edge 12 -18 */
   color: #ccc !important;
   font-weight: bold !important;
+}
+
+.vLookup-line-styles,
+.vLookup-dup-styles {
+  font-size: 0.8em !important;
+}
+
+.vLookup-values-textarea {
+  font-family: Consolas, Lucida Console, courier, courier new, monospace !important;
+  color: #333 !important;
+  font-size: 14px !important;
+}
+
+.vLookup-values-textarea::placeholder {
+  font-family: Consolas, Lucida Console, courier, courier new, monospace !important;
+  color: grey !important;
+  font-size: 14px !important;
+}
+
+.tip-style {
+  display: flex !important;
+  align-items: center !important;
+  min-width: 50px !important;
+  max-width: 130px !important;
+  text-align: center !important;
+  font-size: 12px !important;
+}
+
+.vLookup-select {
+  width: 80px !important;
+  color: #333 !important;
+  border: 1px solid #ccc !important;
+}
+
+.vLookup-input {
+  border: 1px solid #ccc !important;
+  max-width: 160px !important;
+  font-size: 14px !important;
+}
+
+.vLookup-select-label {
+  font-size: 14px !important;
+  font-weight: 700 !important;
+}
+
+.vLookup-checkbox {
+  font-size: 14px !important;
+}
+
+.vLookup-view-btn {
+  width: 20px !important;
+  max-height: 35px !important;
+  background: #f5f5f5 !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  color: #333 !important; 
+  border-radius: 0 !important;
 }
 
 @media screen and (max-width: 1070px) {

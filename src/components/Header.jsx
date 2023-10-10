@@ -19,7 +19,7 @@ const Header = () => {
             <Nav.Link href="/csvSplitter">CSV Splitter</Nav.Link>
             <Nav.Link href="/textColumnizer">Text Columnizer</Nav.Link>
             <Nav.Link href="/columnExtractor">Column Extractor</Nav.Link>
-            <Nav.Link href="#VLookupOnline">VLookup Online</Nav.Link>
+            <Nav.Link href="/VLookupOnline" target="_blank">VLookup Online</Nav.Link>
             <NavDropdown title="Others" id="basic-nav-dropdown">
               <NavDropdown.Item href="#topTypingTest" className="px-2 py-1">
                 TopTypingTest.Com

@@ -224,6 +224,7 @@ const CSVSplitter = () => {
               viewBtn={
                 <ButtonComponent
                   btnTip="Switch Desktop / Laptop View"
+                  toolTipStyles="tip-style"
                   icon={<BsLaptop className="fs-4 fw-bolder" />}
                   styleClass="p-0 "
                 />
