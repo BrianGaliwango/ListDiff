@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Card, ButtonGroup } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
@@ -18,6 +18,7 @@ const FormInputCard = ({
   toolTipStyles,
   textareaRows,
   textareaStyles,
+  readOnlyAttr ,
   readOnlyTextareaStyles,
   textAreaPlaceholder,
   buttonGroupStyles,
@@ -27,15 +28,27 @@ const FormInputCard = ({
   trimDuplicatesBtn,
   sortBtn,
   reverseOrderBtn,
+  saveAsBtn,
   copyBtn,
   deleteBtn,
   moveBtn,
   fileInputStyles,
   lockScrolling,
   columnsInputStyle,
-  vLookCheckboxStyles ,
+  vLookupColumnsInputStyle,
+  vLookCheckboxStyles,
+  undoBtn,
+  addIndexBtn,
+  numberedLinesBtn,
+  bulletedLines,
+  alignAsColumnsBtn,
+  toggleCaseBtn,
   toggleQuotesBtn,
   viewBtn,
+  data,
+  onChange,
+  checkedOnChange,
+  selectOnChange
 }) => {
   return (
     <Card className={cardStyles}>
@@ -77,13 +90,15 @@ const FormInputCard = ({
       </div>
       <Form.Group
         className="position-relative"
-        controlId="exampleForm.ControlTextarea1"
       >
         <Form.Control
+          readOnly={readOnlyAttr}
           as="textarea"
           rows={textareaRows}
           className={textareaStyles}
           placeholder={textAreaPlaceholder}
+          value={data}
+          onChange={onChange}
         />
 
         <Form.Control
@@ -103,16 +118,19 @@ const FormInputCard = ({
             <div className={fileInputStyles}>
               <OverlayTrigger
                 placement="top"
-                overlay={<Tooltip> &nbsp; Upload File &nbsp; </Tooltip>}
+                overlay={
+                  <Tooltip className="tip-style rounded">
+                    {" "}
+                    &nbsp; Upload File &nbsp;{" "}
+                  </Tooltip>
+                }
               >
                 <Form.Group
-                  controlId="formFile"
                   className="file-form-group rounded"
                 >
                   <Form.Label
-                    colum
                     id="file-input-label"
-                    for="file-input"
+                    htmlFor="file-input"
                     className="w-100 h-100 p-0 text-center d-flex align-items-center justify-content-center rounded file-input-label"
                   >
                     <BsFileEarmarkArrowUp className=" fw-bold fs-5" />
@@ -126,21 +144,23 @@ const FormInputCard = ({
                 </Form.Group>
               </OverlayTrigger>
             </div>
-
             <div className={columnsInputStyle}>
               <OverlayTrigger
                 placement="top"
-                overlay={<Tooltip> &nbsp; Columns wanted 2 3 &nbsp; </Tooltip>}
+                overlay={
+                  <Tooltip className="tip-style2 rounded">
+                    What is your Column separator?
+                  </Tooltip>
+                }
               >
                 <Form.Group
-                  controlId="formFile"
                   className="d-inline-flex rounded gap-2 h-100"
                 >
                   <Form.Label className="d-flex align-items-center text-center h-75 vLookup-select-label">
                     Delimiter:
                   </Form.Label>
-                  <Form.Select className="vLookup-select h-75 px-2 ">
-                    <option value="," selected>
+                  <Form.Select value={data} onChange={selectOnChange} className="vLookup-select h-75 px-2 ">
+                    <option value="," >
                       ,
                     </option>
                     <option value="tab">Tab</option>
@@ -155,13 +175,16 @@ const FormInputCard = ({
                 </Form.Group>
               </OverlayTrigger>
             </div>
-            
-            <div className={columnsInputStyle}>
+            <div className={vLookupColumnsInputStyle}>
               <OverlayTrigger
                 placement="top"
-                overlay={<Tooltip> &nbsp; Columns wanted 2 3 &nbsp; </Tooltip>}
+                overlay={
+                  <Tooltip className="tip-style2 rounded ">
+                    Columns wanted e.g. 2 3
+                  </Tooltip>
+                }
               >
-                <Form.Group controlId="formFile" className="rounded h-100">
+                <Form.Group className="rounded h-100">
                   <Form.Control
                     type="text"
                     placeholder="Columns wanted"
@@ -175,9 +198,16 @@ const FormInputCard = ({
                 type="checkbox"
                 label="Match Exact"
                 className="d-inline-flex align-items-center gap-2 text-center h-75 vLookup-checkbox "
+                onChange={checkedOnChange}
               />
             </div>
             {lockScrolling}
+            {undoBtn}
+            {toggleCaseBtn}
+            {addIndexBtn}
+            {numberedLinesBtn}
+            {bulletedLines}
+            {alignAsColumnsBtn}
           </div>
 
           <div className="d-inline-flex gap-1">
@@ -188,6 +218,7 @@ const FormInputCard = ({
             {trimDuplicatesBtn}
             {sortBtn}
             {reverseOrderBtn}
+            {saveAsBtn}
             {copyBtn}
             {deleteBtn}
             {viewBtn}

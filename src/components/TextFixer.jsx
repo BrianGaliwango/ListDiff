@@ -36,20 +36,29 @@ const Main = () => {
               readOnlyTextareaStyles="d-none"
               buttonGroupStyles="w-100 d-inline-flex justify-content-end d-flex p-2"
               fileInputStyles="d-none "
+              columnsInputStyle="d-none"
+              vLookupColumnsInputStyle="d-none"
+              vLookCheckboxStyles="d-none"
               linkOffBtn={
                 <ButtonComponent
                   btnTip="Split CSV Lines On , : ; "
+                  toolTipStyles="tip-style2 rounded"
+                  btnStyleClass="btns"
                   icon={<MdLinkOff className="fs-4 " />}
                 />
               }
               joinLinesBtn={
                 <ButtonComponent
+                  btnStyleClass="btns"
+                  toolTipStyles="tip-style2 rounded"
                   btnTip="Join All Lines With A Comma"
                   icon={<MdLink className="fs-4 " />}
                 />
               }
               trimDuplicatesBtn={
                 <ButtonComponent
+                  btnStyleClass="btns"
+                  toolTipStyles="tip-style2 rounded"
                   btnTip="Trim Spaces & Duplicates"
                   icon={<MdPlaylistRemove className="fs-4 " />}
                 />
@@ -57,24 +66,32 @@ const Main = () => {
               sortBtn={
                 <ButtonComponent
                   btnTip="Sort"
+                  toolTipStyles="tip-style rounded"
+                  btnStyleClass="btns"
                   icon={<MdOutlineSort className="text-dark fs-4" />}
                 />
               }
               reverseOrderBtn={
                 <ButtonComponent
                   btnTip="Reverse Order"
+                  toolTipStyles="tip-style rounded"
+                  btnStyleClass="btns"
                   icon={<LuArrowUpDown className="fs-5" />}
                 />
               }
               copyBtn={
                 <ButtonComponent
                   btnTip="Copy"
+                  toolTipStyles="tip-style rounded"
+                  btnStyleClass="btns"
                   icon={<MdContentCopy className="fs-5" />}
                 />
               }
               deleteBtn={
                 <ButtonComponent
                   btnTip="Clear"
+                  toolTipStyles="tip-style rounded"
+                  btnStyleClass="btns"
                   icon={<RiDeleteBin5Line className="fs-5" />}
                 />
               }
@@ -94,10 +111,14 @@ const Main = () => {
               readOnlyTextareaStyles="d-none"
               buttonGroupStyles="w-100 d-flex justify-content-between d-flex p-2 gap-2"
               fileInputStyles="d-none "
+              columnsInputStyle="d-none"
+              vLookupColumnsInputStyle="d-none"
+              vLookCheckboxStyles="d-none"
               moveBtn={
                 <ButtonComponent
                   btnTip="Move B To A"
-                  styleClass="fs-6 move-btn"
+                  toolTipStyles="tip-style rounded"
+                  btnStyleClass="btns fs-6 move-btn"
                   text="A "
                   icon={<BsArrowLeft className="mb-3 fw-bold fs-5" />}
                   text2=" B"
@@ -106,24 +127,32 @@ const Main = () => {
               sortBtn={
                 <ButtonComponent
                   btnTip="Sort"
+                  toolTipStyles="tip-style rounded"
+                  btnStyleClass="btns"
                   icon={<MdOutlineSort className="text-dark fs-4" />}
                 />
               }
               reverseOrderBtn={
                 <ButtonComponent
                   btnTip="Reverse Order"
+                  toolTipStyles="tip-style rounded"
+                  btnStyleClass="btns"
                   icon={<LuArrowUpDown className="fs-5" />}
                 />
               }
               copyBtn={
                 <ButtonComponent
                   btnTip="Copy"
+                  toolTipStyles="tip-style rounded"
+                  btnStyleClass="btns"
                   icon={<MdContentCopy className="fs-5" />}
                 />
               }
               deleteBtn={
                 <ButtonComponent
                   btnTip="Clear"
+                  toolTipStyles="tip-style rounded"
+                  btnStyleClass="btns"
                   icon={<RiDeleteBin5Line className="fs-5" />}
                 />
               }
@@ -141,13 +170,15 @@ const Main = () => {
           <Col className="d-flex justify-content-end gap-3 ">
             <ButtonComponent
               btnTip="Options"
-              toolTipStyles="tip-style"
+              toolTipStyles="tip-style rounded"
+              btnStyleClass="btns"
               icon={<MdChecklistRtl className="text-dark fs-4" />}
             />
 
             <ButtonComponent
               btnTip="Switch Desktop / Laptop View"
-              toolTipStyles="tip-style"
+              toolTipStyles="tip-style rounded"
+              btnStyleClass="btns"
               icon={<LuLaptop2 className="fs-5" />}
             />
           </Col>

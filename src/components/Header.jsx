@@ -20,7 +20,7 @@ const Header = () => {
             <Nav.Link href="/textColumnizer">Text Columnizer</Nav.Link>
             <Nav.Link href="/columnExtractor">Column Extractor</Nav.Link>
             <Nav.Link href="/VLookupOnline" target="_blank">VLookup Online</Nav.Link>
-            <NavDropdown title="Others" id="basic-nav-dropdown">
+            {/* <NavDropdown title="Others" id="basic-nav-dropdown">
               <NavDropdown.Item href="#topTypingTest" className="px-2 py-1">
                 TopTypingTest.Com
               </NavDropdown.Item>
@@ -42,7 +42,7 @@ const Header = () => {
               <NavDropdown.Item href="#about" className="px-2 py-1">
                 About
               </NavDropdown.Item>
-            </NavDropdown>
+            </NavDropdown> */}
           </Nav>
         </Navbar.Collapse>
       </Container>

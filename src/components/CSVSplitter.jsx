@@ -35,45 +35,62 @@ const CSVSplitter = () => {
               textareaStyles="csv-textarea"
               buttonGroupStyles="w-100 d-inline-flex justify-content-end d-flex p-2"
               fileInputStyles="d-none "
+              columnsInputStyle="d-none"
+              vLookupColumnsInputStyle="d-none"
+              vLookCheckboxStyles="d-none"
               toggleQuotesBtn={
                 <ButtonComponent
                   btnTip="Toggle Quotes"
+                  toolTipStyles="tip-style rounded"
+                  btnStyleClass="btns"
                   icon={<RiDoubleQuotesR className="fs-4 " />}
                 />
               }
               linkOffBtn={
                 <ButtonComponent
                   btnTip="Split CSV Lines On , : ; "
+                  toolTipStyles="tip-style2 rounded"
+                  btnStyleClass="btns"
                   icon={<MdLinkOff className="fs-4 " />}
                 />
               }
               trimDuplicatesBtn={
                 <ButtonComponent
                   btnTip="Trim Spaces & Duplicates"
+                  toolTipStyles="tip-style2 rounded"
+                  btnStyleClass="btns"
                   icon={<MdPlaylistRemove className="fs-4 " />}
                 />
               }
               sortBtn={
                 <ButtonComponent
                   btnTip="Sort"
+                  toolTipStyles="tip-style rounded"
+                  btnStyleClass="btns"
                   icon={<MdOutlineSort className="text-dark fs-4" />}
                 />
               }
               reverseOrderBtn={
                 <ButtonComponent
                   btnTip="Reverse Order"
+                  toolTipStyles="tip-style rounded"
+                  btnStyleClass="btns"
                   icon={<LuArrowUpDown className="fs-5" />}
                 />
               }
               copyBtn={
                 <ButtonComponent
                   btnTip="Copy"
+                  toolTipStyles="tip-style rounded"
+                  btnStyleClass="btns"
                   icon={<MdContentCopy className="fs-5" />}
                 />
               }
               deleteBtn={
                 <ButtonComponent
                   btnTip="Clear"
+                  toolTipStyles="tip-style rounded"
+                  btnStyleClass="btns"
                   icon={<RiDeleteBin5Line className="fs-5" />}
                 />
               }
@@ -194,10 +211,14 @@ const CSVSplitter = () => {
               textareaStyles="csv-textarea"
               buttonGroupStyles="w-100 d-flex justify-content-between d-flex p-2 gap-2"
               fileInputStyles="d-none "
+              columnsInputStyle="d-none"
+              vLookCheckboxStyles="d-none"
+              vLookupColumnsInputStyle="d-none"
               moveBtn={
                 <ButtonComponent
                   btnTip="Move B To A"
-                  styleClass="fs-6 move-btn"
+                  toolTipStyles="tip-style rounded"
+                  btnStyleClass="btns fs-6 move-btn"
                   text="A "
                   icon={<BsArrowLeft className="mb-3 fw-bold fs-5" />}
                   text2=" B"
@@ -206,27 +227,33 @@ const CSVSplitter = () => {
               trimDuplicatesBtn={
                 <ButtonComponent
                   btnTip="Trim Spaces & Duplicates"
+                  toolTipStyles="tip-style rounded"
+                  btnStyleClass="btns"
                   icon={<MdPlaylistRemove className="fs-4 " />}
                 />
               }
               copyBtn={
                 <ButtonComponent
                   btnTip="Copy"
+                  toolTipStyles="tip-style rounded"
+                  btnStyleClass="btns"
                   icon={<MdContentCopy className="fs-5" />}
                 />
               }
               deleteBtn={
                 <ButtonComponent
                   btnTip="Clear"
+                  toolTipStyles="tip-style rounded"
+                  btnStyleClass="btns"
                   icon={<RiDeleteBin5Line className="fs-5" />}
                 />
               }
               viewBtn={
                 <ButtonComponent
                   btnTip="Switch Desktop / Laptop View"
-                  toolTipStyles="tip-style"
+                  toolTipStyles="tip-style rounded"
+                  btnStyleClass="btns"
                   icon={<BsLaptop className="fs-4 fw-bolder" />}
-                  styleClass="p-0 "
                 />
               }
             />

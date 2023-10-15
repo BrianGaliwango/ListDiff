@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 
 const ButtonComponent = ({
   btnStyleClass,
+  onClick ,
   btnTip,
   icon,
   text,
@@ -15,12 +16,13 @@ const ButtonComponent = ({
     <OverlayTrigger
       placement="top"
       overlay={
-        <Tooltip className={toolTipStyles}>&nbsp;{btnTip}&nbsp;</Tooltip>
+        <Tooltip className={toolTipStyles}>{btnTip}</Tooltip>
       }
     >
       <Button
-        variant="border rounded-1 text-center btns "
+        variant="border rounded-1 text-center"
         className={btnStyleClass}
+        onClick={onClick}
       >
         {text}
         {icon}

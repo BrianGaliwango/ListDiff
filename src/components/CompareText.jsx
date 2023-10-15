@@ -34,9 +34,14 @@ const CompareText = () => {
               readOnlyTextareaStyles="position-absolute top-0 start-0 border-0 rounded-0 text-center readonly-textarea"
               textareaStyles="p-2 border-0 rounded-0 "
               buttonGroupStyles="w-100 d-flex justify-content-between d-flex p-2 gap-2"
+              columnsInputStyle="d-none"
+              vLookupColumnsInputStyle="d-none"
+              vLookCheckboxStyles="d-none"
               moveBtn={
                 <ButtonComponent
                   btnTip="Move B To A"
+                  toolTipStyles="tip-style rounded"
+                  btnStyleClass="btns move-btn "
                   styleClass="fs-6 move-btn"
                   text="A "
                   icon={<BsArrowLeft className="mb-3 fw-bold fs-5" />}
@@ -46,37 +51,47 @@ const CompareText = () => {
               uploadFileBtn={
                 <ButtonComponent
                   btnTip="Upload from file"
-                  styleClass="fs-6 fw-bold"
+                  btnStyleClass="btns"
                   icon={<BsFileEarmarkArrowUp className="mb-3 fw-bold fs-5" />}
                 />
               }
               trimDuplicatesBtn={
                 <ButtonComponent
                   btnTip="Trim Spaces"
+                  toolTipStyles="tip-style rounded"
+                  btnStyleClass="btns"
                   icon={<AiOutlineMergeCells className="fs-4 " />}
                 />
               }
               sortBtn={
                 <ButtonComponent
                   btnTip="Sort"
+                  toolTipStyles="tip-style rounded"
+                  btnStyleClass="btns"
                   icon={<MdOutlineSort className="text-dark fs-4" />}
                 />
               }
               reverseOrderBtn={
                 <ButtonComponent
                   btnTip="Reverse Order"
+                  toolTipStyles="tip-style rounded"
+                  btnStyleClass="btns"
                   icon={<LuArrowUpDown className="fs-5" />}
                 />
               }
               copyBtn={
                 <ButtonComponent
                   btnTip="Copy"
+                  toolTipStyles="tip-style rounded"
+                  btnStyleClass="btns"
                   icon={<MdContentCopy className="fs-5" />}
                 />
               }
               deleteBtn={
                 <ButtonComponent
                   btnTip="Clear"
+                  toolTipStyles="tip-style rounded"
+                  btnStyleClass="btns"
                   icon={<RiDeleteBin5Line className="fs-5" />}
                 />
               }
@@ -94,10 +109,14 @@ const CompareText = () => {
               textareaRows="15"
               textareaStyles="p-2 border-0 rounded-0 "
               buttonGroupStyles="w-100 d-flex justify-content-between d-flex p-2 gap-2"
+              columnsInputStyle="d-none"
+              vLookupColumnsInputStyle="d-none"
+              vLookCheckboxStyles="d-none"
               moveBtn={
                 <ButtonComponent
                   btnTip="Move B To A"
-                  styleClass="fs-6 move-btn"
+                  toolTipStyles="tip-style rounded"
+                  btnStyleClass="fs-6 btns move-btn"
                   text="A "
                   icon={<BsArrowLeft className="mb-3 fw-bold fs-5" />}
                   text2=" B"
@@ -106,37 +125,48 @@ const CompareText = () => {
               lockScrolling={
                 <ButtonComponent
                   btnTip="Lock Scrolling"
-                  styleClass="fs-5"
+                  toolTipStyles="tip-style rounded"
+                  btnStyleClass="btns"
                   icon={<MdLockOpen className="mb-3 fw-bold fs-4" />}
                 />
               }
               trimDuplicatesBtn={
                 <ButtonComponent
                   btnTip="Trim Spaces"
+                  toolTipStyles="tip-style rounded"
+                  btnStyleClass="btns"
                   icon={<AiOutlineMergeCells className="fs-4 " />}
                 />
               }
               sortBtn={
                 <ButtonComponent
                   btnTip="Sort"
+                  toolTipStyles="tip-style rounded"
+                  btnStyleClass="btns"
                   icon={<MdOutlineSort className="text-dark fs-4" />}
                 />
               }
               reverseOrderBtn={
                 <ButtonComponent
                   btnTip="Reverse Order"
+                  toolTipStyles="tip-style rounded"
+                  btnStyleClass="btns"
                   icon={<LuArrowUpDown className="fs-5" />}
                 />
               }
               copyBtn={
                 <ButtonComponent
                   btnTip="Copy"
+                  toolTipStyles="tip-style rounded"
+                  btnStyleClass="btns"
                   icon={<MdContentCopy className="fs-5" />}
                 />
               }
               deleteBtn={
                 <ButtonComponent
                   btnTip="Clear"
+                  toolTipStyles="tip-style rounded"
+                  btnStyleClass="btns"
                   icon={<RiDeleteBin5Line className="fs-5" />}
                 />
               }
@@ -148,33 +178,35 @@ const CompareText = () => {
           <Col className="d-flex justify-content-end ">
             <ButtonComponent
               text="Compare Text"
-              styleClass="compare-text-btn text-light "
+              btnStyleClass="compare-text-btn text-light "
               toolTipStyles="d-none"
             />
           </Col>
           <Col className="d-flex justify-content-end gap-1 ">
             <ButtonComponent
               btnTip="Show / Hide Results"
-              toolTipStyles="tip-style"
+              toolTipStyles="tip-style rounded"
+              btnStyleClass="btns "
               icon={<BsEyeSlash className="text-dark fs-4 fw-bolder" />}
-              styleClass="p-0 "
+              
             />
 
             <ButtonComponent
               btnTip="Switch Desktop / Laptop View"
-              toolTipStyles="tip-style"
+              toolTipStyles="tip-style rounded"
+              btnStyleClass="btns "
               icon={<BsLaptop className="fs-4 fw-bolder" />}
-              styleClass="p-0 "
+              
             />
           </Col>
         </Row>
 
-        <Row className="empty-inputs-wrapper p-4">
+        <Row className="empty-inputs-wrapper">
           <Col sm={12} className="empty-inputs-col p-4"></Col>
         </Row>
 
-        <Row className="mb-4">
-          <Col>
+        <Row className="d-flex align-items-center justify-content-center mb-4">
+          <Col xs={9} className="">
             <h1 className="mb-4">
               Text Diff - Understanding Unified Diff Format
             </h1>
@@ -227,9 +259,8 @@ const CompareText = () => {
 
             <div>
               <h2 className="fw-bold mb-1">Example</h2>
-              <small>Consider two simple text files:</small>
-              <br />
-              <small className="fw-bold">File1.txt</small>
+              <p>Consider two simple text files:</p>
+              <strong>File1.txt</strong>
               <ListGroup className="gap-1 p-3 compare-text-ul">
                 <ListGroup.Item className="border-0 compare-text-li bg-transparent">
                   Apple
@@ -248,7 +279,7 @@ const CompareText = () => {
                 </ListGroup.Item>
               </ListGroup>
               <div>
-                <small className="fw-bold">File2.txt</small>
+                <strong className="fw-bold">File2.txt</strong>
                 <ListGroup className="gap-1 p-3 compare-text-ul mb-2">
                   <ListGroup.Item className="border-0 compare-text-li bg-transparent">
                     Apple
@@ -268,7 +299,7 @@ const CompareText = () => {
                 <p className="mb-2 fs-6">
                   The unified diff between these two files would look like this:
                 </p>
-                <ListGroup className="gap-1 p-3 compare-text-ul ">
+                <ListGroup className="gap-1 p-3 mb-2 compare-text-ul ">
                   <ListGroup.Item className="border-0 compare-text-li bg-transparent">
                     @@ -1,5 +1,4 @@
                   </ListGroup.Item>
@@ -291,13 +322,13 @@ const CompareText = () => {
                     -Elderberry
                   </ListGroup.Item>
                 </ListGroup>
-                <small>
+                <p>
                   This diff is saying that in order to transform File1.txt into
                   File2.txt, you need to remove the "Banana" line, add the
                   "Blueberry" line, and remove the "Elderberry" line. The other
                   lines ("Apple", "Cherry", and "Date") remain the same in both
                   files.
-                </small>
+                </p>
               </div>
             </div>
           </Col>

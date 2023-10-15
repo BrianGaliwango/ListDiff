@@ -37,33 +37,46 @@ const textColumnizer = () => {
               textareaStyles="csv-textarea"
               buttonGroupStyles="w-100 d-inline-flex justify-content-end d-flex p-2"
               fileInputStyles="d-none "
+              columnsInputStyle="d-none"
+              vLookCheckboxStyles="d-none"
+              vLookupColumnsInputStyle="d-none"
               trimDuplicatesBtn={
                 <ButtonComponent
                   btnTip="Trim Spaces & Duplicates"
+                  toolTipStyles="tip-style2 rounded"
+                  btnStyleClass="btns"
                   icon={<MdPlaylistRemove className="fs-4 " />}
                 />
               }
               sortBtn={
                 <ButtonComponent
                   btnTip="Sort"
+                  toolTipStyles="tip-style rounded"
+                  btnStyleClass="btns"
                   icon={<MdOutlineSort className="text-dark fs-4" />}
                 />
               }
               reverseOrderBtn={
                 <ButtonComponent
                   btnTip="Reverse Order"
+                  toolTipStyles="tip-style rounded"
+                  btnStyleClass="btns"
                   icon={<LuArrowUpDown className="fs-5" />}
                 />
               }
               copyBtn={
                 <ButtonComponent
                   btnTip="Copy"
+                  toolTipStyles="tip-style rounded"
+                  btnStyleClass="btns"
                   icon={<MdContentCopy className="fs-5" />}
                 />
               }
               deleteBtn={
                 <ButtonComponent
                   btnTip="Clear"
+                  toolTipStyles="tip-style rounded"
+                  btnStyleClass="btns"
                   icon={<RiDeleteBin5Line className="fs-5" />}
                 />
               }
@@ -180,33 +193,46 @@ const textColumnizer = () => {
               textareaStyles="csv-textarea"
               buttonGroupStyles="w-100 d-flex justify-content-between d-flex p-2 gap-2"
               fileInputStyles="d-none "
+              columnsInputStyle="d-none"
+              vLookCheckboxStyles="d-none"
+              vLookupColumnsInputStyle="d-none"
               trimDuplicatesBtn={
                 <ButtonComponent
                   btnTip="Trim Spaces & Duplicates"
+                  toolTipStyles="tip-style2 rounded"
+                  btnStyleClass="btns"
                   icon={<MdPlaylistRemove className="fs-4 " />}
                 />
               }
               sortBtn={
                 <ButtonComponent
                   btnTip="Sort"
+                  toolTipStyles="tip-style rounded"
+                  btnStyleClass="btns"
                   icon={<MdOutlineSort className="text-dark fs-4" />}
                 />
               }
               reverseOrderBtn={
                 <ButtonComponent
                   btnTip="Reverse Order"
+                  toolTipStyles="tip-style rounded"
+                  btnStyleClass="btns"
                   icon={<LuArrowUpDown className="fs-5" />}
                 />
               }
               copyBtn={
                 <ButtonComponent
                   btnTip="Copy"
+                  toolTipStyles="tip-style rounded"
+                  btnStyleClass="btns"
                   icon={<MdContentCopy className="fs-5" />}
                 />
               }
               deleteBtn={
                 <ButtonComponent
                   btnTip="Clear"
+                  toolTipStyles="tip-style rounded"
+                  btnStyleClass="btns"
                   icon={<RiDeleteBin5Line className="fs-5" />}
                 />
               }
