@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import PropTypes from "prop-types";
+import { useState, useEffect } from "react";
+
 import { Card, ButtonGroup } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
@@ -18,7 +20,7 @@ const FormInputCard = ({
   toolTipStyles,
   textareaRows,
   textareaStyles,
-  readOnlyAttr ,
+  readOnlyAttr,
   readOnlyTextareaStyles,
   textAreaPlaceholder,
   buttonGroupStyles,
@@ -48,8 +50,9 @@ const FormInputCard = ({
   data,
   onChange,
   checkedOnChange,
-  selectOnChange
+  selectOnChange,
 }) => {
+
   return (
     <Card className={cardStyles}>
       {/* <Form> */}
@@ -88,17 +91,18 @@ const FormInputCard = ({
           </OverlayTrigger>
         </div>
       </div>
-      <Form.Group
-        className="position-relative"
-      >
+      <Form.Group className="position-relative">
         <Form.Control
           readOnly={readOnlyAttr}
           as="textarea"
           rows={textareaRows}
+          id="textarea"
           className={textareaStyles}
           placeholder={textAreaPlaceholder}
           value={data}
           onChange={onChange}
+          
+          // onClick={onClick}
         />
 
         <Form.Control
@@ -125,9 +129,7 @@ const FormInputCard = ({
                   </Tooltip>
                 }
               >
-                <Form.Group
-                  className="file-form-group rounded"
-                >
+                <Form.Group className="file-form-group rounded">
                   <Form.Label
                     id="file-input-label"
                     htmlFor="file-input"
@@ -153,16 +155,16 @@ const FormInputCard = ({
                   </Tooltip>
                 }
               >
-                <Form.Group
-                  className="d-inline-flex rounded gap-2 h-100"
-                >
+                <Form.Group className="d-inline-flex rounded gap-2 h-100">
                   <Form.Label className="d-flex align-items-center text-center h-75 vLookup-select-label">
                     Delimiter:
                   </Form.Label>
-                  <Form.Select value={data} onChange={selectOnChange} className="vLookup-select h-75 px-2 ">
-                    <option value="," >
-                      ,
-                    </option>
+                  <Form.Select
+                    value={data}
+                    onChange={selectOnChange}
+                    className="vLookup-select h-75 px-2 "
+                  >
+                    <option value=",">,</option>
                     <option value="tab">Tab</option>
                     <option value="S">Space</option>
                     <option value=":">:</option>

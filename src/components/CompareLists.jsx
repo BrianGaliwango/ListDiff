@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import FormInputCard from "./FormInputCard";
 import { Container, Row, Col, Form } from "react-bootstrap";
 import ButtonComponent from "./ButtonComponent";
@@ -20,24 +20,82 @@ const CompareLists = () => {
   const [listDataAnB, setListDataAnB] = useState();
   const [listDataBOnly, setListDataBOnly] = useState();
   const [listDataAuB, setListDataAuB] = useState();
-  const [data, setData] = useState();
   const [ignoreLeadingZero, setIgnoreLeadingZero] = useState();
+  const [linesCount, setLinesCount] = useState(0);
+  const [linesB, setLinesB] = useState(0);
+  const [onlyBLines, setOnlyBLines] = useState(0);
+  const [aOnlyLines, setAOnlyLines] = useState(0);
 
+  // Count Textarea A lines
+  const handleChange = (event) => {
+    let linesArea = event.target.value;
+    let lines = linesArea.split("\n");
+
+    if (lines[lines.length - 1] === "") {
+      lines.length--;
+    } else {
+      let linesA = lines.filter((e) => e.replace(/(\r\n|\n|\r)/gm, ""));
+      let count = linesA.length;
+      setLinesCount(count);
+    }
+    setListDataA(event.target.value);
+  };
+
+  // Count Textarea B lines
+  const handleChangeB = (event) => {
+    let linesArea = event.target.value;
+    let lines = linesArea.split("\n");
+    if (lines[lines.length - 1] === "") {
+      lines.length--;
+    } else {
+      let linesB = lines.filter((e) => e.replace(/(\r\n|\n|\r)/gm, ""));
+      let count = linesB.length;
+      setLinesB(count);
+    }
+    setListDataB(event.target.value);
+  };
+
+  // Get data func
   const getData = () => {
-
     if (!listDataA || !listDataB) {
       alert("fill in fields");
     } else {
-      const listDataAArr = listDataA.replace(/\r\n/g, "\n").split("\n");
-      setListDataAOnly(listDataAArr.join("\r\n"));
+      // Make Array
+      const listDataAArr = listDataA.replace(/\r\n/gm, "\n", "").split("\n");
+      const listDataBArr = listDataB.replace(/\r\n/gm, "\n").split("\n");
 
-      const listDataBArr = listDataB.replace(/\r\n/g, "\n").split("\n");
-      setListDataBOnly(listDataBArr.join("\r\n"));
-
-      const listAuB = listDataAArr.concat(listDataBArr);
-      setListDataAuB(listAuB.join("\r\n"));
+      // Filter empty values
+      const listA = listDataAArr.filter((e) => e.replace(/(\r\n|\n|\r)/gm, ""));
+      const listB = listDataBArr.filter((e) => e.replace(/(\r\n|\n|\r)/gm, ""));
 
       
+
+      // Remove duplicates
+      setListDataAOnly(
+        listA.filter((val) => !listDataB.includes(val)).join("\r\n")
+      );
+
+      setListDataBOnly(
+        listB.filter((val) => !listDataA.includes(val)).join("\r\n")
+      );
+
+      //Only lines
+      setAOnlyLines(listA.length);
+      setOnlyBLines(listB.length);
+
+      // Check for duplicates
+      const duplicates = listDataAArr.filter((element) =>
+        listDataBArr.includes(element)
+      );
+      setListDataAnB(duplicates);
+
+      // All items
+      const listAuB = listDataAArr.concat(listDataBArr);
+      setListDataAuB(
+        listAuB
+          .filter((val, index) => listAuB.indexOf(val) === index)
+          .join("\r\n")
+      );
     }
   };
 
@@ -55,14 +113,14 @@ const CompareLists = () => {
               listTitle="List A"
               linesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold px-2 py-1 green-shades-lines "
               duplicatesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold px-2 py-1 green-shades-duplicates "
-              lines="0"
+              lines={linesCount}
               duplicates="0"
               readOnlyTextareaStyles="d-none"
               textareaRows="10"
               textareaStyles="p-2"
               // readOnlyAttr={true}
               data={listDataA}
-              onChange={(e) => setListDataA(e.target.value)}
+              onChange={handleChange}
               buttonGroupStyles="w-100 d-flex justify-content-between d-flex p-2 gap-2"
               fileInputStyles="d-none "
               columnsInputStyle="d-none"
@@ -135,13 +193,13 @@ const CompareLists = () => {
               listTitle="List B"
               linesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold px-2 py-1 green-shades-lines "
               duplicatesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold px-2 py-1 green-shades-duplicates "
-              lines="0"
+              lines={linesB}
               duplicates="0"
               readOnlyTextareaStyles="d-none"
               textareaRows="10"
               textareaStyles="p-2"
               data={listDataB}
-              onChange={(e) => setListDataB(e.target.value)}
+              onChange={handleChangeB}
               buttonGroupStyles="w-100 d-flex justify-content-between d-flex p-2 gap-2"
               fileInputStyles="d-none "
               columnsInputStyle="d-none"
@@ -323,7 +381,7 @@ const CompareLists = () => {
               listTitle="A Only"
               linesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold px-2 py-1 blue-shades-lines "
               duplicatesStyles="d-none "
-              lines="0"
+              lines={aOnlyLines}
               readOnlyTextareaStyles="d-none"
               textareaRows="10"
               textareaStyles="p-2"
@@ -429,7 +487,7 @@ const CompareLists = () => {
               listTitle="B Only"
               linesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold px-2 py-1 blue-shades-lines "
               duplicatesStyles="d-none "
-              lines="0"
+              lines={onlyBLines}
               readOnlyTextareaStyles="d-none"
               textareaRows="10"
               textareaStyles="p-2"
