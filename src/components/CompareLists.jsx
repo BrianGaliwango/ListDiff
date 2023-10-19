@@ -15,8 +15,10 @@ import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 
 const CompareLists = () => {
   const [listDataA, setListDataA] = useState();
-  const [listDataB, setListDataB] = useState();
   const [listDataAOnly, setListDataAOnly] = useState();
+  const [aOnlyDuplicates, setAOnlyDuplicates] = useState(0);
+  const [bOnlyDuplicates, setBOnlyDuplicates] = useState(0);
+  const [listDataB, setListDataB] = useState();
   const [listDataAnB, setListDataAnB] = useState();
   const [listDataBOnly, setListDataBOnly] = useState();
   const [listDataAuB, setListDataAuB] = useState();
@@ -25,11 +27,14 @@ const CompareLists = () => {
   const [linesB, setLinesB] = useState(0);
   const [onlyBLines, setOnlyBLines] = useState(0);
   const [aOnlyLines, setAOnlyLines] = useState(0);
+  const [duplicatesLines, setDuplicatesLines] = useState(0);
+  const [aUBLines, setAuBLines] = useState(0);
 
   // Count Textarea A lines
   const handleChange = (event) => {
     let linesArea = event.target.value;
     let lines = linesArea.split("\n");
+    let dupCounts = {};
 
     if (lines[lines.length - 1] === "") {
       lines.length--;
@@ -38,6 +43,18 @@ const CompareLists = () => {
       let count = linesA.length;
       setLinesCount(count);
     }
+
+    // Find dups
+    let linesA = lines.filter((e) => e.replace(/(\r\n|\n|\r)/gm, ""));
+    linesA.forEach((dup) => {
+      dupCounts[dup] = (dupCounts[dup] || 0) + 1;
+      let dups = Object.keys(dupCounts).filter((e) => {
+        return dupCounts[e] > 1;
+      });
+      console.log(dups);
+      setAOnlyDuplicates(dups.length);
+    });
+
     setListDataA(event.target.value);
   };
 
@@ -45,13 +62,27 @@ const CompareLists = () => {
   const handleChangeB = (event) => {
     let linesArea = event.target.value;
     let lines = linesArea.split("\n");
+    let dupCounts = {};
+
     if (lines[lines.length - 1] === "") {
       lines.length--;
     } else {
-      let linesB = lines.filter((e) => e.replace(/(\r\n|\n|\r)/gm, ""));
-      let count = linesB.length;
+      let linesA = lines.filter((e) => e.replace(/(\r\n|\n|\r)/gm, ""));
+      let count = linesA.length;
       setLinesB(count);
     }
+
+    // Find dups
+    let linesA = lines.filter((e) => e.replace(/(\r\n|\n|\r)/gm, ""));
+    linesA.forEach((dup) => {
+      dupCounts[dup] = (dupCounts[dup] || 0) + 1;
+      let dups = Object.keys(dupCounts).filter((e) => {
+        return dupCounts[e] > 1;
+      });
+      console.log(dups);
+      setBOnlyDuplicates(dups.length);
+    });
+
     setListDataB(event.target.value);
   };
 
@@ -61,20 +92,19 @@ const CompareLists = () => {
       alert("fill in fields");
     } else {
       // Make Array
-      const listDataAArr = listDataA.replace(/\r\n/gm, "\n", "").split("\n");
+      const listDataAArr = listDataA.replace(/\r\n/gm, "\n").split("\n");
       const listDataBArr = listDataB.replace(/\r\n/gm, "\n").split("\n");
 
       // Filter empty values
       const listA = listDataAArr.filter((e) => e.replace(/(\r\n|\n|\r)/gm, ""));
       const listB = listDataBArr.filter((e) => e.replace(/(\r\n|\n|\r)/gm, ""));
 
-      
-
-      // Remove duplicates
+      // List data A only
       setListDataAOnly(
         listA.filter((val) => !listDataB.includes(val)).join("\r\n")
       );
 
+      // List data B only
       setListDataBOnly(
         listB.filter((val) => !listDataA.includes(val)).join("\r\n")
       );
@@ -88,14 +118,15 @@ const CompareLists = () => {
         listDataBArr.includes(element)
       );
       setListDataAnB(duplicates);
+      setDuplicatesLines(duplicates.length);
 
       // All items
       const listAuB = listDataAArr.concat(listDataBArr);
-      setListDataAuB(
-        listAuB
-          .filter((val, index) => listAuB.indexOf(val) === index)
-          .join("\r\n")
+      const cleanedAuBList = listAuB.filter(
+        (val, index) => listAuB.indexOf(val) === index
       );
+      setListDataAuB(cleanedAuBList.join("\r\n"));
+      setAuBLines(cleanedAuBList.length);
     }
   };
 
@@ -114,7 +145,7 @@ const CompareLists = () => {
               linesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold px-2 py-1 green-shades-lines "
               duplicatesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold px-2 py-1 green-shades-duplicates "
               lines={linesCount}
-              duplicates="0"
+              duplicates={aOnlyDuplicates}
               readOnlyTextareaStyles="d-none"
               textareaRows="10"
               textareaStyles="p-2"
@@ -194,7 +225,7 @@ const CompareLists = () => {
               linesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold px-2 py-1 green-shades-lines "
               duplicatesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold px-2 py-1 green-shades-duplicates "
               lines={linesB}
-              duplicates="0"
+              duplicates={bOnlyDuplicates}
               readOnlyTextareaStyles="d-none"
               textareaRows="10"
               textareaStyles="p-2"
@@ -434,7 +465,7 @@ const CompareLists = () => {
               listTitle="A n B"
               linesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold px-2 py-1 red-shades-lines "
               duplicatesStyles="d-none"
-              lines="0"
+              lines={duplicatesLines}
               readOnlyTextareaStyles="d-none"
               textareaRows="10"
               textareaStyles="p-2"
@@ -542,7 +573,7 @@ const CompareLists = () => {
               listTitle="A u B"
               linesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold px-2 py-1 green-shades-lines "
               duplicatesStyles="d-none"
-              lines="0"
+              lines={aUBLines}
               readOnlyTextareaStyles="d-none"
               textareaRows="10"
               textareaStyles="p-2"

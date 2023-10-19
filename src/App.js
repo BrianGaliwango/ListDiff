@@ -1,8 +1,7 @@
-import { useState } from 'react'
+import { useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
 
 import { Container } from "react-bootstrap";
 
@@ -15,23 +14,12 @@ import TextColumnizer from "./components/textColumnizer";
 import ColumnExtractor from "./components/ColumnExtractor";
 import VLookupOnline from "./components/VLookupOnline";
 
-
-
 import Footer from "./components/Footer";
-
-
 
 function App() {
 
-  const [linesCount, setLinesCount] = useState();
+  
 
-  const handleChange = (event) => {
-    let linesArea = event.target.value
-    let lines = linesArea.split("\n");
-    let count = lines.length;
-    setLinesCount(count);
-    console.log(count);
-  };
   return (
     <Router>
       <Container fluid className="p-0 pb-5">
@@ -44,7 +32,6 @@ function App() {
           <Route exact path="/textColumnizer" element={<TextColumnizer />} />
           <Route exact path="/columnExtractor" element={<ColumnExtractor />} />
           <Route exact path="/VLookupOnline" element={<VLookupOnline />} />
-          
         </Routes>
         <Footer />
       </Container>
