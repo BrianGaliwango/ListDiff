@@ -1,5 +1,4 @@
-import PropTypes from "prop-types";
-import { useState, useEffect } from "react";
+import React from "react";
 
 import { Card, ButtonGroup } from "react-bootstrap";
 import Form from "react-bootstrap/Form";
@@ -51,8 +50,9 @@ const FormInputCard = ({
   onChange,
   checkedOnChange,
   selectOnChange,
+  textareaBgColor,
+  style
 }) => {
-
   return (
     <Card className={cardStyles}>
       {/* <Form> */}
@@ -101,7 +101,7 @@ const FormInputCard = ({
           placeholder={textAreaPlaceholder}
           value={data}
           onChange={onChange}
-          
+          style={style}
           // onClick={onClick}
         />
 

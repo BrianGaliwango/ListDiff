@@ -414,6 +414,11 @@ th, td, tr {
   font-size: 13px !important;
 }
 
+::selection {
+  /* color: red !important;
+  background: yellow !important; */
+}
+
 
 @media screen and (max-width: 1070px) {
   .only-wrapper {
