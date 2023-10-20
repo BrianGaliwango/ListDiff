@@ -25,7 +25,7 @@ const FormInputCard = ({
   textAreaPlaceholder,
   buttonGroupStyles,
   addHeaderRowBtn,
-  linkOffBtn,
+  splitCSVBtn,
   joinLinesBtn,
   trimDuplicatesBtn,
   sortBtn,
@@ -214,7 +214,7 @@ const FormInputCard = ({
 
           <div className="d-inline-flex gap-1">
             {toggleQuotesBtn}
-            {linkOffBtn}
+            {splitCSVBtn}
             {joinLinesBtn}
             {addHeaderRowBtn}
             {trimDuplicatesBtn}

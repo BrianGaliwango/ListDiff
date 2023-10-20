@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import FormInputCard from "./FormInputCard";
 import { Container, Row, Col, Form } from "react-bootstrap";
 import ButtonComponent from "./ButtonComponent";
@@ -16,8 +16,8 @@ import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 const CompareLists = () => {
   const [listDataA, setListDataA] = useState();
   const [listDataAOnly, setListDataAOnly] = useState();
-  const [aOnlyDuplicates, setAOnlyDuplicates] = useState(0);
-  const [bOnlyDuplicates, setBOnlyDuplicates] = useState(0);
+  const [listADuplicates, setListADuplicates] = useState(0);
+  const [listBDuplicates, setListBDuplicates] = useState(0);
   const [listDataB, setListDataB] = useState();
   const [listDataAnB, setListDataAnB] = useState();
   const [listDataBOnly, setListDataBOnly] = useState();
@@ -30,7 +30,7 @@ const CompareLists = () => {
   const [duplicatesLines, setDuplicatesLines] = useState(0);
   const [aUBLines, setAuBLines] = useState(0);
 
-  // Count Textarea A lines
+  // Handle onChange func List A
   const handleChange = (event) => {
     let linesArea = event.target.value;
     let lines = linesArea.split("\n");
@@ -51,14 +51,13 @@ const CompareLists = () => {
       let dups = Object.keys(dupCounts).filter((e) => {
         return dupCounts[e] > 1;
       });
-      console.log(dups);
-      setAOnlyDuplicates(dups.length);
+      setListADuplicates(dups.length);
     });
 
     setListDataA(event.target.value);
   };
 
-  // Count Textarea B lines
+  // OnChange List B func lines
   const handleChangeB = (event) => {
     let linesArea = event.target.value;
     let lines = linesArea.split("\n");
@@ -79,8 +78,7 @@ const CompareLists = () => {
       let dups = Object.keys(dupCounts).filter((e) => {
         return dupCounts[e] > 1;
       });
-      console.log(dups);
-      setBOnlyDuplicates(dups.length);
+      setListBDuplicates(dups.length);
     });
 
     setListDataB(event.target.value);
@@ -96,37 +94,193 @@ const CompareLists = () => {
       const listDataBArr = listDataB.replace(/\r\n/gm, "\n").split("\n");
 
       // Filter empty values
-      const listA = listDataAArr.filter((e) => e.replace(/(\r\n|\n|\r)/gm, ""));
-      const listB = listDataBArr.filter((e) => e.replace(/(\r\n|\n|\r)/gm, ""));
+      const listA = listDataAArr
+        .filter((item) => item.length > 1)
+        .map((el) => el.trim());
+      const listB = listDataBArr
+        .filter((item) => item.length > 1)
+        .map((el) => el.trim());
+      console.log(listA);
 
       // List data A only
-      setListDataAOnly(
-        listA.filter((val) => !listDataB.includes(val)).join("\r\n")
-      );
+      const listAOnly = listA.filter((val) => !listDataB.includes(val));
+
+      setListDataAOnly(listAOnly.join("\n"));
+      setAOnlyLines(listAOnly.length);
 
       // List data B only
-      setListDataBOnly(
-        listB.filter((val) => !listDataA.includes(val)).join("\r\n")
-      );
-
-      //Only lines
-      setAOnlyLines(listA.length);
-      setOnlyBLines(listB.length);
+      const listBOnly = listB.filter((val) => !listDataA.includes(val));
+      setListDataBOnly(listBOnly.join("\r\n"));
+      setOnlyBLines(listBOnly.length);
 
       // Check for duplicates
       const duplicates = listDataAArr.filter((element) =>
         listDataBArr.includes(element)
       );
-      setListDataAnB(duplicates);
-      setDuplicatesLines(duplicates.length);
+      const cleanedDups = duplicates.filter((e) =>
+        e.replace(/(\r\n|\n|\r)/gm, "")
+      );
+      setListDataAnB(cleanedDups.join("\r\n"));
+      setDuplicatesLines(cleanedDups.length);
 
       // All items
       const listAuB = listDataAArr.concat(listDataBArr);
-      const cleanedAuBList = listAuB.filter(
+      const list = listAuB.filter((listItem) => listItem.length > 0);
+      const cleanedAuBList = list.filter(
         (val, index) => listAuB.indexOf(val) === index
       );
       setListDataAuB(cleanedAuBList.join("\r\n"));
       setAuBLines(cleanedAuBList.length);
+    }
+  };
+
+  // Move A value to B
+  const moveAValueToB = () => {
+    if (listDataA) {
+      let linesArea = listDataA;
+      let lines = linesArea.split("\n");
+      let dupCounts = {};
+
+      if (lines[lines.length - 1] === "") {
+        lines.length--;
+      } else {
+        let linesA = lines.filter((e) => e.replace(/(\r\n|\n|\r)/gm, ""));
+        let count = linesA.length;
+        setLinesB(count);
+      }
+
+      // Find dups
+      let linesA = lines.filter((e) => e.replace(/(\r\n|\n|\r)/gm, ""));
+      linesA.forEach((dup) => {
+        dupCounts[dup] = (dupCounts[dup] || 0) + 1;
+        let dups = Object.keys(dupCounts).filter((e) => {
+          return dupCounts[e] > 1;
+        });
+        setListBDuplicates(dups.length);
+      });
+      setListDataB(listDataA);
+      setListDataA("");
+      setLinesCount(0);
+      setListADuplicates(0);
+    }
+  };
+
+  // Move B value to a
+  const moveBValueToA = () => {
+    if (listDataB) {
+      let linesArea = listDataB;
+      let lines = linesArea.split("\n");
+      let dupCounts = {};
+
+      if (lines[lines.length - 1] === "") {
+        lines.length--;
+      } else {
+        let linesA = lines.filter((e) => e.replace(/(\r\n|\n|\r)/gm, ""));
+        let count = linesA.length;
+        setLinesCount(count);
+      }
+
+      // Find dups
+      let linesA = lines.filter((e) => e.replace(/(\r\n|\n|\r)/gm, ""));
+      linesA.forEach((dup) => {
+        dupCounts[dup] = (dupCounts[dup] || 0) + 1;
+        let dups = Object.keys(dupCounts).filter((e) => {
+          return dupCounts[e] > 1;
+        });
+        setListADuplicates(dups.length);
+      });
+      setListDataA(listDataB);
+      setLinesB(0);
+      setListDataB("");
+      setListBDuplicates(0);
+    }
+  };
+
+  // Split CSV
+  const splitCsv = () => {
+    if (listDataA) {
+      let list = listDataA;
+      let dupCounts = {};
+
+      // Make array
+      let cldList = list.replace(/\n\s\t|[,;:]/gm, "\n").split("\n");
+
+      let trimmedList = cldList
+        .filter((item) => item.length > 1)
+        .map((el) => el.trim());
+
+      // Find dups
+      let linesA = trimmedList.filter((e) => e.replace(/(\r\n|\n|\r)/gm, ""));
+      linesA.forEach((dup) => {
+        dupCounts[dup] = (dupCounts[dup] || 0) + 1;
+        let dups = Object.keys(dupCounts).filter((e) => {
+          return dupCounts[e] > 1;
+        });
+        setListADuplicates(dups.length);
+      });
+
+      setListDataA(trimmedList.join("\n"));
+      setLinesCount(trimmedList.length);
+    }
+  };
+
+  // Split List B data func
+  const splitListBData = () => {
+    if (listDataB) {
+      let list = listDataB;
+      let dupCounts = {};
+
+      // Make array
+      let cldList = list.replace(/\n\s\t|[,;:]/gm, "\n").split("\n");
+
+      let trimmedList = cldList
+        .filter((item) => item.length > 1)
+        .map((el) => el.trim());
+
+      // Find dups
+      let linesA = trimmedList.filter((e) => e.replace(/(\r\n|\n|\r)/gm, ""));
+      linesA.forEach((dup) => {
+        dupCounts[dup] = (dupCounts[dup] || 0) + 1;
+        let dups = Object.keys(dupCounts).filter((e) => {
+          return dupCounts[e] > 1;
+        });
+        setListBDuplicates(dups.length);
+      });
+
+      setListDataB(trimmedList.join("\n"));
+      setLinesB(trimmedList.length);
+    }
+  };
+
+  // Trim list A duplicates and white spaces
+  const trimADuplicatesWhiteSpaces = () => {
+    if (listDataA) {
+      let linesArea = listDataA;
+      let lines = linesArea.split("\n");
+
+      // Filter dups
+      const filteredList = lines.map((el) => el.trim());
+      const newList = [...new Set(filteredList)]
+      setListDataA(newList.join("\n"));
+      setLinesCount(newList.length);
+      setListADuplicates(0);
+      console.log(newList);
+    }
+  };
+
+  // Trim list B duplicates and white spaces
+  const trimBDuplicatesWhiteSpaces = () => {
+    if (listDataB) {
+      let linesArea = listDataB;
+      let lines = linesArea.split("\n");
+
+      // Filter dups
+      const filteredList = lines.map((el) => el.trim());
+      const newList = [...new Set(filteredList)]
+      setListDataB(newList.join("\n"));
+      setLinesB(newList.length);
+      setListBDuplicates(0);
+      console.log(newList);
     }
   };
 
@@ -145,7 +299,7 @@ const CompareLists = () => {
               linesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold px-2 py-1 green-shades-lines "
               duplicatesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold px-2 py-1 green-shades-duplicates "
               lines={linesCount}
-              duplicates={aOnlyDuplicates}
+              duplicates={listADuplicates}
               readOnlyTextareaStyles="d-none"
               textareaRows="10"
               textareaStyles="p-2"
@@ -164,15 +318,17 @@ const CompareLists = () => {
                   btnStyleClass="fs-6 btns move-btn"
                   text="A "
                   icon={<BsArrowRight className="mb-3 fw-bold fs-5" />}
-                  text2=" B"
+                  text2="B"
+                  onClick={moveAValueToB}
                 />
               }
-              linkOffBtn={
+              splitCSVBtn={
                 <ButtonComponent
-                  btnTip="Split CSV Lines On , : ; "
+                  btnTip="Split CSV Lines On , : ; tab "
                   toolTipStyles="tip-style2 rounded"
                   icon={<MdLinkOff className="fs-4 " />}
                   btnStyleClass="fs-6 btns"
+                  onClick={splitCsv}
                 />
               }
               trimDuplicatesBtn={
@@ -181,6 +337,7 @@ const CompareLists = () => {
                   toolTipStyles="tip-style2 rounded"
                   btnStyleClass="fs-6 btns"
                   icon={<MdPlaylistRemove className="fs-4 " />}
+                  onClick={trimADuplicatesWhiteSpaces}
                 />
               }
               sortBtn={
@@ -225,7 +382,7 @@ const CompareLists = () => {
               linesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold px-2 py-1 green-shades-lines "
               duplicatesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold px-2 py-1 green-shades-duplicates "
               lines={linesB}
-              duplicates={bOnlyDuplicates}
+              duplicates={listBDuplicates}
               readOnlyTextareaStyles="d-none"
               textareaRows="10"
               textareaStyles="p-2"
@@ -244,14 +401,16 @@ const CompareLists = () => {
                   text="A "
                   icon={<BsArrowLeft className="mb-3 fw-bold fs-5" />}
                   text2=" B"
+                  onClick={moveBValueToA}
                 />
               }
-              linkOffBtn={
+              splitCSVBtn={
                 <ButtonComponent
-                  btnTip="Split CSV Lines On , : ; "
+                  btnTip="Split CSV Lines On , : ; tab "
                   toolTipStyles="tip-style2 rounded"
                   btnStyleClass="fs-6 btns"
                   icon={<MdLinkOff className="fs-4 " />}
+                  onClick={splitListBData}
                 />
               }
               trimDuplicatesBtn={
@@ -260,6 +419,7 @@ const CompareLists = () => {
                   toolTipStyles="tip-style2 rounded"
                   btnStyleClass="fs-6 btns"
                   icon={<MdPlaylistRemove className="fs-4 " />}
+                  onClick={trimBDuplicatesWhiteSpaces}
                 />
               }
               sortBtn={
