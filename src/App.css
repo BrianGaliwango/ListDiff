@@ -412,13 +412,7 @@ th, td, tr {
 .vLookup-email-example {
   font-family: Menlo,Monaco,Consolas,"Courier New",monospace !important;
   font-size: 13px !important;
-}
-
-::selection {
-  /* color: red !important;
-  background: yellow !important; */
-}
-
+} 
 
 @media screen and (max-width: 1070px) {
   .only-wrapper {

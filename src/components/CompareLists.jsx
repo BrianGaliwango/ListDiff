@@ -20,17 +20,19 @@ const CompareLists = () => {
   const [listADuplicates, setListADuplicates] = useState(0);
   const [listBDuplicates, setListBDuplicates] = useState(0);
   const [listDataB, setListDataB] = useState();
-  const [listDataAnB, setListDataAnB] = useState();
+  const [listAnBDups, setListAnBDups] = useState();
   const [listDataBOnly, setListDataBOnly] = useState();
   const [listDataAuB, setListDataAuB] = useState();
   const [ignoreLeadingZero, setIgnoreLeadingZero] = useState();
-  const [linesCount, setLinesCount] = useState(0);
+  const [listALines, setListALines] = useState(0);
   const [linesB, setLinesB] = useState(0);
   const [onlyBLines, setOnlyBLines] = useState(0);
   const [aOnlyLines, setAOnlyLines] = useState(0);
   const [duplicatesLines, setDuplicatesLines] = useState(0);
   const [aUBLines, setAuBLines] = useState(0);
   const [textareaABg, setTextareaABg] = useState("");
+
+  const [showOptions, setShowOptions] = useState(false);
 
   // Handle onChange func List A
   const handleChange = (event) => {
@@ -43,7 +45,7 @@ const CompareLists = () => {
     } else {
       let linesA = list.filter((e) => e.replace(/(\r\n|\n|\r)/gm, ""));
       let count = linesA.length;
-      setLinesCount(count);
+      setListALines(count);
     }
 
     // Find dups
@@ -88,31 +90,34 @@ const CompareLists = () => {
 
   // Get data func
   const getData = () => {
-    if (!listDataA || !listDataB) {
-      alert("fill in fields");
-    } else {
+    if (listDataA && listDataB) {
       // Make Array
-      const listDataAArr = listDataA.replace(/\r\n/gm, "\n").split("\n");
-      const listDataBArr = listDataB.replace(/\r\n/gm, "\n").split("\n");
+      const listDataAArr = listDataA
+        .replace(/\r\n/gm, "\n")
+        .split("\n")
+        .map((el) => el.trim());
+      const listDataBArr = listDataB
+        .replace(/\r\n/gm, "\n")
+        .split("\n")
+        .map((el) => el.trim());
 
       // Filter empty values
-      const listA = listDataAArr
-        .filter((item) => item.length > 1)
-        .map((el) => el.trim());
-      const listB = listDataBArr
-        .filter((item) => item.length > 1)
-        .map((el) => el.trim());
+      const listA = listDataAArr.filter((item) => item.length > 0);
+      const listB = listDataBArr.filter((item) => item.length > 0);
 
       // List data A only
       const listAOnly = listA.filter((val) => !listDataB.includes(val));
+      const newListA = [...new Set(listAOnly)];
 
-      setListDataAOnly(listAOnly.join("\n"));
-      setAOnlyLines(listAOnly.length);
+      setListDataAOnly(newListA.join("\n"));
+      setAOnlyLines(newListA.length);
 
       // List data B only
       const listBOnly = listB.filter((val) => !listDataA.includes(val));
-      setListDataBOnly(listBOnly.join("\r\n"));
-      setOnlyBLines(listBOnly.length);
+      const newListB = [...new Set(listBOnly)];
+
+      setListDataBOnly(newListB.join("\r\n"));
+      setOnlyBLines(newListB.length);
 
       // Check for duplicates
       const duplicates = listDataAArr.filter((element) =>
@@ -121,7 +126,7 @@ const CompareLists = () => {
       const cleanedDups = duplicates.filter((e) =>
         e.replace(/(\r\n|\n|\r)/gm, "")
       );
-      setListDataAnB(cleanedDups.join("\r\n"));
+      setListAnBDups(cleanedDups.join("\r\n"));
       setDuplicatesLines(cleanedDups.length);
 
       // All items
@@ -160,7 +165,7 @@ const CompareLists = () => {
       });
       setListDataB(listDataA);
       setListDataA("");
-      setLinesCount(0);
+      setListALines(0);
       setListADuplicates(0);
     }
   };
@@ -176,7 +181,7 @@ const CompareLists = () => {
       } else {
         let linesA = data.filter((e) => e.replace(/(\r\n|\n|\r)/gm, ""));
         let count = linesA.length;
-        setLinesCount(count);
+        setListALines(count);
       }
 
       // Find dups
@@ -195,7 +200,7 @@ const CompareLists = () => {
     }
   };
 
-  // Split CSV
+  // Split List A
   const splitCsv = () => {
     if (listDataA) {
       let data = listDataA;
@@ -203,10 +208,9 @@ const CompareLists = () => {
 
       // Make array
       let cldList = data.replace(/\n\s\t|[,;:]/gm, "\n").split("\n");
-
       let trimmedList = cldList
-        .filter((item) => item.length > 1)
-        .map((el) => el.trim());
+        .map((el) => el.trim())
+        .filter((item) => item.length > 0);
 
       // Find dups
       let linesA = trimmedList.filter((e) => e.replace(/(\r\n|\n|\r)/gm, ""));
@@ -219,7 +223,7 @@ const CompareLists = () => {
       });
 
       setListDataA(trimmedList.join("\n"));
-      setLinesCount(trimmedList.length);
+      setListALines(trimmedList.length);
     }
   };
 
@@ -234,8 +238,8 @@ const CompareLists = () => {
 
       // Trim list
       let trimmedList = cldList
-        .filter((item) => item.length > 1)
-        .map((el) => el.trim());
+        .map((el) => el.trim())
+        .filter((item) => item.length > 0);
 
       // Find dups
       let linesA = trimmedList.filter((e) => e.replace(/(\r\n|\n|\r)/gm, ""));
@@ -257,10 +261,12 @@ const CompareLists = () => {
     if (listDataA) {
       let data = listDataA.split("\n");
       // Filter dups
-      const filteredList = data.map((el) => el.trim());
+      const filteredList = data
+        .filter((el) => el.length > 0)
+        .map((el) => el.trim());
       const newList = [...new Set(filteredList)];
       setListDataA(newList.join("\n"));
-      setLinesCount(newList.length);
+      setListALines(newList.length);
       setListADuplicates(0);
     }
   };
@@ -271,7 +277,9 @@ const CompareLists = () => {
       let data = listDataB.split("\n");
 
       // Filter dups
-      const filteredList = data.map((el) => el.trim());
+      const filteredList = data
+        .filter((el) => el.length > 0)
+        .map((el) => el.trim());
       const newList = [...new Set(filteredList)];
       setListDataB(newList.join("\n"));
       setLinesB(newList.length);
@@ -311,6 +319,139 @@ const CompareLists = () => {
     }
   };
 
+  // Clear lists
+  const clearListB = () => {
+    setListDataB("");
+    setLinesB(0);
+    setListBDuplicates(0);
+  };
+
+  // Clear lists
+  const clearListA = () => {
+    setListDataA("");
+    setListALines(0);
+    setListADuplicates(0);
+  };
+
+  // Trim A Only Dups And Spaces
+  const trimAOnlyDupsSpaces = () => {
+    if (listDataAOnly) {
+      let data = listDataAOnly.split("\n");
+      // Filter dups
+      const filteredList = data
+        .filter((el) => el.length > 0)
+        .map((el) => el.trim());
+      const newList = [...new Set(filteredList)];
+      setListDataAOnly(newList.join("\n"));
+      setAOnlyLines(newList.length);
+    }
+  };
+
+  // Trim A and B Dups and Spaces
+  const trimABDupsSpaces = () => {
+    if (listAnBDups) {
+      let data = listAnBDups.split("\n");
+      // Filter dups
+      const filteredList = data
+        .filter((el) => el.length > 0)
+        .map((el) => el.trim());
+      const newList = [...new Set(filteredList)];
+      setListAnBDups(newList.join("\n"));
+      setDuplicatesLines(newList.length);
+    }
+  };
+  // Trim B Only Dups and Spaces
+  const trimBOnlyDupsSpaces = () => {
+    if (listDataBOnly) {
+      let data = listDataBOnly.split("\n");
+      // Filter dups
+      const filteredList = data
+        .filter((el) => el.length > 0)
+        .map((el) => el.trim());
+      const newList = [...new Set(filteredList)];
+      setListDataBOnly(newList.join("\n"));
+      setOnlyBLines(newList.length);
+    }
+  };
+
+  // Trim B Only Dups and Spaces
+  const trimAuBDupsSpaces = () => {
+    if (listDataAuB) {
+      let data = listDataAuB.split("\n");
+      // Filter dups
+      const filteredList = data
+        .filter((el) => el.length > 0)
+        .map((el) => el.trim());
+      const newList = [...new Set(filteredList)];
+      setListDataAuB(newList.join("\n"));
+      setAuBLines(newList.length);
+    }
+  };
+
+  // Sort List A only
+  const sortListAOnly = () => {
+    if (listDataAOnly) {
+      const data = listDataAOnly.split("\n").sort();
+      setListDataAOnly(data.join("\n"));
+    }
+  };
+
+  // Sort List A and B
+  const sortListAnB = () => {
+    if (listAnBDups) {
+      const data = listAnBDups.split("\n").sort();
+      setListAnBDups(data.join("\n"));
+    }
+  };
+
+  // Sort List B
+  const sortListBOnly = () => {
+    if (listDataBOnly) {
+      const data = listDataBOnly.split("\n").sort();
+      setListDataBOnly(data.join("\n"));
+    }
+  };
+
+  // Sort List AuB
+  const sortListAuB = () => {
+    if (listDataAuB) {
+      const data = listDataAuB.split("\n").sort();
+      setListDataAuB(data.join("\n"));
+    }
+  };
+
+  // Revers List A only
+  const reverseListAOnly = () => {
+    if (listDataAOnly) {
+      const data = listDataAOnly.split("\n").reverse();
+      setListDataAOnly(data.join("\n"));
+    }
+  };
+
+  // Revers List B only
+  const reverseListBOnly = () => {
+    if (listDataBOnly) {
+      const data = listDataBOnly.split("\n").reverse();
+      setListDataBOnly(data.join("\n"));
+    }
+  };
+
+  // Revers List AnB
+  const reverseListAnB = () => {
+    if (listAnBDups) {
+      const data = listAnBDups.split("\n").reverse();
+      setListAnBDups(data.join("\n"));
+    }
+  };
+
+  // Revers List AuB
+  const reverseListAuB = () => {
+    if (listDataAuB) {
+      const data = listDataAuB.split("\n").reverse();
+      setListDataAuB(data.join("\n"));
+    }
+  };
+
   return (
     <Container
       fluid
@@ -325,7 +466,7 @@ const CompareLists = () => {
               listTitle="List A"
               linesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold px-2 py-1 green-shades-lines "
               duplicatesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold px-2 py-1 green-shades-duplicates "
-              lines={linesCount}
+              lines={listALines}
               duplicates={listADuplicates}
               readOnlyTextareaStyles="d-none"
               textareaRows="10"
@@ -393,7 +534,6 @@ const CompareLists = () => {
                     toolTipStyles="tip-style rounded"
                     btnStyleClass="fs-6 btns"
                     icon={<MdContentCopy className="fs-5" />}
-                    //  onClick={copyDataA}
                   />
                 </CopyToClipboard>
               }
@@ -403,6 +543,7 @@ const CompareLists = () => {
                   toolTipStyles="tip-style rounded"
                   btnStyleClass="fs-6 btns"
                   icon={<RiDeleteBin5Line className="fs-5" />}
+                  onClick={clearListA}
                 />
               }
             />
@@ -489,6 +630,7 @@ const CompareLists = () => {
                   toolTipStyles="tip-style rounded"
                   btnStyleClass="fs-6 btns"
                   icon={<RiDeleteBin5Line className="fs-5" />}
+                  onClick={clearListB}
                 />
               }
             />
@@ -510,6 +652,7 @@ const CompareLists = () => {
               toolTipStyles="tip-style rounded"
               btnStyleClass="btns "
               icon={<MdChecklistRtl className="text-dark fs-4" />}
+              onClick={() => setShowOptions(!showOptions)}
             />
 
             <ButtonComponent
@@ -521,83 +664,85 @@ const CompareLists = () => {
           </Col>
         </Row>
 
-        <Row className="mb-5 check-inputs-wrapper p-5">
-          <Col className="d-flex flex-md-row flex-column ">
-            {/* <Form className="d-flex flex-row gap-1"> */}
-            <div className=" d-flex flex-column mb-3 col-md-3 col-sm-8">
-              <Form.Check
-                checked
-                type="checkbox"
-                label="Case Sensitive"
-                className="d-inline-flex align-items-center gap-2"
-                onChange={(e) => setIgnoreLeadingZero(e.target.checked)}
-              />
-              <Form.Check
-                checked
-                type="checkbox"
-                label="Ignore Begin End Spaces"
-                className="d-inline-flex align-items-center gap-2"
-                onChange={(e) => setIgnoreLeadingZero(e.target.checked)}
-              />
-              <Form.Check
-                checked
-                type="checkbox"
-                label="Ignore Extra Spaces"
-                className="d-inline-flex align-items-center gap-2"
-                onChange={(e) => setIgnoreLeadingZero(e.target.checked)}
-              />
-            </div>
-
-            {/* Checkbox */}
-            <div className="d-flex flex-column col-md-3 col-sm-8 px-2 mb-3">
-              <div className="d-flex flex-column mb-1">
+        {showOptions && (
+          <Row className="mb-5 check-inputs-wrapper p-5">
+            <Col className="d-flex flex-md-row flex-column ">
+              {/* <Form className="d-flex flex-row gap-1"> */}
+              <div className=" d-flex flex-column mb-3 col-md-3 col-sm-8">
                 <Form.Check
+                  checked
                   type="checkbox"
-                  label="Ignore Leading Zeroes"
-                  className="d-inline-flex align-items-center gap-2 "
+                  label="Case Sensitive"
+                  className="d-inline-flex align-items-center gap-2"
                   onChange={(e) => setIgnoreLeadingZero(e.target.checked)}
                 />
-              </div>
-
-              {/* Line Numbered */}
-              <div className="d-flex flex-column mb-2">
                 <Form.Check
+                  checked
                   type="checkbox"
-                  label="Line Numbered"
+                  label="Ignore Begin End Spaces"
+                  className="d-inline-flex align-items-center gap-2"
+                  onChange={(e) => setIgnoreLeadingZero(e.target.checked)}
+                />
+                <Form.Check
+                  checked
+                  type="checkbox"
+                  label="Ignore Extra Spaces"
                   className="d-inline-flex align-items-center gap-2"
                   onChange={(e) => setIgnoreLeadingZero(e.target.checked)}
                 />
               </div>
-            </div>
 
-            {/* Dropdowns */}
-            <div className="col-md-3 col-sm-12 mb-3 ">
-              <div className="ps-4 bg-body-secondary rounded border border-secondary-subtle border-2">
-                <Form.Select
-                  onChange={(e) => setIgnoreLeadingZero(e.target.value)}
-                  className="p-2 rounded-0"
-                >
-                  <option>No Sort</option>
-                  <option>Sort A - z </option>
-                  <option>Sort Z - a </option>
-                </Form.Select>
+              {/* Checkbox */}
+              <div className="d-flex flex-column col-md-3 col-sm-8 px-2 mb-3">
+                <div className="d-flex flex-column mb-1">
+                  <Form.Check
+                    type="checkbox"
+                    label="Ignore Leading Zeroes"
+                    className="d-inline-flex align-items-center gap-2 "
+                    onChange={(e) => setIgnoreLeadingZero(e.target.checked)}
+                  />
+                </div>
+
+                {/* Line Numbered */}
+                <div className="d-flex flex-column mb-2">
+                  <Form.Check
+                    type="checkbox"
+                    label="Line Numbered"
+                    className="d-inline-flex align-items-center gap-2"
+                    onChange={(e) => setIgnoreLeadingZero(e.target.checked)}
+                  />
+                </div>
               </div>
 
-              <div className="ps-4 bg-body-secondary rounded border border-secondary-subtle border-2">
-                <Form.Select
-                  onChange={(e) => setIgnoreLeadingZero(e.target.value)}
-                  className="p-2 rounded-0"
-                >
-                  <option>No Change</option>
-                  <option>Capitalize</option>
-                  <option>Uppercase</option>
-                  <option>Lowercase</option>
-                </Form.Select>
+              {/* Dropdowns */}
+              <div className="col-md-3 col-sm-12 mb-3 ">
+                <div className="ps-4 bg-body-secondary rounded border border-secondary-subtle border-2">
+                  <Form.Select
+                    onChange={(e) => setIgnoreLeadingZero(e.target.value)}
+                    className="p-2 rounded-0"
+                  >
+                    <option>No Sort</option>
+                    <option>Sort A - z </option>
+                    <option>Sort Z - a </option>
+                  </Form.Select>
+                </div>
+
+                <div className="ps-4 bg-body-secondary rounded border border-secondary-subtle border-2">
+                  <Form.Select
+                    onChange={(e) => setIgnoreLeadingZero(e.target.value)}
+                    className="p-2 rounded-0"
+                  >
+                    <option>No Change</option>
+                    <option>Capitalize</option>
+                    <option>Uppercase</option>
+                    <option>Lowercase</option>
+                  </Form.Select>
+                </div>
               </div>
-            </div>
-            {/* </Form> */}
-          </Col>
-        </Row>
+              {/* </Form> */}
+            </Col>
+          </Row>
+        )}
 
         {/* Only  */}
 
@@ -627,6 +772,7 @@ const CompareLists = () => {
                   toolTipStyles="tip-style2 rounded"
                   btnStyleClass="btns "
                   icon={<MdPlaylistRemove className="fs-4 " />}
+                  onClick={trimAOnlyDupsSpaces}
                 />
               }
               sortBtn={
@@ -635,6 +781,7 @@ const CompareLists = () => {
                   toolTipStyles="tip-style rounded"
                   btnStyleClass="btns "
                   icon={<MdOutlineSort className="text-dark fs-4" />}
+                  onClick={sortListAOnly}
                 />
               }
               reverseOrderBtn={
@@ -643,15 +790,18 @@ const CompareLists = () => {
                   toolTipStyles="tip-style rounded"
                   btnStyleClass="btns "
                   icon={<LuArrowUpDown className="fs-5" />}
+                  onClick={reverseListAOnly}
                 />
               }
               copyBtn={
-                <ButtonComponent
-                  btnTip="Copy"
-                  toolTipStyles="tip-style rounded"
-                  btnStyleClass="btns "
-                  icon={<MdContentCopy className="fs-5" />}
-                />
+                <CopyToClipboard text={listDataAOnly}>
+                  <ButtonComponent
+                    btnTip="Copy"
+                    toolTipStyles="tip-style rounded"
+                    btnStyleClass="btns "
+                    icon={<MdContentCopy className="fs-5" />}
+                  />
+                </CopyToClipboard>
               }
             />
           </Col>
@@ -667,8 +817,8 @@ const CompareLists = () => {
               textareaRows="10"
               textareaStyles="p-2"
               textAreaPlaceholder="Values in A AND B"
-              data={listDataAnB}
-              onChange={(e) => setListDataAnB(e.target.value)}
+              data={listAnBDups}
+              onChange={(e) => setListAnBDups(e.target.value)}
               buttonGroupStyles="w-100 d-flex justify-content-between d-flex p-2 gap-2"
               fileInputStyles="d-none "
               columnsInputStyle="d-none"
@@ -680,6 +830,7 @@ const CompareLists = () => {
                   toolTipStyles="tip-style2 rounded"
                   btnStyleClass="btns "
                   icon={<MdPlaylistRemove className="fs-4 " />}
+                  onClick={trimABDupsSpaces}
                 />
               }
               sortBtn={
@@ -688,6 +839,7 @@ const CompareLists = () => {
                   toolTipStyles="tip-style rounded"
                   btnStyleClass="btns "
                   icon={<MdOutlineSort className="text-dark fs-4" />}
+                  onClick={sortListAnB}
                 />
               }
               reverseOrderBtn={
@@ -696,15 +848,18 @@ const CompareLists = () => {
                   toolTipStyles="tip-style rounded"
                   btnStyleClass="btns "
                   icon={<LuArrowUpDown className="fs-5" />}
+                  onClick={reverseListAnB}
                 />
               }
               copyBtn={
-                <ButtonComponent
-                  btnTip="Copy"
-                  toolTipStyles="tip-style rounded"
-                  btnStyleClass="btns "
-                  icon={<MdContentCopy className="fs-5" />}
-                />
+                <CopyToClipboard text={listAnBDups}>
+                  <ButtonComponent
+                    btnTip="Copy"
+                    toolTipStyles="tip-style rounded"
+                    btnStyleClass="btns "
+                    icon={<MdContentCopy className="fs-5" />}
+                  />
+                </CopyToClipboard>
               }
             />
           </Col>
@@ -733,6 +888,7 @@ const CompareLists = () => {
                   toolTipStyles="tip-style2 rounded"
                   btnStyleClass="btns "
                   icon={<MdPlaylistRemove className="fs-4 " />}
+                  onClick={trimBOnlyDupsSpaces}
                 />
               }
               sortBtn={
@@ -741,6 +897,7 @@ const CompareLists = () => {
                   toolTipStyles="tip-style rounded"
                   btnStyleClass="btns "
                   icon={<MdOutlineSort className="text-dark fs-4" />}
+                  onClick={sortListBOnly}
                 />
               }
               reverseOrderBtn={
@@ -749,15 +906,18 @@ const CompareLists = () => {
                   toolTipStyles="tip-style rounded"
                   btnStyleClass="btns "
                   icon={<LuArrowUpDown className="fs-5" />}
+                  onClick={reverseListBOnly}
                 />
               }
               copyBtn={
-                <ButtonComponent
-                  btnTip="Copy"
-                  toolTipStyles="tip-style rounded"
-                  btnStyleClass="btns "
-                  icon={<MdContentCopy className="fs-5" />}
-                />
+                <CopyToClipboard text={listDataBOnly}>
+                  <ButtonComponent
+                    btnTip="Copy"
+                    toolTipStyles="tip-style rounded"
+                    btnStyleClass="btns "
+                    icon={<MdContentCopy className="fs-5" />}
+                  />
+                </CopyToClipboard>
               }
             />
           </Col>
@@ -788,6 +948,7 @@ const CompareLists = () => {
                   toolTipStyles="tip-style2 rounded"
                   btnStyleClass="btns "
                   icon={<MdPlaylistRemove className="fs-4 " />}
+                  onClick={trimAuBDupsSpaces}
                 />
               }
               sortBtn={
@@ -796,6 +957,7 @@ const CompareLists = () => {
                   toolTipStyles="tip-style rounded"
                   btnStyleClass="btns "
                   icon={<MdOutlineSort className="text-dark fs-4" />}
+                  onClick={sortListAuB}
                 />
               }
               reverseOrderBtn={
@@ -804,15 +966,18 @@ const CompareLists = () => {
                   toolTipStyles="tip-style rounded"
                   btnStyleClass="btns "
                   icon={<LuArrowUpDown className="fs-5" />}
+                  onClick={reverseListAuB}
                 />
               }
               copyBtn={
-                <ButtonComponent
-                  btnTip="Copy"
-                  toolTipStyles="tip-style rounded"
-                  btnStyleClass="btns "
-                  icon={<MdContentCopy className="fs-5" />}
-                />
+                <CopyToClipboard text={listDataAuB}>
+                  <ButtonComponent
+                    btnTip="Copy"
+                    toolTipStyles="tip-style rounded"
+                    btnStyleClass="btns "
+                    icon={<MdContentCopy className="fs-5" />}
+                  />
+                </CopyToClipboard>
               }
             />
           </Col>
