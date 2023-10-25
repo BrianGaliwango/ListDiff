@@ -9,6 +9,7 @@ import {
   MdOutlineSort,
   MdContentCopy,
   MdChecklistRtl,
+  MdOutlineDesktopWindows,
 } from "react-icons/md";
 import { LuArrowUpDown, LuLaptop2 } from "react-icons/lu";
 import { RiDeleteBin5Line } from "react-icons/ri";
@@ -23,16 +24,25 @@ const CompareLists = () => {
   const [listAnBDups, setListAnBDups] = useState();
   const [listDataBOnly, setListDataBOnly] = useState();
   const [listDataAuB, setListDataAuB] = useState();
-  const [ignoreLeadingZero, setIgnoreLeadingZero] = useState();
   const [listALines, setListALines] = useState(0);
   const [linesB, setLinesB] = useState(0);
   const [onlyBLines, setOnlyBLines] = useState(0);
   const [aOnlyLines, setAOnlyLines] = useState(0);
   const [duplicatesLines, setDuplicatesLines] = useState(0);
   const [aUBLines, setAuBLines] = useState(0);
-  const [textareaABg, setTextareaABg] = useState("");
 
-  const [showOptions, setShowOptions] = useState(false);
+  const [showOptions, setShowOptions] = useState(true);
+
+  const [screenSize, setScreenSize] = useState(false);
+  const [caseSensitive, setCaseSensitive] = useState(true);
+  const [ignoreBeginSpaces, setIgnoreBeginSpaces] = useState(true);
+  const [ignoreExtraSpaces, setIgnoreExtraSpaces] = useState(true);
+  const [ignoreLeadingZeros, setIgnoreLeadingZeros] = useState(false);
+  const [lineNumbered, setLineNumbered] = useState(false);
+
+  const [sortOptions, setSortOptions] = useState("no-sort");
+
+  const [ignoreLeadingZero, setIgnoreLeadingZero] = useState(false);
 
   // Handle onChange func List A
   const handleChange = (event) => {
@@ -90,53 +100,940 @@ const CompareLists = () => {
 
   // Get data func
   const getData = () => {
+    console.log(sortOptions);
     if (listDataA && listDataB) {
-      // Make Array
-      const listDataAArr = listDataA
-        .replace(/\r\n/gm, "\n")
-        .split("\n")
-        .map((el) => el.trim());
-      const listDataBArr = listDataB
-        .replace(/\r\n/gm, "\n")
-        .split("\n")
-        .map((el) => el.trim());
+      if (
+        caseSensitive &&
+        ignoreBeginSpaces &&
+        ignoreExtraSpaces &&
+        !ignoreLeadingZeros
+      ) {
+        // Make Array
+        const listDataAArr = listDataA
+          // .toLowerCase()
+          .replace(/\r\n\s/gm, "\n")
+          .split("\n")
+          .map((el) => el.trim());
 
-      // Filter empty values
-      const listA = listDataAArr.filter((item) => item.length > 0);
-      const listB = listDataBArr.filter((item) => item.length > 0);
+        const listDataBArr = listDataB
+          .replace(/\r\n\s/gm, "\n")
+          .split("\n")
+          .map((el) => el.trim());
 
-      // List data A only
-      const listAOnly = listA.filter((val) => !listDataB.includes(val));
-      const newListA = [...new Set(listAOnly)];
+        // Remove extra spaces
+        const listAA = listDataAArr.map((item) => item.replace(/\s{2,}/g, " "));
+        const listBB = listDataBArr.map((item) => item.replace(/\s{2,}/g, " "));
 
-      setListDataAOnly(newListA.join("\n"));
-      setAOnlyLines(newListA.length);
+        // Filter empty values
+        const listA = listAA.filter((item) => item.length > 0);
+        const listB = listBB.filter((item) => item.length > 0);
 
-      // List data B only
-      const listBOnly = listB.filter((val) => !listDataA.includes(val));
-      const newListB = [...new Set(listBOnly)];
+        // List data A only
+        const listAOnly = listA.filter((val) => !listB.includes(val));
+        const newListA = [...new Set(listAOnly)];
 
-      setListDataBOnly(newListB.join("\r\n"));
-      setOnlyBLines(newListB.length);
+        // //Sort conditions
+        if (sortOptions === "az") {
+          const sortedList = newListA.sort();
+          setListDataAOnly(sortedList.join("\n"));
+        } else if (sortOptions === "za") {
+          const descSortedList = newListA.sort().reverse();
+          // // Lowercase
+          const lowercaseList = descSortedList.map((el) => el.toLowerCase());
+          // //Capitalize
+          const capitalizedList = descSortedList.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          setListDataAOnly(capitalizedList.join("\n"));
+          //console.log(capitalizedList.join("\n"));
+          console.log(lowercaseList);
+        } else {
+          setListDataAOnly(newListA.join("\n"));
+        }
 
-      // Check for duplicates
-      const duplicates = listDataAArr.filter((element) =>
-        listDataBArr.includes(element)
-      );
-      const cleanedDups = duplicates.filter((e) =>
-        e.replace(/(\r\n|\n|\r)/gm, "")
-      );
-      setListAnBDups(cleanedDups.join("\r\n"));
-      setDuplicatesLines(cleanedDups.length);
+        setAOnlyLines(newListA.length);
 
-      // All items
-      const listAuB = listDataAArr.concat(listDataBArr);
-      const list = listAuB.filter((listItem) => listItem.length > 0);
-      const cleanedAuBList = list.filter(
-        (val, index) => listAuB.indexOf(val) === index
-      );
-      setListDataAuB(cleanedAuBList.join("\r\n"));
-      setAuBLines(cleanedAuBList.length);
+        // List data B only
+        const listBOnly = listB.filter((val) => !listA.includes(val));
+        const newListB = [...new Set(listBOnly)];
+
+        setListDataBOnly(newListB.join("\r\n"));
+        setOnlyBLines(newListB.length);
+
+        // Check for duplicates
+        const duplicates = listA.filter((element) => listB.includes(element));
+        const cleanedDups = [...new Set(duplicates)];
+        setListAnBDups(cleanedDups.join("\r\n"));
+        setDuplicatesLines(cleanedDups.length);
+
+        // All items
+        const listAuB = listAA.concat(listBB);
+        const list = listAuB.filter((listItem) => listItem.length > 0);
+        const cleanedAuBList = list.filter(
+          (val, index) => listAuB.indexOf(val) === index
+        );
+        setListDataAuB(cleanedAuBList.join("\r\n"));
+        setAuBLines(cleanedAuBList.length);
+      } else if (
+        caseSensitive &&
+        !ignoreBeginSpaces &&
+        ignoreExtraSpaces &&
+        !ignoreLeadingZeros
+      ) {
+        // Make Array
+        const listDataAArr = listDataA.replace(/\r\n/gm, "\n").split("\n");
+
+        const listDataBArr = listDataB.replace(/\r\n/gm, "\n").split("\n");
+
+        // Remove extra spaces
+        const listAA = listDataAArr.map((item) => item.replace(/\s{2,}/g, " "));
+        const listBB = listDataBArr.map((item) => item.replace(/\s{2,}/g, " "));
+
+        // Filter empty values
+        const listA = listAA.filter((item) => item.length > 0);
+        const listB = listBB.filter((item) => item.length > 0);
+
+        // List data A only
+        const listAOnly = listA.filter((val) => !listB.includes(val));
+        const newListA = [...new Set(listAOnly)];
+
+        setListDataAOnly(listAOnly.join("\n"));
+        setAOnlyLines(newListA.length);
+
+        // List data B only
+        const listBOnly = listB.filter((val) => !listA.includes(val));
+        const newListB = [...new Set(listBOnly)];
+
+        setListDataBOnly(newListB.join("\r\n"));
+        setOnlyBLines(newListB.length);
+
+        // Check for duplicates
+        const duplicates = listA.filter((element) => listB.includes(element));
+        const cleanedDups = [...new Set(duplicates)];
+        setListAnBDups(cleanedDups.join("\r\n"));
+        setDuplicatesLines(cleanedDups.length);
+
+        // All items
+        const listAuB = listAA.concat(listBB);
+        const list = listAuB.filter((listItem) => listItem.length > 0);
+        const cleanedAuBList = list.filter(
+          (val, index) => listAuB.indexOf(val) === index
+        );
+        setListDataAuB(cleanedAuBList.join("\r\n"));
+        setAuBLines(cleanedAuBList.length);
+      } else if (
+        caseSensitive &&
+        !ignoreBeginSpaces &&
+        !ignoreExtraSpaces &&
+        !ignoreLeadingZeros
+      ) {
+        // Make Array
+        const listDataAArr = listDataA.replace(/\r\n/gm, "\n").split("\n");
+        const listDataBArr = listDataB.replace(/\r\n/gm, "\n").split("\n");
+
+        // Filter empty values
+        const listA = listDataAArr.filter((item) => item.length > 0);
+        const listB = listDataBArr.filter((item) => item.length > 0);
+
+        // List data A only
+        const listAOnly = listA.filter((val) => !listB.includes(val));
+        const newListA = [...new Set(listAOnly)];
+
+        setListDataAOnly(listAOnly.join("\n"));
+        setAOnlyLines(newListA.length);
+
+        // List data B only
+        const listBOnly = listB.filter((val) => !listA.includes(val));
+        const newListB = [...new Set(listBOnly)];
+
+        setListDataBOnly(newListB.join("\r\n"));
+        setOnlyBLines(newListB.length);
+
+        // Check for duplicates
+        const duplicates = listA.filter((element) => listB.includes(element));
+        const cleanedDups = [...new Set(duplicates)];
+        setListAnBDups(cleanedDups.join("\r\n"));
+        setDuplicatesLines(cleanedDups.length);
+
+        // All items
+        const listAuB = listDataAArr.concat(listDataBArr);
+        const list = listAuB.filter((listItem) => listItem.length > 0);
+        const cleanedAuBList = list.filter(
+          (val, index) => listAuB.indexOf(val) === index
+        );
+        setListDataAuB(cleanedAuBList.join("\r\n"));
+        setAuBLines(cleanedAuBList.length);
+      } else if (
+        caseSensitive &&
+        ignoreBeginSpaces &&
+        !ignoreExtraSpaces &&
+        !ignoreLeadingZeros
+      ) {
+        // Make Array
+        const listDataAArr = listDataA
+          .replace(/\r\n/gm, "\n")
+          .split("\n")
+          .map((el) => el.trim());
+
+        const listDataBArr = listDataB
+          .replace(/\r\n/gm, "\n")
+          .split("\n")
+          .map((el) => el.trim());
+
+        // Filter empty values
+        const listA = listDataAArr.filter((item) => item.length > 0);
+        const listB = listDataBArr.filter((item) => item.length > 0);
+
+        // List data A only
+        const listAOnly = listA.filter((val) => !listB.includes(val));
+        const newListA = [...new Set(listAOnly)];
+
+        setListDataAOnly(listAOnly.join("\n"));
+        setAOnlyLines(newListA.length);
+
+        // List data B only
+        const listBOnly = listB.filter((val) => !listA.includes(val));
+        const newListB = [...new Set(listBOnly)];
+
+        setListDataBOnly(newListB.join("\r\n"));
+        setOnlyBLines(newListB.length);
+
+        // Check for duplicates
+        const duplicates = listA.filter((element) => listB.includes(element));
+        const cleanedDups = [...new Set(duplicates)];
+        setListAnBDups(cleanedDups.join("\r\n"));
+        setDuplicatesLines(cleanedDups.length);
+
+        // All items
+        const listAuB = listDataAArr.concat(listDataBArr);
+        const list = listAuB.filter((listItem) => listItem.length > 0);
+        const cleanedAuBList = list.filter(
+          (val, index) => listAuB.indexOf(val) === index
+        );
+        setListDataAuB(cleanedAuBList.join("\r\n"));
+        setAuBLines(cleanedAuBList.length);
+      } else if (
+        ignoreBeginSpaces &&
+        !caseSensitive &&
+        ignoreExtraSpaces &&
+        !ignoreLeadingZeros
+      ) {
+        // Make Array
+        const listDataAArr = listDataA
+          .toLowerCase()
+          .replace(/\r\n/gm, "\n")
+          .split("\n")
+          .map((el) => el.trim());
+
+        const listDataBArr = listDataB
+          .toLowerCase()
+          .replace(/\r\n/gm, "\n")
+          .split("\n")
+          .map((el) => el.trim());
+
+        // Remove extra spaces
+        const listAA = listDataAArr.map((item) => item.replace(/\s{2,}/g, " "));
+        const listBB = listDataBArr.map((item) => item.replace(/\s{2,}/g, " "));
+
+        // Filter empty values
+        const listA = listAA.filter((item) => item.length > 0);
+        const listB = listBB.filter((item) => item.length > 0);
+
+        // List data A only
+        const listAOnly = listA.filter((val) => !listB.includes(val));
+        const newListA = [...new Set(listAOnly)];
+
+        setListDataAOnly(listAOnly.join("\n"));
+        setAOnlyLines(newListA.length);
+
+        // List data B only
+        const listBOnly = listB.filter((val) => !listA.includes(val));
+        const newListB = [...new Set(listBOnly)];
+
+        setListDataBOnly(newListB.join("\r\n"));
+        setOnlyBLines(newListB.length);
+
+        // Check for duplicates
+        const duplicates = listA.filter((element) => listB.includes(element));
+        const cleanedDups = [...new Set(duplicates)];
+        setListAnBDups(cleanedDups.join("\r\n"));
+        setDuplicatesLines(cleanedDups.length);
+
+        // All items
+        const listAuB = listAA.concat(listBB);
+        const list = listAuB.filter((listItem) => listItem.length > 0);
+        const cleanedAuBList = list.filter(
+          (val, index) => listAuB.indexOf(val) === index
+        );
+        setListDataAuB(cleanedAuBList.join("\r\n"));
+        setAuBLines(cleanedAuBList.length);
+      } else if (
+        ignoreBeginSpaces &&
+        !caseSensitive &&
+        !ignoreExtraSpaces &&
+        !ignoreLeadingZeros
+      ) {
+        // Make Array
+        const listDataAArr = listDataA
+          .toLowerCase()
+          .replace(/\r\n/gm, "\n")
+          .split("\n")
+          .map((el) => el.trim());
+
+        const listDataBArr = listDataB
+          .toLowerCase()
+          .replace(/\r\n/gm, "\n")
+          .split("\n")
+          .map((el) => el.trim());
+
+        // Filter empty values
+        const listA = listDataAArr.filter((item) => item.length > 0);
+        const listB = listDataBArr.filter((item) => item.length > 0);
+
+        // List data A only
+        const listAOnly = listA.filter((val) => !listB.includes(val));
+        const newListA = [...new Set(listAOnly)];
+
+        setListDataAOnly(listAOnly.join("\n"));
+        setAOnlyLines(newListA.length);
+
+        // List data B only
+        const listBOnly = listB.filter((val) => !listA.includes(val));
+        const newListB = [...new Set(listBOnly)];
+
+        setListDataBOnly(newListB.join("\r\n"));
+        setOnlyBLines(newListB.length);
+
+        // Check for duplicates
+        const duplicates = listA.filter((element) => listB.includes(element));
+        const cleanedDups = [...new Set(duplicates)];
+        setListAnBDups(cleanedDups.join("\r\n"));
+        setDuplicatesLines(cleanedDups.length);
+
+        // All items
+        const listAuB = listDataAArr.concat(listDataBArr);
+        const list = listAuB.filter((listItem) => listItem.length > 0);
+        const cleanedAuBList = list.filter(
+          (val, index) => listAuB.indexOf(val) === index
+        );
+        setListDataAuB(cleanedAuBList.join("\r\n"));
+        setAuBLines(cleanedAuBList.length);
+      } else if (
+        !caseSensitive &&
+        !ignoreBeginSpaces &&
+        ignoreExtraSpaces &&
+        !ignoreLeadingZeros
+      ) {
+        // Make Array
+        const listDataAArr = listDataA
+          .toLowerCase()
+          .replace(/\r\n/gm, "\n")
+          .split("\n");
+
+        const listDataBArr = listDataB
+          .toLowerCase()
+          .replace(/\r\n/gm, "\n")
+          .split("\n");
+
+        // Remove extra spaces
+        const listAA = listDataAArr.map((item) => item.replace(/\s{2,}/g, " "));
+        const listBB = listDataBArr.map((item) => item.replace(/\s{2,}/g, " "));
+
+        // Filter empty values
+        const listA = listAA.filter((item) => item.length > 0);
+        const listB = listBB.filter((item) => item.length > 0);
+
+        // List data A only
+        const listAOnly = listA.filter((val) => !listB.includes(val));
+        const newListA = [...new Set(listAOnly)];
+
+        setListDataAOnly(listAOnly.join("\n"));
+        setAOnlyLines(newListA.length);
+
+        // List data B only
+        const listBOnly = listB.filter((val) => !listA.includes(val));
+        const newListB = [...new Set(listBOnly)];
+
+        setListDataBOnly(newListB.join("\r\n"));
+        setOnlyBLines(newListB.length);
+
+        // Check for duplicates
+        const duplicates = listA.filter((element) => listB.includes(element));
+        const cleanedDups = [...new Set(duplicates)];
+        setListAnBDups(cleanedDups.join("\r\n"));
+        setDuplicatesLines(cleanedDups.length);
+
+        // All items
+        const listAuB = listAA.concat(listBB);
+        const list = listAuB.filter((listItem) => listItem.length > 0);
+        const cleanedAuBList = list.filter(
+          (val, index) => listAuB.indexOf(val) === index
+        );
+        setListDataAuB(cleanedAuBList.join("\r\n"));
+        setAuBLines(cleanedAuBList.length);
+      } else if (
+        caseSensitive &&
+        ignoreBeginSpaces &&
+        ignoreExtraSpaces &&
+        ignoreLeadingZeros
+      ) {
+        // Make Array
+        const listDataAArr = listDataA
+          .replace(/\r\n\s/gm, "\n")
+          .split("\n")
+          .map((el) => el.trim());
+
+        const listDataBArr = listDataB
+          .replace(/\r\n\s/gm, "\n")
+          .split("\n")
+          .map((el) => el.trim());
+
+        // Remove extra spaces
+        const listAA = listDataAArr.map((item) =>
+          item.replace(/\s{2,}|^0+/g, " ").trim()
+        );
+        const listBB = listDataBArr.map((item) =>
+          item.replace(/\s{2,}|^0+/g, " ").trim()
+        );
+
+        // Filter empty values
+        const listA = listAA.filter((item) => item.length > 0);
+        const listB = listBB.filter((item) => item.length > 0);
+
+        // List data A only
+        const listAOnly = listA.filter((val) => !listB.includes(val));
+        const newListA = [...new Set(listAOnly)];
+
+        setListDataAOnly(listAOnly.join("\n"));
+        setAOnlyLines(newListA.length);
+
+        // List data B only
+        const listBOnly = listB.filter((val) => !listA.includes(val));
+        const newListB = [...new Set(listBOnly)];
+
+        setListDataBOnly(newListB.join("\r\n"));
+        setOnlyBLines(newListB.length);
+
+        // Check for duplicates
+        const duplicates = listA.filter((element) => listB.includes(element));
+        const cleanedDups = [...new Set(duplicates)];
+        setListAnBDups(cleanedDups.join("\r\n"));
+        setDuplicatesLines(cleanedDups.length);
+
+        // All items
+        const listAuB = listAA.concat(listBB);
+        const list = listAuB.filter((listItem) => listItem.length > 0);
+        const cleanedAuBList = list.filter(
+          (val, index) => listAuB.indexOf(val) === index
+        );
+        setListDataAuB(cleanedAuBList.join("\r\n"));
+        setAuBLines(cleanedAuBList.length);
+      } else if (
+        !caseSensitive &&
+        ignoreBeginSpaces &&
+        ignoreExtraSpaces &&
+        ignoreLeadingZeros
+      ) {
+        // Make Array
+        const listDataAArr = listDataA
+          .toLowerCase()
+          .replace(/\r\n\s/gm, "\n")
+          .split("\n")
+          .map((el) => el.trim());
+
+        const listDataBArr = listDataB
+          .toLowerCase()
+          .replace(/\r\n\s/gm, "\n")
+          .split("\n")
+          .map((el) => el.trim());
+
+        // Remove extra spaces
+        const listAA = listDataAArr.map((item) =>
+          item.replace(/\s{2,}|^0+/g, " ").trim()
+        );
+        const listBB = listDataBArr.map((item) =>
+          item.replace(/\s{2,}|^0+/g, " ").trim()
+        );
+
+        // Filter empty values
+        const listA = listAA.filter((item) => item.length > 0);
+        const listB = listBB.filter((item) => item.length > 0);
+
+        // List data A only
+        const listAOnly = listA.filter((val) => !listB.includes(val));
+        const newListA = [...new Set(listAOnly)];
+
+        setListDataAOnly(listAOnly.join("\n"));
+        setAOnlyLines(newListA.length);
+
+        // List data B only
+        const listBOnly = listB.filter((val) => !listA.includes(val));
+        const newListB = [...new Set(listBOnly)];
+
+        setListDataBOnly(newListB.join("\r\n"));
+        setOnlyBLines(newListB.length);
+
+        // Check for duplicates
+        const duplicates = listA.filter((element) => listB.includes(element));
+        const cleanedDups = [...new Set(duplicates)];
+        setListAnBDups(cleanedDups.join("\r\n"));
+        setDuplicatesLines(cleanedDups.length);
+
+        // All items
+        const listAuB = listAA.concat(listBB);
+        const list = listAuB.filter((listItem) => listItem.length > 0);
+        const cleanedAuBList = list.filter(
+          (val, index) => listAuB.indexOf(val) === index
+        );
+        setListDataAuB(cleanedAuBList.join("\r\n"));
+        setAuBLines(cleanedAuBList.length);
+      } else if (
+        !caseSensitive &&
+        !ignoreBeginSpaces &&
+        ignoreExtraSpaces &&
+        ignoreLeadingZeros
+      ) {
+        // Make Array
+        const listDataAArr = listDataA
+          .toLowerCase()
+          .replace(/\r\n\s/gm, "\n")
+          .split("\n");
+        // .map((el) => el.trim());
+
+        const listDataBArr = listDataB
+          .toLowerCase()
+          .replace(/\r\n\s/gm, "\n")
+          .split("\n");
+        // .map((el) => el.trim());
+
+        // Remove extra spaces
+        const listAA = listDataAArr.map((item) =>
+          item.trim().replace(/\s{2,}|^0+/g, " ")
+        );
+        const listBB = listDataBArr.map((item) =>
+          item.trim().replace(/\s{2,}|^0+/g, " ")
+        );
+
+        // Filter empty values
+        const listA = listAA.filter((item) => item.length > 0);
+        const listB = listBB.filter((item) => item.length > 0);
+
+        // List data A only
+        const listAOnly = listA.filter((val) => !listB.includes(val));
+        const newListA = [...new Set(listAOnly)];
+
+        setListDataAOnly(listAOnly.join("\n"));
+        setAOnlyLines(newListA.length);
+
+        // List data B only
+        const listBOnly = listB.filter((val) => !listA.includes(val));
+        const newListB = [...new Set(listBOnly)];
+
+        setListDataBOnly(newListB.join("\r\n"));
+        setOnlyBLines(newListB.length);
+
+        // Check for duplicates
+        const duplicates = listA.filter((element) => listB.includes(element));
+        const cleanedDups = [...new Set(duplicates)];
+        setListAnBDups(cleanedDups.join("\r\n"));
+        setDuplicatesLines(cleanedDups.length);
+
+        // All items
+        const listAuB = listAA.concat(listBB);
+        const list = listAuB.filter((listItem) => listItem.length > 0);
+        const cleanedAuBList = list.filter(
+          (val, index) => listAuB.indexOf(val) === index
+        );
+        setListDataAuB(cleanedAuBList.join("\r\n"));
+        setAuBLines(cleanedAuBList.length);
+      } else if (
+        !caseSensitive &&
+        !ignoreBeginSpaces &&
+        !ignoreExtraSpaces &&
+        ignoreLeadingZeros
+      ) {
+        // Make Array
+        const listDataAArr = listDataA.replace(/\r\n\s/gm, "\n").split("\n");
+        // .map((el) => el.trim());
+
+        const listDataBArr = listDataB.replace(/\r\n\s/gm, "\n").split("\n");
+        // .map((el) => el.trim());
+
+        // Remove extra spaces
+        const listAA = listDataAArr.map((item) =>
+          item.trim().replace(/^0+/g, " ")
+        );
+        const listBB = listDataBArr.map((item) =>
+          item.trim().replace(/^0+/g, " ")
+        );
+
+        // Filter empty values
+        const listA = listAA.filter((item) => item.length > 0);
+        const listB = listBB.filter((item) => item.length > 0);
+
+        // List data A only
+        const listAOnly = listA.filter((val) => !listB.includes(val));
+        const newListA = [...new Set(listAOnly)];
+
+        setListDataAOnly(listAOnly.join("\n"));
+        setAOnlyLines(newListA.length);
+
+        // List data B only
+        const listBOnly = listB.filter((val) => !listA.includes(val));
+        const newListB = [...new Set(listBOnly)];
+
+        setListDataBOnly(newListB.join("\r\n"));
+        setOnlyBLines(newListB.length);
+
+        // Check for duplicates
+        const duplicates = listA.filter((element) => listB.includes(element));
+        const cleanedDups = [...new Set(duplicates)];
+        setListAnBDups(cleanedDups.join("\r\n"));
+        setDuplicatesLines(cleanedDups.length);
+
+        // All items
+        const listAuB = listAA.concat(listBB);
+        const list = listAuB.filter((listItem) => listItem.length > 0);
+        const cleanedAuBList = list.filter(
+          (val, index) => listAuB.indexOf(val) === index
+        );
+        setListDataAuB(cleanedAuBList.join("\r\n"));
+        setAuBLines(cleanedAuBList.length);
+      } else if (
+        caseSensitive &&
+        !ignoreBeginSpaces &&
+        !ignoreExtraSpaces &&
+        ignoreLeadingZeros
+      ) {
+        // Make Array
+        const listDataAArr = listDataA.replace(/\r\n\s/gm, "\n").split("\n");
+        // .map((el) => el.trim());
+
+        const listDataBArr = listDataB.replace(/\r\n\s/gm, "\n").split("\n");
+        // .map((el) => el.trim());
+
+        // Remove extra spaces
+        const listAA = listDataAArr.map((item) =>
+          item.trim().replace(/^0+/g, " ")
+        );
+        const listBB = listDataBArr.map((item) =>
+          item.trim().replace(/^0+/g, " ")
+        );
+
+        // Filter empty values
+        const listA = listAA.filter((item) => item.length > 0);
+        const listB = listBB.filter((item) => item.length > 0);
+
+        // List data A only
+        const listAOnly = listA.filter((val) => !listB.includes(val));
+        const newListA = [...new Set(listAOnly)];
+
+        setListDataAOnly(listAOnly.join("\n"));
+        setAOnlyLines(newListA.length);
+
+        // List data B only
+        const listBOnly = listB.filter((val) => !listA.includes(val));
+        const newListB = [...new Set(listBOnly)];
+
+        setListDataBOnly(newListB.join("\r\n"));
+        setOnlyBLines(newListB.length);
+
+        // Check for duplicates
+        const duplicates = listA.filter((element) => listB.includes(element));
+        const cleanedDups = [...new Set(duplicates)];
+        setListAnBDups(cleanedDups.join("\r\n"));
+        setDuplicatesLines(cleanedDups.length);
+
+        // All items
+        const listAuB = listAA.concat(listBB);
+        const list = listAuB.filter((listItem) => listItem.length > 0);
+        const cleanedAuBList = list.filter(
+          (val, index) => listAuB.indexOf(val) === index
+        );
+        setListDataAuB(cleanedAuBList.join("\r\n"));
+        setAuBLines(cleanedAuBList.length);
+      } else if (
+        caseSensitive &&
+        ignoreBeginSpaces &&
+        !ignoreExtraSpaces &&
+        ignoreLeadingZeros
+      ) {
+        // Make Array
+        const listDataAArr = listDataA
+          .replace(/\r\n\s/gm, "\n")
+          .split("\n")
+          .map((el) => el.trim());
+
+        const listDataBArr = listDataB
+          .replace(/\r\n\s/gm, "\n")
+          .split("\n")
+          .map((el) => el.trim());
+
+        // Remove extra spaces
+        const listAA = listDataAArr.map((item) =>
+          item.replace(/^0+/g, " ").trim()
+        );
+        const listBB = listDataBArr.map((item) =>
+          item.replace(/^0+/g, " ").trim()
+        );
+
+        // Filter empty values
+        const listA = listAA.filter((item) => item.length > 0);
+        const listB = listBB.filter((item) => item.length > 0);
+
+        // List data A only
+        const listAOnly = listA.filter((val) => !listB.includes(val));
+        const newListA = [...new Set(listAOnly)];
+
+        setListDataAOnly(listAOnly.join("\n"));
+        setAOnlyLines(newListA.length);
+
+        // List data B only
+        const listBOnly = listB.filter((val) => !listA.includes(val));
+        const newListB = [...new Set(listBOnly)];
+
+        setListDataBOnly(newListB.join("\r\n"));
+        setOnlyBLines(newListB.length);
+
+        // Check for duplicates
+        const duplicates = listA.filter((element) => listB.includes(element));
+        const cleanedDups = [...new Set(duplicates)];
+        setListAnBDups(cleanedDups.join("\r\n"));
+        setDuplicatesLines(cleanedDups.length);
+
+        // All items
+        const listAuB = listAA.concat(listBB);
+        const list = listAuB.filter((listItem) => listItem.length > 0);
+        const cleanedAuBList = list.filter(
+          (val, index) => listAuB.indexOf(val) === index
+        );
+        setListDataAuB(cleanedAuBList.join("\r\n"));
+        setAuBLines(cleanedAuBList.length);
+      } else if (
+        !caseSensitive &&
+        ignoreBeginSpaces &&
+        !ignoreExtraSpaces &&
+        ignoreLeadingZeros
+      ) {
+        // Make Array
+        const listDataAArr = listDataA
+          .toLowerCase()
+          .replace(/\r\n\s/gm, "\n")
+          .split("\n")
+          .map((el) => el.trim());
+
+        const listDataBArr = listDataB
+          .toLowerCase()
+          .replace(/\r\n\s/gm, "\n")
+          .split("\n")
+          .map((el) => el.trim());
+
+        // Remove extra spaces
+        const listAA = listDataAArr.map((item) =>
+          item.replace(/^0+/g, " ").trim()
+        );
+        const listBB = listDataBArr.map((item) =>
+          item.replace(/^0+/g, " ").trim()
+        );
+
+        // Filter empty values
+        const listA = listAA.filter((item) => item.length > 0);
+        const listB = listBB.filter((item) => item.length > 0);
+
+        // List data A only
+        const listAOnly = listA.filter((val) => !listB.includes(val));
+        const newListA = [...new Set(listAOnly)];
+
+        setListDataAOnly(listAOnly.join("\n"));
+        setAOnlyLines(newListA.length);
+
+        // List data B only
+        const listBOnly = listB.filter((val) => !listA.includes(val));
+        const newListB = [...new Set(listBOnly)];
+
+        setListDataBOnly(newListB.join("\r\n"));
+        setOnlyBLines(newListB.length);
+
+        // Check for duplicates
+        const duplicates = listA.filter((element) => listB.includes(element));
+        const cleanedDups = [...new Set(duplicates)];
+        setListAnBDups(cleanedDups.join("\r\n"));
+        setDuplicatesLines(cleanedDups.length);
+
+        // All items
+        const listAuB = listAA.concat(listBB);
+        const list = listAuB.filter((listItem) => listItem.length > 0);
+        const cleanedAuBList = list.filter(
+          (val, index) => listAuB.indexOf(val) === index
+        );
+        setListDataAuB(cleanedAuBList.join("\r\n"));
+        setAuBLines(cleanedAuBList.length);
+      } else if (
+        caseSensitive &&
+        !ignoreBeginSpaces &&
+        ignoreExtraSpaces &&
+        ignoreLeadingZeros
+      ) {
+        // Make Array
+        const listDataAArr = listDataA
+          // .toLowerCase()
+          .replace(/\r\n\s/gm, "\n")
+          .split("\n");
+        // .map((el) => el.trim());
+
+        const listDataBArr = listDataB
+          // .toLowerCase()
+          .replace(/\r\n\s/gm, "\n")
+          .split("\n");
+        // .map((el) => el.trim());
+
+        // Remove extra spaces
+        const listAA = listDataAArr.map((item) =>
+          item.trim().replace(/^0+/g, " ")
+        );
+        const listBB = listDataBArr.map((item) =>
+          item.trim().replace(/^0+/g, " ")
+        );
+
+        // Filter empty values
+        const listA = listAA.filter((item) => item.length > 0);
+        const listB = listBB.filter((item) => item.length > 0);
+
+        // List data A only
+        const listAOnly = listA.filter((val) => !listB.includes(val));
+        const newListA = [...new Set(listAOnly)];
+
+        setListDataAOnly(listAOnly.join("\n"));
+        setAOnlyLines(newListA.length);
+
+        // List data B only
+        const listBOnly = listB.filter((val) => !listA.includes(val));
+        const newListB = [...new Set(listBOnly)];
+
+        setListDataBOnly(newListB.join("\r\n"));
+        setOnlyBLines(newListB.length);
+
+        // Check for duplicates
+        const duplicates = listA.filter((element) => listB.includes(element));
+        const cleanedDups = [...new Set(duplicates)];
+        setListAnBDups(cleanedDups.join("\r\n"));
+        setDuplicatesLines(cleanedDups.length);
+
+        // All items
+        const listAuB = listAA.concat(listBB);
+        const list = listAuB.filter((listItem) => listItem.length > 0);
+        const cleanedAuBList = list.filter(
+          (val, index) => listAuB.indexOf(val) === index
+        );
+        setListDataAuB(cleanedAuBList.join("\r\n"));
+        setAuBLines(cleanedAuBList.length);
+      } else if (
+        caseSensitive &&
+        !ignoreBeginSpaces &&
+        ignoreExtraSpaces &&
+        ignoreLeadingZeros &&
+        lineNumbered
+      ) {
+        // Make Array
+        const listDataAArr = listDataA
+          // .toLowerCase()
+          .replace(/\r\n\s/gm, "\n")
+          .split("\n")
+          .map((el) => el.trim());
+
+        const listDataBArr = listDataB
+          // .toLowerCase()
+          .replace(/\r\n\s/gm, "\n")
+          .split("\n")
+          .map((el) => el.trim());
+
+        // Remove extra spaces
+        const listAA = listDataAArr.map((item) =>
+          item.trim().replace(/^0+/g, " ")
+        );
+        const listBB = listDataBArr.map((item) =>
+          item.trim().replace(/^0+/g, " ")
+        );
+
+        // Filter empty values
+        const listA = listAA.filter((item) => item.length > 0);
+        const listB = listBB.filter((item) => item.length > 0);
+
+        // List data A only
+        const listAOnly = listA.filter((val) => !listB.includes(val));
+        const newListA = [...new Set(listAOnly)];
+
+        setListDataAOnly(listAOnly.join("\n"));
+        setAOnlyLines(newListA.length);
+
+        // List data B only
+        const listBOnly = listB.filter((val) => !listA.includes(val));
+        const newListB = [...new Set(listBOnly)];
+
+        setListDataBOnly(newListB.join("\r\n"));
+        setOnlyBLines(newListB.length);
+
+        // Check for duplicates
+        const duplicates = listA.filter((el) => listB.includes(el));
+        const cleanedDups = [...new Set(duplicates)];
+        setListAnBDups(cleanedDups.join("\r\n"));
+        setDuplicatesLines(cleanedDups.length);
+
+        // All items
+        const listAuB = listAA.concat(listBB);
+        const list = listAuB.filter((listItem) => listItem.length > 0);
+        const cleanedAuBList = list.filter(
+          (val, index) => listAuB.indexOf(val) === index
+        );
+        setListDataAuB(cleanedAuBList.join("\r\n"));
+        setAuBLines(cleanedAuBList.length);
+      } else {
+        // Make Array
+        const listDataAArr = listDataA
+          .toLowerCase()
+          .replace(/\r\n/gm, "\n")
+          .split("\n");
+        // .map((el) => el.trim());
+
+        const listDataBArr = listDataB
+          .toLowerCase()
+          .replace(/\r\n/gm, "\n")
+          .split("\n");
+        // .map((el) => el.trim());
+
+        // Filter empty values
+        const listA = listDataAArr.filter((item) => item.length > 0);
+        const listB = listDataBArr.filter((item) => item.length > 0);
+
+        // List data A only
+        const listAOnly = listA.filter((val) => !listB.includes(val));
+        const newListA = [...new Set(listAOnly)];
+
+        setListDataAOnly(listAOnly.join("\n"));
+        setAOnlyLines(newListA.length);
+
+        // List data B only
+        const listBOnly = listB.filter((val) => !listA.includes(val));
+        const newListB = [...new Set(listBOnly)];
+
+        setListDataBOnly(newListB.join("\r\n"));
+        setOnlyBLines(newListB.length);
+
+        // Check for duplicates
+        const duplicates = listA.filter((element) => listB.includes(element));
+        const cleanedDups = [...new Set(duplicates)];
+        setListAnBDups(cleanedDups.join("\r\n"));
+        setDuplicatesLines(cleanedDups.length);
+
+        // All items
+        const listAuB = listDataAArr.concat(listDataBArr);
+        const list = listAuB.filter((listItem) => listItem.length > 0);
+        const cleanedAuBList = list.filter(
+          (val, index) => listAuB.indexOf(val) === index
+        );
+        setListDataAuB(cleanedAuBList.join("\r\n"));
+        setAuBLines(cleanedAuBList.length);
+      }
     }
   };
 
@@ -360,6 +1257,7 @@ const CompareLists = () => {
       setDuplicatesLines(newList.length);
     }
   };
+
   // Trim B Only Dups and Spaces
   const trimBOnlyDupsSpaces = () => {
     if (listDataBOnly) {
@@ -420,7 +1318,7 @@ const CompareLists = () => {
     }
   };
 
-  // Revers List A only
+  // Reverse List A only
   const reverseListAOnly = () => {
     if (listDataAOnly) {
       const data = listDataAOnly.split("\n").reverse();
@@ -428,7 +1326,7 @@ const CompareLists = () => {
     }
   };
 
-  // Revers List B only
+  // Reverse List B only
   const reverseListBOnly = () => {
     if (listDataBOnly) {
       const data = listDataBOnly.split("\n").reverse();
@@ -436,7 +1334,7 @@ const CompareLists = () => {
     }
   };
 
-  // Revers List AnB
+  // Reverse List AnB
   const reverseListAnB = () => {
     if (listAnBDups) {
       const data = listAnBDups.split("\n").reverse();
@@ -444,7 +1342,7 @@ const CompareLists = () => {
     }
   };
 
-  // Revers List AuB
+  // Reverse List AuB
   const reverseListAuB = () => {
     if (listDataAuB) {
       const data = listDataAuB.split("\n").reverse();
@@ -457,9 +1355,9 @@ const CompareLists = () => {
       fluid
       className="d-flex flex-column align-items-center justify-content-center p-5 "
     >
-      <Form className=" compare-lists-form w-100">
+      <Form className="compare-lists-form w-100">
         <Row className="d-md-flex gap-5 mb-5 ">
-          <Col>
+          <Col className={screenSize && "col-12"}>
             <FormInputCard
               cardStyles="green-shades-border-color"
               headerBarClassName="w-100 d-inline-flex justify-content-between p-3 green-shades-header-panel text-success"
@@ -470,9 +1368,7 @@ const CompareLists = () => {
               duplicates={listADuplicates}
               readOnlyTextareaStyles="d-none"
               textareaRows="10"
-              textareaStyles="p-2"
-              style={{ backgroundColor: { textareaABg } }}
-              // readOnlyAttr={true}
+              textareaStyles={"p-2"}
               data={listDataA}
               onChange={handleChange}
               buttonGroupStyles="w-100 d-flex justify-content-between d-flex p-2 gap-2"
@@ -659,7 +1555,14 @@ const CompareLists = () => {
               btnTip="Switch Desktop / Laptop View"
               toolTipStyles="tip-style rounded"
               btnStyleClass="btns "
-              icon={<LuLaptop2 className="fs-5" />}
+              icon={
+                !screenSize ? (
+                  <LuLaptop2 className="fs-5" />
+                ) : (
+                  <MdOutlineDesktopWindows className="fs-5" />
+                )
+              }
+              onClick={() => setScreenSize(!screenSize)}
             />
           </Col>
         </Row>
@@ -667,28 +1570,34 @@ const CompareLists = () => {
         {showOptions && (
           <Row className="mb-5 check-inputs-wrapper p-5">
             <Col className="d-flex flex-md-row flex-column ">
-              {/* <Form className="d-flex flex-row gap-1"> */}
               <div className=" d-flex flex-column mb-3 col-md-3 col-sm-8">
                 <Form.Check
-                  checked
                   type="checkbox"
                   label="Case Sensitive"
+                  checked={caseSensitive}
+                  value={caseSensitive}
                   className="d-inline-flex align-items-center gap-2"
-                  onChange={(e) => setIgnoreLeadingZero(e.target.checked)}
+                  onChange={(e) => setCaseSensitive(e.currentTarget.checked)}
                 />
                 <Form.Check
-                  checked
+                  checked={ignoreBeginSpaces}
                   type="checkbox"
                   label="Ignore Begin End Spaces"
                   className="d-inline-flex align-items-center gap-2"
-                  onChange={(e) => setIgnoreLeadingZero(e.target.checked)}
+                  value={ignoreBeginSpaces}
+                  onChange={(e) =>
+                    setIgnoreBeginSpaces(e.currentTarget.checked)
+                  }
                 />
                 <Form.Check
-                  checked
                   type="checkbox"
                   label="Ignore Extra Spaces"
                   className="d-inline-flex align-items-center gap-2"
-                  onChange={(e) => setIgnoreLeadingZero(e.target.checked)}
+                  checked={ignoreExtraSpaces}
+                  value={ignoreExtraSpaces}
+                  onChange={(e) =>
+                    setIgnoreExtraSpaces(e.currentTarget.checked)
+                  }
                 />
               </div>
 
@@ -697,9 +1606,13 @@ const CompareLists = () => {
                 <div className="d-flex flex-column mb-1">
                   <Form.Check
                     type="checkbox"
-                    label="Ignore Leading Zeroes"
                     className="d-inline-flex align-items-center gap-2 "
-                    onChange={(e) => setIgnoreLeadingZero(e.target.checked)}
+                    label="Ignore Leading Zeroes"
+                    checked={ignoreLeadingZeros}
+                    value={ignoreLeadingZeros}
+                    onChange={(e) =>
+                      setIgnoreLeadingZeros(e.currentTarget.checked)
+                    }
                   />
                 </div>
 
@@ -709,7 +1622,9 @@ const CompareLists = () => {
                     type="checkbox"
                     label="Line Numbered"
                     className="d-inline-flex align-items-center gap-2"
-                    onChange={(e) => setIgnoreLeadingZero(e.target.checked)}
+                    checked={lineNumbered}
+                    value={lineNumbered}
+                    onChange={(e) => setLineNumbered(e.currentTarget.checked)}
                   />
                 </div>
               </div>
@@ -718,12 +1633,13 @@ const CompareLists = () => {
               <div className="col-md-3 col-sm-12 mb-3 ">
                 <div className="ps-4 bg-body-secondary rounded border border-secondary-subtle border-2">
                   <Form.Select
-                    onChange={(e) => setIgnoreLeadingZero(e.target.value)}
+                    onChange={(e) => setSortOptions(e.target.value)}
                     className="p-2 rounded-0"
+                    // defaultValue={sortOptions}
                   >
-                    <option>No Sort</option>
-                    <option>Sort A - z </option>
-                    <option>Sort Z - a </option>
+                    <option value="no-sort">No Sort</option>
+                    <option value="az">Sort A - z </option>
+                    <option value="za">Sort Z - a </option>
                   </Form.Select>
                 </div>
 
@@ -732,22 +1648,21 @@ const CompareLists = () => {
                     onChange={(e) => setIgnoreLeadingZero(e.target.value)}
                     className="p-2 rounded-0"
                   >
-                    <option>No Change</option>
-                    <option>Capitalize</option>
-                    <option>Uppercase</option>
-                    <option>Lowercase</option>
+                    <option value="No-change">No Change</option>
+                    <option value="Capitalize">Capitalize</option>
+                    <option value="uppercase">Uppercase</option>
+                    <option value="lowercase">Lowercase</option>
                   </Form.Select>
                 </div>
               </div>
-              {/* </Form> */}
             </Col>
           </Row>
         )}
 
         {/* Only  */}
 
-        <Row className="d-flex align-items-center justify-content-between  gap-4 mb-5 only-wrapper ">
-          <Col className="d-flex mb-3">
+        <Row className="d-flex align-items-center justify-content-between  gap-4 mb-5 only-wrapper">
+          <Col className={screenSize ? "col-12 mb-3" : "mb-3"}>
             <FormInputCard
               cardStyles="only-cards w-100 blue-shades-border-color"
               headerBarClassName="w-100 d-inline-flex justify-content-between p-3 blue-shades-header-panel"
@@ -805,7 +1720,7 @@ const CompareLists = () => {
               }
             />
           </Col>
-          <Col className=" mb-3">
+          <Col className={screenSize ? "col-12 mb-3" : "mb-3"}>
             <FormInputCard
               cardStyles="only-cards"
               headerBarClassName="w-100 d-inline-flex justify-content-between p-3 red-shades-header-panel"
@@ -863,7 +1778,7 @@ const CompareLists = () => {
               }
             />
           </Col>
-          <Col className=" mb-3">
+          <Col className={screenSize ? "col-12 mb-3" : "mb-3"}>
             <FormInputCard
               cardStyles="only-cards blue-shades-border-color"
               headerBarClassName="w-100 d-inline-flex justify-content-between p-3 blue-shades-header-panel"
@@ -922,10 +1837,14 @@ const CompareLists = () => {
             />
           </Col>
         </Row>
-        <Row className="mb-5 aub-wrapper ">
-          <Col xs={12} className="position-relative">
+        <Row className="mb-5">
+          <Col className="d-flex align-items-center justify-content-center">
             <FormInputCard
-              cardStyles="bottom-only-card only-cards  green-shades-border-color position-absolute bottom-0 start-50 translate-middle-x "
+              cardStyles={
+                screenSize
+                  ? "bottom-only-card only-cards  green-shades-border-color w-100"
+                  : "bottom-only-card only-cards  green-shades-border-color "
+              }
               headerBarClassName="w-100 d-inline-flex justify-content-between p-3 green-shades-header-panel text-success"
               listTitle="A u B"
               linesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold px-2 py-1 green-shades-lines "

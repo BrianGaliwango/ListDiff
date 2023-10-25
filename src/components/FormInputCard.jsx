@@ -51,7 +51,7 @@ const FormInputCard = ({
   checkedOnChange,
   selectOnChange,
   textareaBgColor,
-  style
+  numberofLines
 }) => {
   return (
     <Card className={cardStyles}>
@@ -101,8 +101,6 @@ const FormInputCard = ({
           placeholder={textAreaPlaceholder}
           value={data}
           onChange={onChange}
-          style={style}
-          // onClick={onClick}
         />
 
         <Form.Control
