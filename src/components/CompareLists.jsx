@@ -416,7 +416,7 @@ const CompareLists = () => {
         // Check for duplicates
         const duplicates = listA.filter((element) => listB.includes(element));
         const cleanedDups = [...new Set(duplicates)];
-        
+
         // All items
         const listAuB = listAA.concat(listBB);
         const list = listAuB.filter((listItem) => listItem.length > 0);
@@ -662,9 +662,9 @@ const CompareLists = () => {
           setListAnBDups(cleanedDups.join("\n"));
           setListDataBOnly(newListB.join("\n"));
           setListDataAuB(cleanedAuBList.join("\r\n"));
-        }        
+        }
         setDuplicatesLines(cleanedDups.length);
-        setAOnlyLines(newListA.length);        
+        setAOnlyLines(newListA.length);
         setOnlyBLines(newListB.length);
         setAuBLines(cleanedAuBList.length);
       } else if (
@@ -820,9 +820,13 @@ const CompareLists = () => {
           // ListB
           const sortedListB = newListB.map((el) => el.toLowerCase()).sort();
           // List AnB
-          const sortedListAnB = cleanedDups.map((el) => el.toLowerCase()).sort();
+          const sortedListAnB = cleanedDups
+            .map((el) => el.toLowerCase())
+            .sort();
           // List Aub
-          const sortedListAuB = cleanedAuBList.map((el) => el.toLowerCase()).sort();
+          const sortedListAuB = cleanedAuBList
+            .map((el) => el.toLowerCase())
+            .sort();
 
           setListDataAOnly(sortedListA.join("\n"));
           setListAnBDups(sortedListAnB.join("\n"));
@@ -935,10 +939,10 @@ const CompareLists = () => {
           setListAnBDups(cleanedDups.join("\n"));
           setListDataBOnly(newListB.join("\n"));
           setListDataAuB(cleanedAuBList.join("\r\n"));
-        }                
+        }
         setAOnlyLines(newListA.length);
         setOnlyBLines(newListB.length);
-        setDuplicatesLines(cleanedDups.length);       
+        setDuplicatesLines(cleanedDups.length);
         setAuBLines(cleanedAuBList.length);
       } else if (
         caseSensitive &&
@@ -963,7 +967,7 @@ const CompareLists = () => {
 
         // List data A only
         const listAOnly = listA.filter((val) => !listB.includes(val));
-        const newListA = [...new Set(listAOnly)];       
+        const newListA = [...new Set(listAOnly)];
         // List data B only
         const listBOnly = listB.filter((val) => !listA.includes(val));
         const newListB = [...new Set(listBOnly)];
@@ -1099,9 +1103,13 @@ const CompareLists = () => {
           // ListB
           const sortedListB = newListB.map((el) => el.toLowerCase()).sort();
           // List AnB
-          const sortedListAnB = cleanedDups.map((el) => el.toLowerCase()).sort();
+          const sortedListAnB = cleanedDups
+            .map((el) => el.toLowerCase())
+            .sort();
           // List Aub
-          const sortedListAuB = cleanedAuBList.map((el) => el.toLowerCase()).sort();
+          const sortedListAuB = cleanedAuBList
+            .map((el) => el.toLowerCase())
+            .sort();
 
           setListDataAOnly(sortedListA.join("\n"));
           setListAnBDups(sortedListAnB.join("\n"));
@@ -1214,7 +1222,7 @@ const CompareLists = () => {
           setListAnBDups(cleanedDups.join("\n"));
           setListDataBOnly(newListB.join("\n"));
           setListDataAuB(cleanedAuBList.join("\r\n"));
-        }        
+        }
         setDuplicatesLines(cleanedDups.length);
         setAOnlyLines(newListA.length);
         setOnlyBLines(newListB.length);
@@ -1250,21 +1258,13 @@ const CompareLists = () => {
         const listAOnly = listA.filter((val) => !listB.includes(val));
         const newListA = [...new Set(listAOnly)];
 
-        setListDataAOnly(listAOnly.join("\n"));
-        setAOnlyLines(newListA.length);
-
         // List data B only
         const listBOnly = listB.filter((val) => !listA.includes(val));
         const newListB = [...new Set(listBOnly)];
 
-        setListDataBOnly(newListB.join("\r\n"));
-        setOnlyBLines(newListB.length);
-
         // Check for duplicates
         const duplicates = listA.filter((element) => listB.includes(element));
         const cleanedDups = [...new Set(duplicates)];
-        setListAnBDups(cleanedDups.join("\r\n"));
-        setDuplicatesLines(cleanedDups.length);
 
         // All items
         const listAuB = listAA.concat(listBB);
@@ -1272,7 +1272,254 @@ const CompareLists = () => {
         const cleanedAuBList = list.filter(
           (val, index) => listAuB.indexOf(val) === index
         );
-        setListDataAuB(cleanedAuBList.join("\r\n"));
+
+        // Sort and Case options
+        if (sortOptions === "no-sort" && caseOptions === "capitalize") {
+          // List A
+          const lowercaseList = newListA.map((el) => el.toLowerCase());
+          const capitalizedList = lowercaseList.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List AnB
+          const lowercaseAnB = cleanedDups.map((el) => el.toLowerCase());
+          const capitalizedAnB = lowercaseAnB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List B
+          const lowercaseB = newListB.map((el) => el.toLowerCase());
+          const capitalizedListB = lowercaseB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // Both list
+          const lowercaseAuB = cleanedAuBList.map((el) => el.toLowerCase());
+          const capitalizedAuB = lowercaseAuB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+
+          setListDataAOnly(capitalizedList.join("\n"));
+          setListAnBDups(capitalizedAnB.join("\n"));
+          setListDataBOnly(capitalizedListB.join("\r\n"));
+          setListDataAuB(capitalizedAuB.join("\n"));
+        } else if (sortOptions === "no-sort" && caseOptions === "uppercase") {
+          // List A
+          const capitalizedList = newListA.map((el) => el.toUpperCase());
+          // List AnB
+          const lowercaseAnB = cleanedDups.map((el) => el.toUpperCase());
+          // List B
+          const uppercaseListB = newListB.map((el) => el.toUpperCase());
+          // Both list
+          const uppercaseAuB = cleanedAuBList.map((el) => el.toUpperCase());
+
+          setListDataAOnly(capitalizedList.join("\n"));
+          setListAnBDups(lowercaseAnB.join("\n"));
+          setListDataBOnly(uppercaseListB.join("\n"));
+          setListDataAuB(uppercaseAuB.join("\n"));
+        } else if (sortOptions === "no-sort" && caseOptions === "lowercase") {
+          // List A
+          const lowercaseListA = newListA.map((el) => el.toLowerCase());
+          // List AnB
+          const lowercaseAnB = cleanedDups.map((el) => el.toLowerCase());
+          // List B
+          const lowercaseListB = newListB.map((el) => el.toLowerCase());
+          // Both list
+          const lowercaseAuB = cleanedAuBList.map((el) => el.toLowerCase());
+
+          setListDataAOnly(lowercaseListA.join("\n"));
+          setListAnBDups(lowercaseAnB.join("\n"));
+          setListDataBOnly(lowercaseListB.join("\n"));
+          setListDataAuB(lowercaseAuB.join("\n"));
+        } else if (sortOptions === "az" && caseOptions === "no-change") {
+          // List A
+          const sortedListA = newListA.sort();
+          // List AnB
+          const sortedListDups = cleanedDups.sort();
+          // List B
+          const sortedListB = newListB.sort();
+          // Both list
+          const sortedListAuB = cleanedAuBList.sort();
+
+          setListDataAOnly(sortedListA.join("\n"));
+          setListAnBDups(sortedListDups.join("\n"));
+          setListDataBOnly(sortedListB.join("\n"));
+          setListDataAuB(sortedListAuB.join("\n"));
+        } else if (sortOptions === "az" && caseOptions === "capitalize") {
+          // List A
+          const sortedList = newListA.map((el) => el.toLowerCase()).sort();
+          const capitalizedList = sortedList.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List B
+          const sortedListBCaps = newListB.map((el) => el.toLowerCase()).sort();
+          const capitalizedListBCaps = sortedListBCaps.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List AnB
+          const sortedListDupsCaps = cleanedDups
+            .map((el) => el.toLowerCase())
+            .sort();
+          const listDupsCaps = sortedListDupsCaps.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List AuB
+          const sortedListAuB = cleanedAuBList
+            .map((el) => el.toLowerCase())
+            .sort();
+          const capitalizedListAuB = sortedListAuB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+
+          setListDataAOnly(capitalizedList.join("\n"));
+          setListAnBDups(listDupsCaps.join("\n"));
+          setListDataBOnly(capitalizedListBCaps.join("\n"));
+          setListDataAuB(capitalizedListAuB.join("\n"));
+        } else if (sortOptions === "az" && caseOptions === "uppercase") {
+          // List A
+          const sortedListA = newListA.map((el) => el.toUpperCase()).sort();
+          // List B
+          const sortedListB = newListB.map((el) => el.toUpperCase()).sort();
+          // List AnB
+          const sortedListAnB = cleanedDups
+            .map((el) => el.toUpperCase())
+            .sort();
+          // List Aub
+          const sortedListAuB = cleanedAuBList
+            .map((el) => el.toUpperCase())
+            .sort();
+
+          setListDataAOnly(sortedListA.join("\n"));
+          setListAnBDups(sortedListAnB.join("\n"));
+          setListDataBOnly(sortedListB.join("\n"));
+          setListDataAuB(sortedListAuB.join("\n"));
+        } else if (sortOptions === "az" && caseOptions === "lowercase") {
+          // List A
+          const sortedListA = newListA.map((el) => el.toLowerCase()).sort();
+          // ListB
+          const sortedListB = newListB.map((el) => el.toLowerCase()).sort();
+          // List AnB
+          const sortedListAnB = cleanedDups
+            .map((el) => el.toLowerCase())
+            .sort();
+          // List Aub
+          const sortedListAuB = cleanedAuBList
+            .map((el) => el.toLowerCase())
+            .sort();
+
+          setListDataAOnly(sortedListA.join("\n"));
+          setListAnBDups(sortedListAnB.join("\n"));
+          setListDataBOnly(sortedListB.join("\n"));
+          setListDataAuB(sortedListAuB.join("\n"));
+        } else if (sortOptions === "za" && caseOptions === "no-change") {
+          // List A
+          const descSortedListA = newListA.sort().reverse();
+          // List B
+          const descSortedListB = newListB.sort().reverse();
+          // List Dups
+          const descSortedListAnB = cleanedDups.sort().reverse();
+          // List AuB
+          const descSortedList = cleanedAuBList.sort().reverse();
+
+          setListDataAOnly(descSortedListA.join("\n"));
+          setListAnBDups(descSortedListAnB.join("\n"));
+          setListDataBOnly(descSortedListB.join("\n"));
+          setListDataAuB(descSortedList.join("\n"));
+        } else if (sortOptions === "za" && caseOptions === "capitalize") {
+          const descSortedListA = newListA
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          const capitalizedListA = descSortedListA.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List B
+          const descSortedListB = newListB
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          const capitalizedListB = descSortedListB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List Dups
+          const descSortedListDups = cleanedDups
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          const capitalizedListDups = descSortedListDups.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List AuB
+          const descSortedListAuB = cleanedAuBList
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          const capitalizedListAuB = descSortedListAuB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          setListDataAOnly(capitalizedListA.join("\n"));
+          setListAnBDups(capitalizedListDups.join("\n"));
+          setListDataBOnly(capitalizedListB.join("\n"));
+          setListDataAuB(capitalizedListAuB.join("\n"));
+        } else if (sortOptions === "za" && caseOptions === "uppercase") {
+          // List A
+          const descSortedListA = newListA
+            .map((el) => el.toUpperCase())
+            .sort()
+            .reverse();
+          // List B
+          const descSortedListB = newListB
+            .map((el) => el.toUpperCase())
+            .sort()
+            .reverse();
+          // List Dups
+          const descSortedListDups = cleanedDups
+            .map((el) => el.toUpperCase())
+            .sort()
+            .reverse();
+          // List AuB
+          const descSortedListAuB = cleanedAuBList
+            .map((el) => el.toUpperCase())
+            .sort()
+            .reverse();
+
+          setListDataAOnly(descSortedListA.join("\n"));
+          setListAnBDups(descSortedListDups.join("\n"));
+          setListDataAuB(descSortedListAuB.join("\n"));
+          setListDataBOnly(descSortedListB.join("\n"));
+        } else if (sortOptions === "za" && caseOptions === "lowercase") {
+          // List A
+          const descSortedListA = newListA
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          // List B
+          const descSortedListB = newListB
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          // List Dups
+          const descSortedListDups = cleanedDups
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          // List AuB
+          const descSortedListAuB = cleanedAuBList
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+
+          setListDataAOnly(descSortedListA.join("\n"));
+          setListAnBDups(descSortedListDups.join("\n"));
+          setListDataBOnly(descSortedListB.join("\n"));
+          setListDataAuB(descSortedListAuB.join("\n"));
+        } else {
+          setListDataAOnly(newListA.join("\n"));
+          setListAnBDups(cleanedDups.join("\n"));
+          setListDataBOnly(newListB.join("\n"));
+          setListDataAuB(cleanedAuBList.join("\r\n"));
+        }
+
+        setAOnlyLines(newListA.length);
+        setDuplicatesLines(cleanedDups.length);
+        setOnlyBLines(newListB.length);
         setAuBLines(cleanedAuBList.length);
       } else if (
         ignoreBeginSpaces &&
@@ -1301,21 +1548,13 @@ const CompareLists = () => {
         const listAOnly = listA.filter((val) => !listB.includes(val));
         const newListA = [...new Set(listAOnly)];
 
-        setListDataAOnly(listAOnly.join("\n"));
-        setAOnlyLines(newListA.length);
-
         // List data B only
         const listBOnly = listB.filter((val) => !listA.includes(val));
         const newListB = [...new Set(listBOnly)];
 
-        setListDataBOnly(newListB.join("\r\n"));
-        setOnlyBLines(newListB.length);
-
         // Check for duplicates
         const duplicates = listA.filter((element) => listB.includes(element));
         const cleanedDups = [...new Set(duplicates)];
-        setListAnBDups(cleanedDups.join("\r\n"));
-        setDuplicatesLines(cleanedDups.length);
 
         // All items
         const listAuB = listDataAArr.concat(listDataBArr);
@@ -1323,7 +1562,254 @@ const CompareLists = () => {
         const cleanedAuBList = list.filter(
           (val, index) => listAuB.indexOf(val) === index
         );
-        setListDataAuB(cleanedAuBList.join("\r\n"));
+
+        // Sort and Case options
+        if (sortOptions === "no-sort" && caseOptions === "capitalize") {
+          // List A
+          const lowercaseList = newListA.map((el) => el.toLowerCase());
+          const capitalizedList = lowercaseList.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List AnB
+          const lowercaseAnB = cleanedDups.map((el) => el.toLowerCase());
+          const capitalizedAnB = lowercaseAnB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List B
+          const lowercaseB = newListB.map((el) => el.toLowerCase());
+          const capitalizedListB = lowercaseB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // Both list
+          const lowercaseAuB = cleanedAuBList.map((el) => el.toLowerCase());
+          const capitalizedAuB = lowercaseAuB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+
+          setListDataAOnly(capitalizedList.join("\n"));
+          setListAnBDups(capitalizedAnB.join("\n"));
+          setListDataBOnly(capitalizedListB.join("\r\n"));
+          setListDataAuB(capitalizedAuB.join("\n"));
+        } else if (sortOptions === "no-sort" && caseOptions === "uppercase") {
+          // List A
+          const capitalizedList = newListA.map((el) => el.toUpperCase());
+          // List AnB
+          const lowercaseAnB = cleanedDups.map((el) => el.toUpperCase());
+          // List B
+          const uppercaseListB = newListB.map((el) => el.toUpperCase());
+          // Both list
+          const uppercaseAuB = cleanedAuBList.map((el) => el.toUpperCase());
+
+          setListDataAOnly(capitalizedList.join("\n"));
+          setListAnBDups(lowercaseAnB.join("\n"));
+          setListDataBOnly(uppercaseListB.join("\n"));
+          setListDataAuB(uppercaseAuB.join("\n"));
+        } else if (sortOptions === "no-sort" && caseOptions === "lowercase") {
+          // List A
+          const lowercaseListA = newListA.map((el) => el.toLowerCase());
+          // List AnB
+          const lowercaseAnB = cleanedDups.map((el) => el.toLowerCase());
+          // List B
+          const lowercaseListB = newListB.map((el) => el.toLowerCase());
+          // Both list
+          const lowercaseAuB = cleanedAuBList.map((el) => el.toLowerCase());
+
+          setListDataAOnly(lowercaseListA.join("\n"));
+          setListAnBDups(lowercaseAnB.join("\n"));
+          setListDataBOnly(lowercaseListB.join("\n"));
+          setListDataAuB(lowercaseAuB.join("\n"));
+        } else if (sortOptions === "az" && caseOptions === "no-change") {
+          // List A
+          const sortedListA = newListA.sort();
+          // List AnB
+          const sortedListDups = cleanedDups.sort();
+          // List B
+          const sortedListB = newListB.sort();
+          // Both list
+          const sortedListAuB = cleanedAuBList.sort();
+
+          setListDataAOnly(sortedListA.join("\n"));
+          setListAnBDups(sortedListDups.join("\n"));
+          setListDataBOnly(sortedListB.join("\n"));
+          setListDataAuB(sortedListAuB.join("\n"));
+        } else if (sortOptions === "az" && caseOptions === "capitalize") {
+          // List A
+          const sortedList = newListA.map((el) => el.toLowerCase()).sort();
+          const capitalizedList = sortedList.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List B
+          const sortedListBCaps = newListB.map((el) => el.toLowerCase()).sort();
+          const capitalizedListBCaps = sortedListBCaps.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List AnB
+          const sortedListDupsCaps = cleanedDups
+            .map((el) => el.toLowerCase())
+            .sort();
+          const listDupsCaps = sortedListDupsCaps.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List AuB
+          const sortedListAuB = cleanedAuBList
+            .map((el) => el.toLowerCase())
+            .sort();
+          const capitalizedListAuB = sortedListAuB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+
+          setListDataAOnly(capitalizedList.join("\n"));
+          setListAnBDups(listDupsCaps.join("\n"));
+          setListDataBOnly(capitalizedListBCaps.join("\n"));
+          setListDataAuB(capitalizedListAuB.join("\n"));
+        } else if (sortOptions === "az" && caseOptions === "uppercase") {
+          // List A
+          const sortedListA = newListA.map((el) => el.toUpperCase()).sort();
+          // List B
+          const sortedListB = newListB.map((el) => el.toUpperCase()).sort();
+          // List AnB
+          const sortedListAnB = cleanedDups
+            .map((el) => el.toUpperCase())
+            .sort();
+          // List Aub
+          const sortedListAuB = cleanedAuBList
+            .map((el) => el.toUpperCase())
+            .sort();
+
+          setListDataAOnly(sortedListA.join("\n"));
+          setListAnBDups(sortedListAnB.join("\n"));
+          setListDataBOnly(sortedListB.join("\n"));
+          setListDataAuB(sortedListAuB.join("\n"));
+        } else if (sortOptions === "az" && caseOptions === "lowercase") {
+          // List A
+          const sortedListA = newListA.map((el) => el.toLowerCase()).sort();
+          // ListB
+          const sortedListB = newListB.map((el) => el.toLowerCase()).sort();
+          // List AnB
+          const sortedListAnB = cleanedDups
+            .map((el) => el.toLowerCase())
+            .sort();
+          // List Aub
+          const sortedListAuB = cleanedAuBList
+            .map((el) => el.toLowerCase())
+            .sort();
+
+          setListDataAOnly(sortedListA.join("\n"));
+          setListAnBDups(sortedListAnB.join("\n"));
+          setListDataBOnly(sortedListB.join("\n"));
+          setListDataAuB(sortedListAuB.join("\n"));
+        } else if (sortOptions === "za" && caseOptions === "no-change") {
+          // List A
+          const descSortedListA = newListA.sort().reverse();
+          // List B
+          const descSortedListB = newListB.sort().reverse();
+          // List Dups
+          const descSortedListAnB = cleanedDups.sort().reverse();
+          // List AuB
+          const descSortedList = cleanedAuBList.sort().reverse();
+
+          setListDataAOnly(descSortedListA.join("\n"));
+          setListAnBDups(descSortedListAnB.join("\n"));
+          setListDataBOnly(descSortedListB.join("\n"));
+          setListDataAuB(descSortedList.join("\n"));
+        } else if (sortOptions === "za" && caseOptions === "capitalize") {
+          const descSortedListA = newListA
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          const capitalizedListA = descSortedListA.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List B
+          const descSortedListB = newListB
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          const capitalizedListB = descSortedListB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List Dups
+          const descSortedListDups = cleanedDups
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          const capitalizedListDups = descSortedListDups.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List AuB
+          const descSortedListAuB = cleanedAuBList
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          const capitalizedListAuB = descSortedListAuB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          setListDataAOnly(capitalizedListA.join("\n"));
+          setListAnBDups(capitalizedListDups.join("\n"));
+          setListDataBOnly(capitalizedListB.join("\n"));
+          setListDataAuB(capitalizedListAuB.join("\n"));
+        } else if (sortOptions === "za" && caseOptions === "uppercase") {
+          // List A
+          const descSortedListA = newListA
+            .map((el) => el.toUpperCase())
+            .sort()
+            .reverse();
+          // List B
+          const descSortedListB = newListB
+            .map((el) => el.toUpperCase())
+            .sort()
+            .reverse();
+          // List Dups
+          const descSortedListDups = cleanedDups
+            .map((el) => el.toUpperCase())
+            .sort()
+            .reverse();
+          // List AuB
+          const descSortedListAuB = cleanedAuBList
+            .map((el) => el.toUpperCase())
+            .sort()
+            .reverse();
+
+          setListDataAOnly(descSortedListA.join("\n"));
+          setListAnBDups(descSortedListDups.join("\n"));
+          setListDataAuB(descSortedListAuB.join("\n"));
+          setListDataBOnly(descSortedListB.join("\n"));
+        } else if (sortOptions === "za" && caseOptions === "lowercase") {
+          // List A
+          const descSortedListA = newListA
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          // List B
+          const descSortedListB = newListB
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          // List Dups
+          const descSortedListDups = cleanedDups
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          // List AuB
+          const descSortedListAuB = cleanedAuBList
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+
+          setListDataAOnly(descSortedListA.join("\n"));
+          setListAnBDups(descSortedListDups.join("\n"));
+          setListDataBOnly(descSortedListB.join("\n"));
+          setListDataAuB(descSortedListAuB.join("\n"));
+        } else {
+          setListDataAOnly(newListA.join("\n"));
+          setListAnBDups(cleanedDups.join("\n"));
+          setListDataBOnly(newListB.join("\n"));
+          setListDataAuB(cleanedAuBList.join("\r\n"));
+        }
+
+        setAOnlyLines(newListA.length);
+        setOnlyBLines(newListB.length);
+        setDuplicatesLines(cleanedDups.length);
         setAuBLines(cleanedAuBList.length);
       } else if (
         !caseSensitive &&
@@ -1354,21 +1840,13 @@ const CompareLists = () => {
         const listAOnly = listA.filter((val) => !listB.includes(val));
         const newListA = [...new Set(listAOnly)];
 
-        setListDataAOnly(listAOnly.join("\n"));
-        setAOnlyLines(newListA.length);
-
         // List data B only
         const listBOnly = listB.filter((val) => !listA.includes(val));
         const newListB = [...new Set(listBOnly)];
 
-        setListDataBOnly(newListB.join("\r\n"));
-        setOnlyBLines(newListB.length);
-
         // Check for duplicates
         const duplicates = listA.filter((element) => listB.includes(element));
         const cleanedDups = [...new Set(duplicates)];
-        setListAnBDups(cleanedDups.join("\r\n"));
-        setDuplicatesLines(cleanedDups.length);
 
         // All items
         const listAuB = listAA.concat(listBB);
@@ -1376,7 +1854,254 @@ const CompareLists = () => {
         const cleanedAuBList = list.filter(
           (val, index) => listAuB.indexOf(val) === index
         );
-        setListDataAuB(cleanedAuBList.join("\r\n"));
+
+        // Sort and Case options
+        if (sortOptions === "no-sort" && caseOptions === "capitalize") {
+          // List A
+          const lowercaseList = newListA.map((el) => el.toLowerCase());
+          const capitalizedList = lowercaseList.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List AnB
+          const lowercaseAnB = cleanedDups.map((el) => el.toLowerCase());
+          const capitalizedAnB = lowercaseAnB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List B
+          const lowercaseB = newListB.map((el) => el.toLowerCase());
+          const capitalizedListB = lowercaseB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // Both list
+          const lowercaseAuB = cleanedAuBList.map((el) => el.toLowerCase());
+          const capitalizedAuB = lowercaseAuB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+
+          setListDataAOnly(capitalizedList.join("\n"));
+          setListAnBDups(capitalizedAnB.join("\n"));
+          setListDataBOnly(capitalizedListB.join("\r\n"));
+          setListDataAuB(capitalizedAuB.join("\n"));
+        } else if (sortOptions === "no-sort" && caseOptions === "uppercase") {
+          // List A
+          const capitalizedList = newListA.map((el) => el.toUpperCase());
+          // List AnB
+          const lowercaseAnB = cleanedDups.map((el) => el.toUpperCase());
+          // List B
+          const uppercaseListB = newListB.map((el) => el.toUpperCase());
+          // Both list
+          const uppercaseAuB = cleanedAuBList.map((el) => el.toUpperCase());
+
+          setListDataAOnly(capitalizedList.join("\n"));
+          setListAnBDups(lowercaseAnB.join("\n"));
+          setListDataBOnly(uppercaseListB.join("\n"));
+          setListDataAuB(uppercaseAuB.join("\n"));
+        } else if (sortOptions === "no-sort" && caseOptions === "lowercase") {
+          // List A
+          const lowercaseListA = newListA.map((el) => el.toLowerCase());
+          // List AnB
+          const lowercaseAnB = cleanedDups.map((el) => el.toLowerCase());
+          // List B
+          const lowercaseListB = newListB.map((el) => el.toLowerCase());
+          // Both list
+          const lowercaseAuB = cleanedAuBList.map((el) => el.toLowerCase());
+
+          setListDataAOnly(lowercaseListA.join("\n"));
+          setListAnBDups(lowercaseAnB.join("\n"));
+          setListDataBOnly(lowercaseListB.join("\n"));
+          setListDataAuB(lowercaseAuB.join("\n"));
+        } else if (sortOptions === "az" && caseOptions === "no-change") {
+          // List A
+          const sortedListA = newListA.sort();
+          // List AnB
+          const sortedListDups = cleanedDups.sort();
+          // List B
+          const sortedListB = newListB.sort();
+          // Both list
+          const sortedListAuB = cleanedAuBList.sort();
+
+          setListDataAOnly(sortedListA.join("\n"));
+          setListAnBDups(sortedListDups.join("\n"));
+          setListDataBOnly(sortedListB.join("\n"));
+          setListDataAuB(sortedListAuB.join("\n"));
+        } else if (sortOptions === "az" && caseOptions === "capitalize") {
+          // List A
+          const sortedList = newListA.map((el) => el.toLowerCase()).sort();
+          const capitalizedList = sortedList.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List B
+          const sortedListBCaps = newListB.map((el) => el.toLowerCase()).sort();
+          const capitalizedListBCaps = sortedListBCaps.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List AnB
+          const sortedListDupsCaps = cleanedDups
+            .map((el) => el.toLowerCase())
+            .sort();
+          const listDupsCaps = sortedListDupsCaps.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List AuB
+          const sortedListAuB = cleanedAuBList
+            .map((el) => el.toLowerCase())
+            .sort();
+          const capitalizedListAuB = sortedListAuB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+
+          setListDataAOnly(capitalizedList.join("\n"));
+          setListAnBDups(listDupsCaps.join("\n"));
+          setListDataBOnly(capitalizedListBCaps.join("\n"));
+          setListDataAuB(capitalizedListAuB.join("\n"));
+        } else if (sortOptions === "az" && caseOptions === "uppercase") {
+          // List A
+          const sortedListA = newListA.map((el) => el.toUpperCase()).sort();
+          // List B
+          const sortedListB = newListB.map((el) => el.toUpperCase()).sort();
+          // List AnB
+          const sortedListAnB = cleanedDups
+            .map((el) => el.toUpperCase())
+            .sort();
+          // List Aub
+          const sortedListAuB = cleanedAuBList
+            .map((el) => el.toUpperCase())
+            .sort();
+
+          setListDataAOnly(sortedListA.join("\n"));
+          setListAnBDups(sortedListAnB.join("\n"));
+          setListDataBOnly(sortedListB.join("\n"));
+          setListDataAuB(sortedListAuB.join("\n"));
+        } else if (sortOptions === "az" && caseOptions === "lowercase") {
+          // List A
+          const sortedListA = newListA.map((el) => el.toLowerCase()).sort();
+          // ListB
+          const sortedListB = newListB.map((el) => el.toLowerCase()).sort();
+          // List AnB
+          const sortedListAnB = cleanedDups
+            .map((el) => el.toLowerCase())
+            .sort();
+          // List Aub
+          const sortedListAuB = cleanedAuBList
+            .map((el) => el.toLowerCase())
+            .sort();
+
+          setListDataAOnly(sortedListA.join("\n"));
+          setListAnBDups(sortedListAnB.join("\n"));
+          setListDataBOnly(sortedListB.join("\n"));
+          setListDataAuB(sortedListAuB.join("\n"));
+        } else if (sortOptions === "za" && caseOptions === "no-change") {
+          // List A
+          const descSortedListA = newListA.sort().reverse();
+          // List B
+          const descSortedListB = newListB.sort().reverse();
+          // List Dups
+          const descSortedListAnB = cleanedDups.sort().reverse();
+          // List AuB
+          const descSortedList = cleanedAuBList.sort().reverse();
+
+          setListDataAOnly(descSortedListA.join("\n"));
+          setListAnBDups(descSortedListAnB.join("\n"));
+          setListDataBOnly(descSortedListB.join("\n"));
+          setListDataAuB(descSortedList.join("\n"));
+        } else if (sortOptions === "za" && caseOptions === "capitalize") {
+          const descSortedListA = newListA
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          const capitalizedListA = descSortedListA.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List B
+          const descSortedListB = newListB
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          const capitalizedListB = descSortedListB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List Dups
+          const descSortedListDups = cleanedDups
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          const capitalizedListDups = descSortedListDups.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List AuB
+          const descSortedListAuB = cleanedAuBList
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          const capitalizedListAuB = descSortedListAuB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          setListDataAOnly(capitalizedListA.join("\n"));
+          setListAnBDups(capitalizedListDups.join("\n"));
+          setListDataBOnly(capitalizedListB.join("\n"));
+          setListDataAuB(capitalizedListAuB.join("\n"));
+        } else if (sortOptions === "za" && caseOptions === "uppercase") {
+          // List A
+          const descSortedListA = newListA
+            .map((el) => el.toUpperCase())
+            .sort()
+            .reverse();
+          // List B
+          const descSortedListB = newListB
+            .map((el) => el.toUpperCase())
+            .sort()
+            .reverse();
+          // List Dups
+          const descSortedListDups = cleanedDups
+            .map((el) => el.toUpperCase())
+            .sort()
+            .reverse();
+          // List AuB
+          const descSortedListAuB = cleanedAuBList
+            .map((el) => el.toUpperCase())
+            .sort()
+            .reverse();
+
+          setListDataAOnly(descSortedListA.join("\n"));
+          setListAnBDups(descSortedListDups.join("\n"));
+          setListDataAuB(descSortedListAuB.join("\n"));
+          setListDataBOnly(descSortedListB.join("\n"));
+        } else if (sortOptions === "za" && caseOptions === "lowercase") {
+          // List A
+          const descSortedListA = newListA
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          // List B
+          const descSortedListB = newListB
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          // List Dups
+          const descSortedListDups = cleanedDups
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          // List AuB
+          const descSortedListAuB = cleanedAuBList
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+
+          setListDataAOnly(descSortedListA.join("\n"));
+          setListAnBDups(descSortedListDups.join("\n"));
+          setListDataBOnly(descSortedListB.join("\n"));
+          setListDataAuB(descSortedListAuB.join("\n"));
+        } else {
+          setListDataAOnly(newListA.join("\n"));
+          setListAnBDups(cleanedDups.join("\n"));
+          setListDataBOnly(newListB.join("\n"));
+          setListDataAuB(cleanedAuBList.join("\r\n"));
+        }
+
+        setDuplicatesLines(cleanedDups.length);
+        setOnlyBLines(newListB.length);
+        setAOnlyLines(newListA.length);
         setAuBLines(cleanedAuBList.length);
       } else if (
         caseSensitive &&
@@ -1411,21 +2136,13 @@ const CompareLists = () => {
         const listAOnly = listA.filter((val) => !listB.includes(val));
         const newListA = [...new Set(listAOnly)];
 
-        setListDataAOnly(listAOnly.join("\n"));
-        setAOnlyLines(newListA.length);
-
         // List data B only
         const listBOnly = listB.filter((val) => !listA.includes(val));
         const newListB = [...new Set(listBOnly)];
 
-        setListDataBOnly(newListB.join("\r\n"));
-        setOnlyBLines(newListB.length);
-
         // Check for duplicates
         const duplicates = listA.filter((element) => listB.includes(element));
         const cleanedDups = [...new Set(duplicates)];
-        setListAnBDups(cleanedDups.join("\r\n"));
-        setDuplicatesLines(cleanedDups.length);
 
         // All items
         const listAuB = listAA.concat(listBB);
@@ -1433,7 +2150,254 @@ const CompareLists = () => {
         const cleanedAuBList = list.filter(
           (val, index) => listAuB.indexOf(val) === index
         );
-        setListDataAuB(cleanedAuBList.join("\r\n"));
+
+        // Sort and Case options
+        if (sortOptions === "no-sort" && caseOptions === "capitalize") {
+          // List A
+          const lowercaseList = newListA.map((el) => el.toLowerCase());
+          const capitalizedList = lowercaseList.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List AnB
+          const lowercaseAnB = cleanedDups.map((el) => el.toLowerCase());
+          const capitalizedAnB = lowercaseAnB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List B
+          const lowercaseB = newListB.map((el) => el.toLowerCase());
+          const capitalizedListB = lowercaseB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // Both list
+          const lowercaseAuB = cleanedAuBList.map((el) => el.toLowerCase());
+          const capitalizedAuB = lowercaseAuB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+
+          setListDataAOnly(capitalizedList.join("\n"));
+          setListAnBDups(capitalizedAnB.join("\n"));
+          setListDataBOnly(capitalizedListB.join("\r\n"));
+          setListDataAuB(capitalizedAuB.join("\n"));
+        } else if (sortOptions === "no-sort" && caseOptions === "uppercase") {
+          // List A
+          const capitalizedList = newListA.map((el) => el.toUpperCase());
+          // List AnB
+          const lowercaseAnB = cleanedDups.map((el) => el.toUpperCase());
+          // List B
+          const uppercaseListB = newListB.map((el) => el.toUpperCase());
+          // Both list
+          const uppercaseAuB = cleanedAuBList.map((el) => el.toUpperCase());
+
+          setListDataAOnly(capitalizedList.join("\n"));
+          setListAnBDups(lowercaseAnB.join("\n"));
+          setListDataBOnly(uppercaseListB.join("\n"));
+          setListDataAuB(uppercaseAuB.join("\n"));
+        } else if (sortOptions === "no-sort" && caseOptions === "lowercase") {
+          // List A
+          const lowercaseListA = newListA.map((el) => el.toLowerCase());
+          // List AnB
+          const lowercaseAnB = cleanedDups.map((el) => el.toLowerCase());
+          // List B
+          const lowercaseListB = newListB.map((el) => el.toLowerCase());
+          // Both list
+          const lowercaseAuB = cleanedAuBList.map((el) => el.toLowerCase());
+
+          setListDataAOnly(lowercaseListA.join("\n"));
+          setListAnBDups(lowercaseAnB.join("\n"));
+          setListDataBOnly(lowercaseListB.join("\n"));
+          setListDataAuB(lowercaseAuB.join("\n"));
+        } else if (sortOptions === "az" && caseOptions === "no-change") {
+          // List A
+          const sortedListA = newListA.sort();
+          // List AnB
+          const sortedListDups = cleanedDups.sort();
+          // List B
+          const sortedListB = newListB.sort();
+          // Both list
+          const sortedListAuB = cleanedAuBList.sort();
+
+          setListDataAOnly(sortedListA.join("\n"));
+          setListAnBDups(sortedListDups.join("\n"));
+          setListDataBOnly(sortedListB.join("\n"));
+          setListDataAuB(sortedListAuB.join("\n"));
+        } else if (sortOptions === "az" && caseOptions === "capitalize") {
+          // List A
+          const sortedList = newListA.map((el) => el.toLowerCase()).sort();
+          const capitalizedList = sortedList.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List B
+          const sortedListBCaps = newListB.map((el) => el.toLowerCase()).sort();
+          const capitalizedListBCaps = sortedListBCaps.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List AnB
+          const sortedListDupsCaps = cleanedDups
+            .map((el) => el.toLowerCase())
+            .sort();
+          const listDupsCaps = sortedListDupsCaps.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List AuB
+          const sortedListAuB = cleanedAuBList
+            .map((el) => el.toLowerCase())
+            .sort();
+          const capitalizedListAuB = sortedListAuB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+
+          setListDataAOnly(capitalizedList.join("\n"));
+          setListAnBDups(listDupsCaps.join("\n"));
+          setListDataBOnly(capitalizedListBCaps.join("\n"));
+          setListDataAuB(capitalizedListAuB.join("\n"));
+        } else if (sortOptions === "az" && caseOptions === "uppercase") {
+          // List A
+          const sortedListA = newListA.map((el) => el.toUpperCase()).sort();
+          // List B
+          const sortedListB = newListB.map((el) => el.toUpperCase()).sort();
+          // List AnB
+          const sortedListAnB = cleanedDups
+            .map((el) => el.toUpperCase())
+            .sort();
+          // List Aub
+          const sortedListAuB = cleanedAuBList
+            .map((el) => el.toUpperCase())
+            .sort();
+
+          setListDataAOnly(sortedListA.join("\n"));
+          setListAnBDups(sortedListAnB.join("\n"));
+          setListDataBOnly(sortedListB.join("\n"));
+          setListDataAuB(sortedListAuB.join("\n"));
+        } else if (sortOptions === "az" && caseOptions === "lowercase") {
+          // List A
+          const sortedListA = newListA.map((el) => el.toLowerCase()).sort();
+          // ListB
+          const sortedListB = newListB.map((el) => el.toLowerCase()).sort();
+          // List AnB
+          const sortedListAnB = cleanedDups
+            .map((el) => el.toLowerCase())
+            .sort();
+          // List Aub
+          const sortedListAuB = cleanedAuBList
+            .map((el) => el.toLowerCase())
+            .sort();
+
+          setListDataAOnly(sortedListA.join("\n"));
+          setListAnBDups(sortedListAnB.join("\n"));
+          setListDataBOnly(sortedListB.join("\n"));
+          setListDataAuB(sortedListAuB.join("\n"));
+        } else if (sortOptions === "za" && caseOptions === "no-change") {
+          // List A
+          const descSortedListA = newListA.sort().reverse();
+          // List B
+          const descSortedListB = newListB.sort().reverse();
+          // List Dups
+          const descSortedListAnB = cleanedDups.sort().reverse();
+          // List AuB
+          const descSortedList = cleanedAuBList.sort().reverse();
+
+          setListDataAOnly(descSortedListA.join("\n"));
+          setListAnBDups(descSortedListAnB.join("\n"));
+          setListDataBOnly(descSortedListB.join("\n"));
+          setListDataAuB(descSortedList.join("\n"));
+        } else if (sortOptions === "za" && caseOptions === "capitalize") {
+          const descSortedListA = newListA
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          const capitalizedListA = descSortedListA.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List B
+          const descSortedListB = newListB
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          const capitalizedListB = descSortedListB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List Dups
+          const descSortedListDups = cleanedDups
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          const capitalizedListDups = descSortedListDups.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List AuB
+          const descSortedListAuB = cleanedAuBList
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          const capitalizedListAuB = descSortedListAuB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          setListDataAOnly(capitalizedListA.join("\n"));
+          setListAnBDups(capitalizedListDups.join("\n"));
+          setListDataBOnly(capitalizedListB.join("\n"));
+          setListDataAuB(capitalizedListAuB.join("\n"));
+        } else if (sortOptions === "za" && caseOptions === "uppercase") {
+          // List A
+          const descSortedListA = newListA
+            .map((el) => el.toUpperCase())
+            .sort()
+            .reverse();
+          // List B
+          const descSortedListB = newListB
+            .map((el) => el.toUpperCase())
+            .sort()
+            .reverse();
+          // List Dups
+          const descSortedListDups = cleanedDups
+            .map((el) => el.toUpperCase())
+            .sort()
+            .reverse();
+          // List AuB
+          const descSortedListAuB = cleanedAuBList
+            .map((el) => el.toUpperCase())
+            .sort()
+            .reverse();
+
+          setListDataAOnly(descSortedListA.join("\n"));
+          setListAnBDups(descSortedListDups.join("\n"));
+          setListDataAuB(descSortedListAuB.join("\n"));
+          setListDataBOnly(descSortedListB.join("\n"));
+        } else if (sortOptions === "za" && caseOptions === "lowercase") {
+          // List A
+          const descSortedListA = newListA
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          // List B
+          const descSortedListB = newListB
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          // List Dups
+          const descSortedListDups = cleanedDups
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          // List AuB
+          const descSortedListAuB = cleanedAuBList
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+
+          setListDataAOnly(descSortedListA.join("\n"));
+          setListAnBDups(descSortedListDups.join("\n"));
+          setListDataBOnly(descSortedListB.join("\n"));
+          setListDataAuB(descSortedListAuB.join("\n"));
+        } else {
+          setListDataAOnly(newListA.join("\n"));
+          setListAnBDups(cleanedDups.join("\n"));
+          setListDataBOnly(newListB.join("\n"));
+          setListDataAuB(cleanedAuBList.join("\r\n"));
+        }
+
+        setDuplicatesLines(cleanedDups.length);
+        setOnlyBLines(newListB.length);
+        setAOnlyLines(newListA.length);
         setAuBLines(cleanedAuBList.length);
       } else if (
         !caseSensitive &&
@@ -1470,21 +2434,13 @@ const CompareLists = () => {
         const listAOnly = listA.filter((val) => !listB.includes(val));
         const newListA = [...new Set(listAOnly)];
 
-        setListDataAOnly(listAOnly.join("\n"));
-        setAOnlyLines(newListA.length);
-
         // List data B only
         const listBOnly = listB.filter((val) => !listA.includes(val));
         const newListB = [...new Set(listBOnly)];
 
-        setListDataBOnly(newListB.join("\r\n"));
-        setOnlyBLines(newListB.length);
-
         // Check for duplicates
         const duplicates = listA.filter((element) => listB.includes(element));
         const cleanedDups = [...new Set(duplicates)];
-        setListAnBDups(cleanedDups.join("\r\n"));
-        setDuplicatesLines(cleanedDups.length);
 
         // All items
         const listAuB = listAA.concat(listBB);
@@ -1492,7 +2448,254 @@ const CompareLists = () => {
         const cleanedAuBList = list.filter(
           (val, index) => listAuB.indexOf(val) === index
         );
-        setListDataAuB(cleanedAuBList.join("\r\n"));
+
+        // Sort and Case options
+        if (sortOptions === "no-sort" && caseOptions === "capitalize") {
+          // List A
+          const lowercaseList = newListA.map((el) => el.toLowerCase());
+          const capitalizedList = lowercaseList.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List AnB
+          const lowercaseAnB = cleanedDups.map((el) => el.toLowerCase());
+          const capitalizedAnB = lowercaseAnB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List B
+          const lowercaseB = newListB.map((el) => el.toLowerCase());
+          const capitalizedListB = lowercaseB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // Both list
+          const lowercaseAuB = cleanedAuBList.map((el) => el.toLowerCase());
+          const capitalizedAuB = lowercaseAuB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+
+          setListDataAOnly(capitalizedList.join("\n"));
+          setListAnBDups(capitalizedAnB.join("\n"));
+          setListDataBOnly(capitalizedListB.join("\r\n"));
+          setListDataAuB(capitalizedAuB.join("\n"));
+        } else if (sortOptions === "no-sort" && caseOptions === "uppercase") {
+          // List A
+          const capitalizedList = newListA.map((el) => el.toUpperCase());
+          // List AnB
+          const lowercaseAnB = cleanedDups.map((el) => el.toUpperCase());
+          // List B
+          const uppercaseListB = newListB.map((el) => el.toUpperCase());
+          // Both list
+          const uppercaseAuB = cleanedAuBList.map((el) => el.toUpperCase());
+
+          setListDataAOnly(capitalizedList.join("\n"));
+          setListAnBDups(lowercaseAnB.join("\n"));
+          setListDataBOnly(uppercaseListB.join("\n"));
+          setListDataAuB(uppercaseAuB.join("\n"));
+        } else if (sortOptions === "no-sort" && caseOptions === "lowercase") {
+          // List A
+          const lowercaseListA = newListA.map((el) => el.toLowerCase());
+          // List AnB
+          const lowercaseAnB = cleanedDups.map((el) => el.toLowerCase());
+          // List B
+          const lowercaseListB = newListB.map((el) => el.toLowerCase());
+          // Both list
+          const lowercaseAuB = cleanedAuBList.map((el) => el.toLowerCase());
+
+          setListDataAOnly(lowercaseListA.join("\n"));
+          setListAnBDups(lowercaseAnB.join("\n"));
+          setListDataBOnly(lowercaseListB.join("\n"));
+          setListDataAuB(lowercaseAuB.join("\n"));
+        } else if (sortOptions === "az" && caseOptions === "no-change") {
+          // List A
+          const sortedListA = newListA.sort();
+          // List AnB
+          const sortedListDups = cleanedDups.sort();
+          // List B
+          const sortedListB = newListB.sort();
+          // Both list
+          const sortedListAuB = cleanedAuBList.sort();
+
+          setListDataAOnly(sortedListA.join("\n"));
+          setListAnBDups(sortedListDups.join("\n"));
+          setListDataBOnly(sortedListB.join("\n"));
+          setListDataAuB(sortedListAuB.join("\n"));
+        } else if (sortOptions === "az" && caseOptions === "capitalize") {
+          // List A
+          const sortedList = newListA.map((el) => el.toLowerCase()).sort();
+          const capitalizedList = sortedList.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List B
+          const sortedListBCaps = newListB.map((el) => el.toLowerCase()).sort();
+          const capitalizedListBCaps = sortedListBCaps.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List AnB
+          const sortedListDupsCaps = cleanedDups
+            .map((el) => el.toLowerCase())
+            .sort();
+          const listDupsCaps = sortedListDupsCaps.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List AuB
+          const sortedListAuB = cleanedAuBList
+            .map((el) => el.toLowerCase())
+            .sort();
+          const capitalizedListAuB = sortedListAuB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+
+          setListDataAOnly(capitalizedList.join("\n"));
+          setListAnBDups(listDupsCaps.join("\n"));
+          setListDataBOnly(capitalizedListBCaps.join("\n"));
+          setListDataAuB(capitalizedListAuB.join("\n"));
+        } else if (sortOptions === "az" && caseOptions === "uppercase") {
+          // List A
+          const sortedListA = newListA.map((el) => el.toUpperCase()).sort();
+          // List B
+          const sortedListB = newListB.map((el) => el.toUpperCase()).sort();
+          // List AnB
+          const sortedListAnB = cleanedDups
+            .map((el) => el.toUpperCase())
+            .sort();
+          // List Aub
+          const sortedListAuB = cleanedAuBList
+            .map((el) => el.toUpperCase())
+            .sort();
+
+          setListDataAOnly(sortedListA.join("\n"));
+          setListAnBDups(sortedListAnB.join("\n"));
+          setListDataBOnly(sortedListB.join("\n"));
+          setListDataAuB(sortedListAuB.join("\n"));
+        } else if (sortOptions === "az" && caseOptions === "lowercase") {
+          // List A
+          const sortedListA = newListA.map((el) => el.toLowerCase()).sort();
+          // ListB
+          const sortedListB = newListB.map((el) => el.toLowerCase()).sort();
+          // List AnB
+          const sortedListAnB = cleanedDups
+            .map((el) => el.toLowerCase())
+            .sort();
+          // List Aub
+          const sortedListAuB = cleanedAuBList
+            .map((el) => el.toLowerCase())
+            .sort();
+
+          setListDataAOnly(sortedListA.join("\n"));
+          setListAnBDups(sortedListAnB.join("\n"));
+          setListDataBOnly(sortedListB.join("\n"));
+          setListDataAuB(sortedListAuB.join("\n"));
+        } else if (sortOptions === "za" && caseOptions === "no-change") {
+          // List A
+          const descSortedListA = newListA.sort().reverse();
+          // List B
+          const descSortedListB = newListB.sort().reverse();
+          // List Dups
+          const descSortedListAnB = cleanedDups.sort().reverse();
+          // List AuB
+          const descSortedList = cleanedAuBList.sort().reverse();
+
+          setListDataAOnly(descSortedListA.join("\n"));
+          setListAnBDups(descSortedListAnB.join("\n"));
+          setListDataBOnly(descSortedListB.join("\n"));
+          setListDataAuB(descSortedList.join("\n"));
+        } else if (sortOptions === "za" && caseOptions === "capitalize") {
+          const descSortedListA = newListA
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          const capitalizedListA = descSortedListA.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List B
+          const descSortedListB = newListB
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          const capitalizedListB = descSortedListB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List Dups
+          const descSortedListDups = cleanedDups
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          const capitalizedListDups = descSortedListDups.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List AuB
+          const descSortedListAuB = cleanedAuBList
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          const capitalizedListAuB = descSortedListAuB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          setListDataAOnly(capitalizedListA.join("\n"));
+          setListAnBDups(capitalizedListDups.join("\n"));
+          setListDataBOnly(capitalizedListB.join("\n"));
+          setListDataAuB(capitalizedListAuB.join("\n"));
+        } else if (sortOptions === "za" && caseOptions === "uppercase") {
+          // List A
+          const descSortedListA = newListA
+            .map((el) => el.toUpperCase())
+            .sort()
+            .reverse();
+          // List B
+          const descSortedListB = newListB
+            .map((el) => el.toUpperCase())
+            .sort()
+            .reverse();
+          // List Dups
+          const descSortedListDups = cleanedDups
+            .map((el) => el.toUpperCase())
+            .sort()
+            .reverse();
+          // List AuB
+          const descSortedListAuB = cleanedAuBList
+            .map((el) => el.toUpperCase())
+            .sort()
+            .reverse();
+
+          setListDataAOnly(descSortedListA.join("\n"));
+          setListAnBDups(descSortedListDups.join("\n"));
+          setListDataAuB(descSortedListAuB.join("\n"));
+          setListDataBOnly(descSortedListB.join("\n"));
+        } else if (sortOptions === "za" && caseOptions === "lowercase") {
+          // List A
+          const descSortedListA = newListA
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          // List B
+          const descSortedListB = newListB
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          // List Dups
+          const descSortedListDups = cleanedDups
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          // List AuB
+          const descSortedListAuB = cleanedAuBList
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+
+          setListDataAOnly(descSortedListA.join("\n"));
+          setListAnBDups(descSortedListDups.join("\n"));
+          setListDataBOnly(descSortedListB.join("\n"));
+          setListDataAuB(descSortedListAuB.join("\n"));
+        } else {
+          setListDataAOnly(newListA.join("\n"));
+          setListAnBDups(cleanedDups.join("\n"));
+          setListDataBOnly(newListB.join("\n"));
+          setListDataAuB(cleanedAuBList.join("\r\n"));
+        }
+
+        setDuplicatesLines(cleanedDups.length);
+        setOnlyBLines(newListB.length);
+        setAOnlyLines(newListA.length);
         setAuBLines(cleanedAuBList.length);
       } else if (
         !caseSensitive &&
@@ -1505,13 +2708,11 @@ const CompareLists = () => {
           .toLowerCase()
           .replace(/\r\n\s/gm, "\n")
           .split("\n");
-        // .map((el) => el.trim());
 
         const listDataBArr = listDataB
           .toLowerCase()
           .replace(/\r\n\s/gm, "\n")
           .split("\n");
-        // .map((el) => el.trim());
 
         // Remove extra spaces
         const listAA = listDataAArr.map((item) =>
@@ -1529,21 +2730,13 @@ const CompareLists = () => {
         const listAOnly = listA.filter((val) => !listB.includes(val));
         const newListA = [...new Set(listAOnly)];
 
-        setListDataAOnly(listAOnly.join("\n"));
-        setAOnlyLines(newListA.length);
-
         // List data B only
         const listBOnly = listB.filter((val) => !listA.includes(val));
         const newListB = [...new Set(listBOnly)];
 
-        setListDataBOnly(newListB.join("\r\n"));
-        setOnlyBLines(newListB.length);
-
         // Check for duplicates
         const duplicates = listA.filter((element) => listB.includes(element));
         const cleanedDups = [...new Set(duplicates)];
-        setListAnBDups(cleanedDups.join("\r\n"));
-        setDuplicatesLines(cleanedDups.length);
 
         // All items
         const listAuB = listAA.concat(listBB);
@@ -1551,7 +2744,254 @@ const CompareLists = () => {
         const cleanedAuBList = list.filter(
           (val, index) => listAuB.indexOf(val) === index
         );
-        setListDataAuB(cleanedAuBList.join("\r\n"));
+
+        // Sort and Case options
+        if (sortOptions === "no-sort" && caseOptions === "capitalize") {
+          // List A
+          const lowercaseList = newListA.map((el) => el.toLowerCase());
+          const capitalizedList = lowercaseList.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List AnB
+          const lowercaseAnB = cleanedDups.map((el) => el.toLowerCase());
+          const capitalizedAnB = lowercaseAnB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List B
+          const lowercaseB = newListB.map((el) => el.toLowerCase());
+          const capitalizedListB = lowercaseB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // Both list
+          const lowercaseAuB = cleanedAuBList.map((el) => el.toLowerCase());
+          const capitalizedAuB = lowercaseAuB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+
+          setListDataAOnly(capitalizedList.join("\n"));
+          setListAnBDups(capitalizedAnB.join("\n"));
+          setListDataBOnly(capitalizedListB.join("\r\n"));
+          setListDataAuB(capitalizedAuB.join("\n"));
+        } else if (sortOptions === "no-sort" && caseOptions === "uppercase") {
+          // List A
+          const capitalizedList = newListA.map((el) => el.toUpperCase());
+          // List AnB
+          const lowercaseAnB = cleanedDups.map((el) => el.toUpperCase());
+          // List B
+          const uppercaseListB = newListB.map((el) => el.toUpperCase());
+          // Both list
+          const uppercaseAuB = cleanedAuBList.map((el) => el.toUpperCase());
+
+          setListDataAOnly(capitalizedList.join("\n"));
+          setListAnBDups(lowercaseAnB.join("\n"));
+          setListDataBOnly(uppercaseListB.join("\n"));
+          setListDataAuB(uppercaseAuB.join("\n"));
+        } else if (sortOptions === "no-sort" && caseOptions === "lowercase") {
+          // List A
+          const lowercaseListA = newListA.map((el) => el.toLowerCase());
+          // List AnB
+          const lowercaseAnB = cleanedDups.map((el) => el.toLowerCase());
+          // List B
+          const lowercaseListB = newListB.map((el) => el.toLowerCase());
+          // Both list
+          const lowercaseAuB = cleanedAuBList.map((el) => el.toLowerCase());
+
+          setListDataAOnly(lowercaseListA.join("\n"));
+          setListAnBDups(lowercaseAnB.join("\n"));
+          setListDataBOnly(lowercaseListB.join("\n"));
+          setListDataAuB(lowercaseAuB.join("\n"));
+        } else if (sortOptions === "az" && caseOptions === "no-change") {
+          // List A
+          const sortedListA = newListA.sort();
+          // List AnB
+          const sortedListDups = cleanedDups.sort();
+          // List B
+          const sortedListB = newListB.sort();
+          // Both list
+          const sortedListAuB = cleanedAuBList.sort();
+
+          setListDataAOnly(sortedListA.join("\n"));
+          setListAnBDups(sortedListDups.join("\n"));
+          setListDataBOnly(sortedListB.join("\n"));
+          setListDataAuB(sortedListAuB.join("\n"));
+        } else if (sortOptions === "az" && caseOptions === "capitalize") {
+          // List A
+          const sortedList = newListA.map((el) => el.toLowerCase()).sort();
+          const capitalizedList = sortedList.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List B
+          const sortedListBCaps = newListB.map((el) => el.toLowerCase()).sort();
+          const capitalizedListBCaps = sortedListBCaps.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List AnB
+          const sortedListDupsCaps = cleanedDups
+            .map((el) => el.toLowerCase())
+            .sort();
+          const listDupsCaps = sortedListDupsCaps.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List AuB
+          const sortedListAuB = cleanedAuBList
+            .map((el) => el.toLowerCase())
+            .sort();
+          const capitalizedListAuB = sortedListAuB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+
+          setListDataAOnly(capitalizedList.join("\n"));
+          setListAnBDups(listDupsCaps.join("\n"));
+          setListDataBOnly(capitalizedListBCaps.join("\n"));
+          setListDataAuB(capitalizedListAuB.join("\n"));
+        } else if (sortOptions === "az" && caseOptions === "uppercase") {
+          // List A
+          const sortedListA = newListA.map((el) => el.toUpperCase()).sort();
+          // List B
+          const sortedListB = newListB.map((el) => el.toUpperCase()).sort();
+          // List AnB
+          const sortedListAnB = cleanedDups
+            .map((el) => el.toUpperCase())
+            .sort();
+          // List Aub
+          const sortedListAuB = cleanedAuBList
+            .map((el) => el.toUpperCase())
+            .sort();
+
+          setListDataAOnly(sortedListA.join("\n"));
+          setListAnBDups(sortedListAnB.join("\n"));
+          setListDataBOnly(sortedListB.join("\n"));
+          setListDataAuB(sortedListAuB.join("\n"));
+        } else if (sortOptions === "az" && caseOptions === "lowercase") {
+          // List A
+          const sortedListA = newListA.map((el) => el.toLowerCase()).sort();
+          // ListB
+          const sortedListB = newListB.map((el) => el.toLowerCase()).sort();
+          // List AnB
+          const sortedListAnB = cleanedDups
+            .map((el) => el.toLowerCase())
+            .sort();
+          // List Aub
+          const sortedListAuB = cleanedAuBList
+            .map((el) => el.toLowerCase())
+            .sort();
+
+          setListDataAOnly(sortedListA.join("\n"));
+          setListAnBDups(sortedListAnB.join("\n"));
+          setListDataBOnly(sortedListB.join("\n"));
+          setListDataAuB(sortedListAuB.join("\n"));
+        } else if (sortOptions === "za" && caseOptions === "no-change") {
+          // List A
+          const descSortedListA = newListA.sort().reverse();
+          // List B
+          const descSortedListB = newListB.sort().reverse();
+          // List Dups
+          const descSortedListAnB = cleanedDups.sort().reverse();
+          // List AuB
+          const descSortedList = cleanedAuBList.sort().reverse();
+
+          setListDataAOnly(descSortedListA.join("\n"));
+          setListAnBDups(descSortedListAnB.join("\n"));
+          setListDataBOnly(descSortedListB.join("\n"));
+          setListDataAuB(descSortedList.join("\n"));
+        } else if (sortOptions === "za" && caseOptions === "capitalize") {
+          const descSortedListA = newListA
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          const capitalizedListA = descSortedListA.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List B
+          const descSortedListB = newListB
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          const capitalizedListB = descSortedListB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List Dups
+          const descSortedListDups = cleanedDups
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          const capitalizedListDups = descSortedListDups.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List AuB
+          const descSortedListAuB = cleanedAuBList
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          const capitalizedListAuB = descSortedListAuB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          setListDataAOnly(capitalizedListA.join("\n"));
+          setListAnBDups(capitalizedListDups.join("\n"));
+          setListDataBOnly(capitalizedListB.join("\n"));
+          setListDataAuB(capitalizedListAuB.join("\n"));
+        } else if (sortOptions === "za" && caseOptions === "uppercase") {
+          // List A
+          const descSortedListA = newListA
+            .map((el) => el.toUpperCase())
+            .sort()
+            .reverse();
+          // List B
+          const descSortedListB = newListB
+            .map((el) => el.toUpperCase())
+            .sort()
+            .reverse();
+          // List Dups
+          const descSortedListDups = cleanedDups
+            .map((el) => el.toUpperCase())
+            .sort()
+            .reverse();
+          // List AuB
+          const descSortedListAuB = cleanedAuBList
+            .map((el) => el.toUpperCase())
+            .sort()
+            .reverse();
+
+          setListDataAOnly(descSortedListA.join("\n"));
+          setListAnBDups(descSortedListDups.join("\n"));
+          setListDataAuB(descSortedListAuB.join("\n"));
+          setListDataBOnly(descSortedListB.join("\n"));
+        } else if (sortOptions === "za" && caseOptions === "lowercase") {
+          // List A
+          const descSortedListA = newListA
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          // List B
+          const descSortedListB = newListB
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          // List Dups
+          const descSortedListDups = cleanedDups
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          // List AuB
+          const descSortedListAuB = cleanedAuBList
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+
+          setListDataAOnly(descSortedListA.join("\n"));
+          setListAnBDups(descSortedListDups.join("\n"));
+          setListDataBOnly(descSortedListB.join("\n"));
+          setListDataAuB(descSortedListAuB.join("\n"));
+        } else {
+          setListDataAOnly(newListA.join("\n"));
+          setListAnBDups(cleanedDups.join("\n"));
+          setListDataBOnly(newListB.join("\n"));
+          setListDataAuB(cleanedAuBList.join("\r\n"));
+        }
+
+        setDuplicatesLines(cleanedDups.length);
+        setOnlyBLines(newListB.length);
+        setAOnlyLines(newListA.length);
         setAuBLines(cleanedAuBList.length);
       } else if (
         !caseSensitive &&
@@ -1561,10 +3001,7 @@ const CompareLists = () => {
       ) {
         // Make Array
         const listDataAArr = listDataA.replace(/\r\n\s/gm, "\n").split("\n");
-        // .map((el) => el.trim());
-
         const listDataBArr = listDataB.replace(/\r\n\s/gm, "\n").split("\n");
-        // .map((el) => el.trim());
 
         // Remove extra spaces
         const listAA = listDataAArr.map((item) =>
@@ -1582,21 +3019,13 @@ const CompareLists = () => {
         const listAOnly = listA.filter((val) => !listB.includes(val));
         const newListA = [...new Set(listAOnly)];
 
-        setListDataAOnly(listAOnly.join("\n"));
-        setAOnlyLines(newListA.length);
-
         // List data B only
         const listBOnly = listB.filter((val) => !listA.includes(val));
         const newListB = [...new Set(listBOnly)];
 
-        setListDataBOnly(newListB.join("\r\n"));
-        setOnlyBLines(newListB.length);
-
         // Check for duplicates
         const duplicates = listA.filter((element) => listB.includes(element));
         const cleanedDups = [...new Set(duplicates)];
-        setListAnBDups(cleanedDups.join("\r\n"));
-        setDuplicatesLines(cleanedDups.length);
 
         // All items
         const listAuB = listAA.concat(listBB);
@@ -1604,8 +3033,255 @@ const CompareLists = () => {
         const cleanedAuBList = list.filter(
           (val, index) => listAuB.indexOf(val) === index
         );
-        setListDataAuB(cleanedAuBList.join("\r\n"));
+
+        // Sort and Case options
+        if (sortOptions === "no-sort" && caseOptions === "capitalize") {
+          // List A
+          const lowercaseList = newListA.map((el) => el.toLowerCase());
+          const capitalizedList = lowercaseList.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List AnB
+          const lowercaseAnB = cleanedDups.map((el) => el.toLowerCase());
+          const capitalizedAnB = lowercaseAnB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List B
+          const lowercaseB = newListB.map((el) => el.toLowerCase());
+          const capitalizedListB = lowercaseB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // Both list
+          const lowercaseAuB = cleanedAuBList.map((el) => el.toLowerCase());
+          const capitalizedAuB = lowercaseAuB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+
+          setListDataAOnly(capitalizedList.join("\n"));
+          setListAnBDups(capitalizedAnB.join("\n"));
+          setListDataBOnly(capitalizedListB.join("\r\n"));
+          setListDataAuB(capitalizedAuB.join("\n"));
+        } else if (sortOptions === "no-sort" && caseOptions === "uppercase") {
+          // List A
+          const capitalizedList = newListA.map((el) => el.toUpperCase());
+          // List AnB
+          const lowercaseAnB = cleanedDups.map((el) => el.toUpperCase());
+          // List B
+          const uppercaseListB = newListB.map((el) => el.toUpperCase());
+          // Both list
+          const uppercaseAuB = cleanedAuBList.map((el) => el.toUpperCase());
+
+          setListDataAOnly(capitalizedList.join("\n"));
+          setListAnBDups(lowercaseAnB.join("\n"));
+          setListDataBOnly(uppercaseListB.join("\n"));
+          setListDataAuB(uppercaseAuB.join("\n"));
+        } else if (sortOptions === "no-sort" && caseOptions === "lowercase") {
+          // List A
+          const lowercaseListA = newListA.map((el) => el.toLowerCase());
+          // List AnB
+          const lowercaseAnB = cleanedDups.map((el) => el.toLowerCase());
+          // List B
+          const lowercaseListB = newListB.map((el) => el.toLowerCase());
+          // Both list
+          const lowercaseAuB = cleanedAuBList.map((el) => el.toLowerCase());
+
+          setListDataAOnly(lowercaseListA.join("\n"));
+          setListAnBDups(lowercaseAnB.join("\n"));
+          setListDataBOnly(lowercaseListB.join("\n"));
+          setListDataAuB(lowercaseAuB.join("\n"));
+        } else if (sortOptions === "az" && caseOptions === "no-change") {
+          // List A
+          const sortedListA = newListA.sort();
+          // List AnB
+          const sortedListDups = cleanedDups.sort();
+          // List B
+          const sortedListB = newListB.sort();
+          // Both list
+          const sortedListAuB = cleanedAuBList.sort();
+
+          setListDataAOnly(sortedListA.join("\n"));
+          setListAnBDups(sortedListDups.join("\n"));
+          setListDataBOnly(sortedListB.join("\n"));
+          setListDataAuB(sortedListAuB.join("\n"));
+        } else if (sortOptions === "az" && caseOptions === "capitalize") {
+          // List A
+          const sortedList = newListA.map((el) => el.toLowerCase()).sort();
+          const capitalizedList = sortedList.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List B
+          const sortedListBCaps = newListB.map((el) => el.toLowerCase()).sort();
+          const capitalizedListBCaps = sortedListBCaps.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List AnB
+          const sortedListDupsCaps = cleanedDups
+            .map((el) => el.toLowerCase())
+            .sort();
+          const listDupsCaps = sortedListDupsCaps.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List AuB
+          const sortedListAuB = cleanedAuBList
+            .map((el) => el.toLowerCase())
+            .sort();
+          const capitalizedListAuB = sortedListAuB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+
+          setListDataAOnly(capitalizedList.join("\n"));
+          setListAnBDups(listDupsCaps.join("\n"));
+          setListDataBOnly(capitalizedListBCaps.join("\n"));
+          setListDataAuB(capitalizedListAuB.join("\n"));
+        } else if (sortOptions === "az" && caseOptions === "uppercase") {
+          // List A
+          const sortedListA = newListA.map((el) => el.toUpperCase()).sort();
+          // List B
+          const sortedListB = newListB.map((el) => el.toUpperCase()).sort();
+          // List AnB
+          const sortedListAnB = cleanedDups
+            .map((el) => el.toUpperCase())
+            .sort();
+          // List Aub
+          const sortedListAuB = cleanedAuBList
+            .map((el) => el.toUpperCase())
+            .sort();
+
+          setListDataAOnly(sortedListA.join("\n"));
+          setListAnBDups(sortedListAnB.join("\n"));
+          setListDataBOnly(sortedListB.join("\n"));
+          setListDataAuB(sortedListAuB.join("\n"));
+        } else if (sortOptions === "az" && caseOptions === "lowercase") {
+          // List A
+          const sortedListA = newListA.map((el) => el.toLowerCase()).sort();
+          // ListB
+          const sortedListB = newListB.map((el) => el.toLowerCase()).sort();
+          // List AnB
+          const sortedListAnB = cleanedDups
+            .map((el) => el.toLowerCase())
+            .sort();
+          // List Aub
+          const sortedListAuB = cleanedAuBList
+            .map((el) => el.toLowerCase())
+            .sort();
+
+          setListDataAOnly(sortedListA.join("\n"));
+          setListAnBDups(sortedListAnB.join("\n"));
+          setListDataBOnly(sortedListB.join("\n"));
+          setListDataAuB(sortedListAuB.join("\n"));
+        } else if (sortOptions === "za" && caseOptions === "no-change") {
+          // List A
+          const descSortedListA = newListA.sort().reverse();
+          // List B
+          const descSortedListB = newListB.sort().reverse();
+          // List Dups
+          const descSortedListAnB = cleanedDups.sort().reverse();
+          // List AuB
+          const descSortedList = cleanedAuBList.sort().reverse();
+
+          setListDataAOnly(descSortedListA.join("\n"));
+          setListAnBDups(descSortedListAnB.join("\n"));
+          setListDataBOnly(descSortedListB.join("\n"));
+          setListDataAuB(descSortedList.join("\n"));
+        } else if (sortOptions === "za" && caseOptions === "capitalize") {
+          const descSortedListA = newListA
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          const capitalizedListA = descSortedListA.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List B
+          const descSortedListB = newListB
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          const capitalizedListB = descSortedListB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List Dups
+          const descSortedListDups = cleanedDups
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          const capitalizedListDups = descSortedListDups.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List AuB
+          const descSortedListAuB = cleanedAuBList
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          const capitalizedListAuB = descSortedListAuB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          setListDataAOnly(capitalizedListA.join("\n"));
+          setListAnBDups(capitalizedListDups.join("\n"));
+          setListDataBOnly(capitalizedListB.join("\n"));
+          setListDataAuB(capitalizedListAuB.join("\n"));
+        } else if (sortOptions === "za" && caseOptions === "uppercase") {
+          // List A
+          const descSortedListA = newListA
+            .map((el) => el.toUpperCase())
+            .sort()
+            .reverse();
+          // List B
+          const descSortedListB = newListB
+            .map((el) => el.toUpperCase())
+            .sort()
+            .reverse();
+          // List Dups
+          const descSortedListDups = cleanedDups
+            .map((el) => el.toUpperCase())
+            .sort()
+            .reverse();
+          // List AuB
+          const descSortedListAuB = cleanedAuBList
+            .map((el) => el.toUpperCase())
+            .sort()
+            .reverse();
+
+          setListDataAOnly(descSortedListA.join("\n"));
+          setListAnBDups(descSortedListDups.join("\n"));
+          setListDataAuB(descSortedListAuB.join("\n"));
+          setListDataBOnly(descSortedListB.join("\n"));
+        } else if (sortOptions === "za" && caseOptions === "lowercase") {
+          // List A
+          const descSortedListA = newListA
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          // List B
+          const descSortedListB = newListB
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          // List Dups
+          const descSortedListDups = cleanedDups
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          // List AuB
+          const descSortedListAuB = cleanedAuBList
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+
+          setListDataAOnly(descSortedListA.join("\n"));
+          setListAnBDups(descSortedListDups.join("\n"));
+          setListDataBOnly(descSortedListB.join("\n"));
+          setListDataAuB(descSortedListAuB.join("\n"));
+        } else {
+          setListDataAOnly(newListA.join("\n"));
+          setListAnBDups(cleanedDups.join("\n"));
+          setListDataBOnly(newListB.join("\n"));
+          setListDataAuB(cleanedAuBList.join("\r\n"));
+        }
+
         setAuBLines(cleanedAuBList.length);
+        setDuplicatesLines(cleanedDups.length);
+        setAOnlyLines(newListA.length);
+        setOnlyBLines(newListB.length);
       } else if (
         caseSensitive &&
         !ignoreBeginSpaces &&
@@ -1614,10 +3290,7 @@ const CompareLists = () => {
       ) {
         // Make Array
         const listDataAArr = listDataA.replace(/\r\n\s/gm, "\n").split("\n");
-        // .map((el) => el.trim());
-
         const listDataBArr = listDataB.replace(/\r\n\s/gm, "\n").split("\n");
-        // .map((el) => el.trim());
 
         // Remove extra spaces
         const listAA = listDataAArr.map((item) =>
@@ -1635,21 +3308,13 @@ const CompareLists = () => {
         const listAOnly = listA.filter((val) => !listB.includes(val));
         const newListA = [...new Set(listAOnly)];
 
-        setListDataAOnly(listAOnly.join("\n"));
-        setAOnlyLines(newListA.length);
-
         // List data B only
         const listBOnly = listB.filter((val) => !listA.includes(val));
         const newListB = [...new Set(listBOnly)];
 
-        setListDataBOnly(newListB.join("\r\n"));
-        setOnlyBLines(newListB.length);
-
         // Check for duplicates
         const duplicates = listA.filter((element) => listB.includes(element));
         const cleanedDups = [...new Set(duplicates)];
-        setListAnBDups(cleanedDups.join("\r\n"));
-        setDuplicatesLines(cleanedDups.length);
 
         // All items
         const listAuB = listAA.concat(listBB);
@@ -1657,7 +3322,254 @@ const CompareLists = () => {
         const cleanedAuBList = list.filter(
           (val, index) => listAuB.indexOf(val) === index
         );
-        setListDataAuB(cleanedAuBList.join("\r\n"));
+
+        // Sort and Case options
+        if (sortOptions === "no-sort" && caseOptions === "capitalize") {
+          // List A
+          const lowercaseList = newListA.map((el) => el.toLowerCase());
+          const capitalizedList = lowercaseList.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List AnB
+          const lowercaseAnB = cleanedDups.map((el) => el.toLowerCase());
+          const capitalizedAnB = lowercaseAnB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List B
+          const lowercaseB = newListB.map((el) => el.toLowerCase());
+          const capitalizedListB = lowercaseB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // Both list
+          const lowercaseAuB = cleanedAuBList.map((el) => el.toLowerCase());
+          const capitalizedAuB = lowercaseAuB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+
+          setListDataAOnly(capitalizedList.join("\n"));
+          setListAnBDups(capitalizedAnB.join("\n"));
+          setListDataBOnly(capitalizedListB.join("\r\n"));
+          setListDataAuB(capitalizedAuB.join("\n"));
+        } else if (sortOptions === "no-sort" && caseOptions === "uppercase") {
+          // List A
+          const capitalizedList = newListA.map((el) => el.toUpperCase());
+          // List AnB
+          const lowercaseAnB = cleanedDups.map((el) => el.toUpperCase());
+          // List B
+          const uppercaseListB = newListB.map((el) => el.toUpperCase());
+          // Both list
+          const uppercaseAuB = cleanedAuBList.map((el) => el.toUpperCase());
+
+          setListDataAOnly(capitalizedList.join("\n"));
+          setListAnBDups(lowercaseAnB.join("\n"));
+          setListDataBOnly(uppercaseListB.join("\n"));
+          setListDataAuB(uppercaseAuB.join("\n"));
+        } else if (sortOptions === "no-sort" && caseOptions === "lowercase") {
+          // List A
+          const lowercaseListA = newListA.map((el) => el.toLowerCase());
+          // List AnB
+          const lowercaseAnB = cleanedDups.map((el) => el.toLowerCase());
+          // List B
+          const lowercaseListB = newListB.map((el) => el.toLowerCase());
+          // Both list
+          const lowercaseAuB = cleanedAuBList.map((el) => el.toLowerCase());
+
+          setListDataAOnly(lowercaseListA.join("\n"));
+          setListAnBDups(lowercaseAnB.join("\n"));
+          setListDataBOnly(lowercaseListB.join("\n"));
+          setListDataAuB(lowercaseAuB.join("\n"));
+        } else if (sortOptions === "az" && caseOptions === "no-change") {
+          // List A
+          const sortedListA = newListA.sort();
+          // List AnB
+          const sortedListDups = cleanedDups.sort();
+          // List B
+          const sortedListB = newListB.sort();
+          // Both list
+          const sortedListAuB = cleanedAuBList.sort();
+
+          setListDataAOnly(sortedListA.join("\n"));
+          setListAnBDups(sortedListDups.join("\n"));
+          setListDataBOnly(sortedListB.join("\n"));
+          setListDataAuB(sortedListAuB.join("\n"));
+        } else if (sortOptions === "az" && caseOptions === "capitalize") {
+          // List A
+          const sortedList = newListA.map((el) => el.toLowerCase()).sort();
+          const capitalizedList = sortedList.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List B
+          const sortedListBCaps = newListB.map((el) => el.toLowerCase()).sort();
+          const capitalizedListBCaps = sortedListBCaps.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List AnB
+          const sortedListDupsCaps = cleanedDups
+            .map((el) => el.toLowerCase())
+            .sort();
+          const listDupsCaps = sortedListDupsCaps.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List AuB
+          const sortedListAuB = cleanedAuBList
+            .map((el) => el.toLowerCase())
+            .sort();
+          const capitalizedListAuB = sortedListAuB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+
+          setListDataAOnly(capitalizedList.join("\n"));
+          setListAnBDups(listDupsCaps.join("\n"));
+          setListDataBOnly(capitalizedListBCaps.join("\n"));
+          setListDataAuB(capitalizedListAuB.join("\n"));
+        } else if (sortOptions === "az" && caseOptions === "uppercase") {
+          // List A
+          const sortedListA = newListA.map((el) => el.toUpperCase()).sort();
+          // List B
+          const sortedListB = newListB.map((el) => el.toUpperCase()).sort();
+          // List AnB
+          const sortedListAnB = cleanedDups
+            .map((el) => el.toUpperCase())
+            .sort();
+          // List Aub
+          const sortedListAuB = cleanedAuBList
+            .map((el) => el.toUpperCase())
+            .sort();
+
+          setListDataAOnly(sortedListA.join("\n"));
+          setListAnBDups(sortedListAnB.join("\n"));
+          setListDataBOnly(sortedListB.join("\n"));
+          setListDataAuB(sortedListAuB.join("\n"));
+        } else if (sortOptions === "az" && caseOptions === "lowercase") {
+          // List A
+          const sortedListA = newListA.map((el) => el.toLowerCase()).sort();
+          // ListB
+          const sortedListB = newListB.map((el) => el.toLowerCase()).sort();
+          // List AnB
+          const sortedListAnB = cleanedDups
+            .map((el) => el.toLowerCase())
+            .sort();
+          // List Aub
+          const sortedListAuB = cleanedAuBList
+            .map((el) => el.toLowerCase())
+            .sort();
+
+          setListDataAOnly(sortedListA.join("\n"));
+          setListAnBDups(sortedListAnB.join("\n"));
+          setListDataBOnly(sortedListB.join("\n"));
+          setListDataAuB(sortedListAuB.join("\n"));
+        } else if (sortOptions === "za" && caseOptions === "no-change") {
+          // List A
+          const descSortedListA = newListA.sort().reverse();
+          // List B
+          const descSortedListB = newListB.sort().reverse();
+          // List Dups
+          const descSortedListAnB = cleanedDups.sort().reverse();
+          // List AuB
+          const descSortedList = cleanedAuBList.sort().reverse();
+
+          setListDataAOnly(descSortedListA.join("\n"));
+          setListAnBDups(descSortedListAnB.join("\n"));
+          setListDataBOnly(descSortedListB.join("\n"));
+          setListDataAuB(descSortedList.join("\n"));
+        } else if (sortOptions === "za" && caseOptions === "capitalize") {
+          const descSortedListA = newListA
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          const capitalizedListA = descSortedListA.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List B
+          const descSortedListB = newListB
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          const capitalizedListB = descSortedListB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List Dups
+          const descSortedListDups = cleanedDups
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          const capitalizedListDups = descSortedListDups.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List AuB
+          const descSortedListAuB = cleanedAuBList
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          const capitalizedListAuB = descSortedListAuB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          setListDataAOnly(capitalizedListA.join("\n"));
+          setListAnBDups(capitalizedListDups.join("\n"));
+          setListDataBOnly(capitalizedListB.join("\n"));
+          setListDataAuB(capitalizedListAuB.join("\n"));
+        } else if (sortOptions === "za" && caseOptions === "uppercase") {
+          // List A
+          const descSortedListA = newListA
+            .map((el) => el.toUpperCase())
+            .sort()
+            .reverse();
+          // List B
+          const descSortedListB = newListB
+            .map((el) => el.toUpperCase())
+            .sort()
+            .reverse();
+          // List Dups
+          const descSortedListDups = cleanedDups
+            .map((el) => el.toUpperCase())
+            .sort()
+            .reverse();
+          // List AuB
+          const descSortedListAuB = cleanedAuBList
+            .map((el) => el.toUpperCase())
+            .sort()
+            .reverse();
+
+          setListDataAOnly(descSortedListA.join("\n"));
+          setListAnBDups(descSortedListDups.join("\n"));
+          setListDataAuB(descSortedListAuB.join("\n"));
+          setListDataBOnly(descSortedListB.join("\n"));
+        } else if (sortOptions === "za" && caseOptions === "lowercase") {
+          // List A
+          const descSortedListA = newListA
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          // List B
+          const descSortedListB = newListB
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          // List Dups
+          const descSortedListDups = cleanedDups
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          // List AuB
+          const descSortedListAuB = cleanedAuBList
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+
+          setListDataAOnly(descSortedListA.join("\n"));
+          setListAnBDups(descSortedListDups.join("\n"));
+          setListDataBOnly(descSortedListB.join("\n"));
+          setListDataAuB(descSortedListAuB.join("\n"));
+        } else {
+          setListDataAOnly(newListA.join("\n"));
+          setListAnBDups(cleanedDups.join("\n"));
+          setListDataBOnly(newListB.join("\n"));
+          setListDataAuB(cleanedAuBList.join("\r\n"));
+        }
+
+        setAOnlyLines(newListA.length);
+        setOnlyBLines(newListB.length);
+        setDuplicatesLines(cleanedDups.length);
         setAuBLines(cleanedAuBList.length);
       } else if (
         caseSensitive &&
@@ -1692,21 +3604,13 @@ const CompareLists = () => {
         const listAOnly = listA.filter((val) => !listB.includes(val));
         const newListA = [...new Set(listAOnly)];
 
-        setListDataAOnly(listAOnly.join("\n"));
-        setAOnlyLines(newListA.length);
-
         // List data B only
         const listBOnly = listB.filter((val) => !listA.includes(val));
         const newListB = [...new Set(listBOnly)];
 
-        setListDataBOnly(newListB.join("\r\n"));
-        setOnlyBLines(newListB.length);
-
         // Check for duplicates
         const duplicates = listA.filter((element) => listB.includes(element));
         const cleanedDups = [...new Set(duplicates)];
-        setListAnBDups(cleanedDups.join("\r\n"));
-        setDuplicatesLines(cleanedDups.length);
 
         // All items
         const listAuB = listAA.concat(listBB);
@@ -1714,7 +3618,254 @@ const CompareLists = () => {
         const cleanedAuBList = list.filter(
           (val, index) => listAuB.indexOf(val) === index
         );
-        setListDataAuB(cleanedAuBList.join("\r\n"));
+
+        // Sort and Case options
+        if (sortOptions === "no-sort" && caseOptions === "capitalize") {
+          // List A
+          const lowercaseList = newListA.map((el) => el.toLowerCase());
+          const capitalizedList = lowercaseList.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List AnB
+          const lowercaseAnB = cleanedDups.map((el) => el.toLowerCase());
+          const capitalizedAnB = lowercaseAnB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List B
+          const lowercaseB = newListB.map((el) => el.toLowerCase());
+          const capitalizedListB = lowercaseB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // Both list
+          const lowercaseAuB = cleanedAuBList.map((el) => el.toLowerCase());
+          const capitalizedAuB = lowercaseAuB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+
+          setListDataAOnly(capitalizedList.join("\n"));
+          setListAnBDups(capitalizedAnB.join("\n"));
+          setListDataBOnly(capitalizedListB.join("\r\n"));
+          setListDataAuB(capitalizedAuB.join("\n"));
+        } else if (sortOptions === "no-sort" && caseOptions === "uppercase") {
+          // List A
+          const capitalizedList = newListA.map((el) => el.toUpperCase());
+          // List AnB
+          const lowercaseAnB = cleanedDups.map((el) => el.toUpperCase());
+          // List B
+          const uppercaseListB = newListB.map((el) => el.toUpperCase());
+          // Both list
+          const uppercaseAuB = cleanedAuBList.map((el) => el.toUpperCase());
+
+          setListDataAOnly(capitalizedList.join("\n"));
+          setListAnBDups(lowercaseAnB.join("\n"));
+          setListDataBOnly(uppercaseListB.join("\n"));
+          setListDataAuB(uppercaseAuB.join("\n"));
+        } else if (sortOptions === "no-sort" && caseOptions === "lowercase") {
+          // List A
+          const lowercaseListA = newListA.map((el) => el.toLowerCase());
+          // List AnB
+          const lowercaseAnB = cleanedDups.map((el) => el.toLowerCase());
+          // List B
+          const lowercaseListB = newListB.map((el) => el.toLowerCase());
+          // Both list
+          const lowercaseAuB = cleanedAuBList.map((el) => el.toLowerCase());
+
+          setListDataAOnly(lowercaseListA.join("\n"));
+          setListAnBDups(lowercaseAnB.join("\n"));
+          setListDataBOnly(lowercaseListB.join("\n"));
+          setListDataAuB(lowercaseAuB.join("\n"));
+        } else if (sortOptions === "az" && caseOptions === "no-change") {
+          // List A
+          const sortedListA = newListA.sort();
+          // List AnB
+          const sortedListDups = cleanedDups.sort();
+          // List B
+          const sortedListB = newListB.sort();
+          // Both list
+          const sortedListAuB = cleanedAuBList.sort();
+
+          setListDataAOnly(sortedListA.join("\n"));
+          setListAnBDups(sortedListDups.join("\n"));
+          setListDataBOnly(sortedListB.join("\n"));
+          setListDataAuB(sortedListAuB.join("\n"));
+        } else if (sortOptions === "az" && caseOptions === "capitalize") {
+          // List A
+          const sortedList = newListA.map((el) => el.toLowerCase()).sort();
+          const capitalizedList = sortedList.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List B
+          const sortedListBCaps = newListB.map((el) => el.toLowerCase()).sort();
+          const capitalizedListBCaps = sortedListBCaps.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List AnB
+          const sortedListDupsCaps = cleanedDups
+            .map((el) => el.toLowerCase())
+            .sort();
+          const listDupsCaps = sortedListDupsCaps.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List AuB
+          const sortedListAuB = cleanedAuBList
+            .map((el) => el.toLowerCase())
+            .sort();
+          const capitalizedListAuB = sortedListAuB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+
+          setListDataAOnly(capitalizedList.join("\n"));
+          setListAnBDups(listDupsCaps.join("\n"));
+          setListDataBOnly(capitalizedListBCaps.join("\n"));
+          setListDataAuB(capitalizedListAuB.join("\n"));
+        } else if (sortOptions === "az" && caseOptions === "uppercase") {
+          // List A
+          const sortedListA = newListA.map((el) => el.toUpperCase()).sort();
+          // List B
+          const sortedListB = newListB.map((el) => el.toUpperCase()).sort();
+          // List AnB
+          const sortedListAnB = cleanedDups
+            .map((el) => el.toUpperCase())
+            .sort();
+          // List Aub
+          const sortedListAuB = cleanedAuBList
+            .map((el) => el.toUpperCase())
+            .sort();
+
+          setListDataAOnly(sortedListA.join("\n"));
+          setListAnBDups(sortedListAnB.join("\n"));
+          setListDataBOnly(sortedListB.join("\n"));
+          setListDataAuB(sortedListAuB.join("\n"));
+        } else if (sortOptions === "az" && caseOptions === "lowercase") {
+          // List A
+          const sortedListA = newListA.map((el) => el.toLowerCase()).sort();
+          // ListB
+          const sortedListB = newListB.map((el) => el.toLowerCase()).sort();
+          // List AnB
+          const sortedListAnB = cleanedDups
+            .map((el) => el.toLowerCase())
+            .sort();
+          // List Aub
+          const sortedListAuB = cleanedAuBList
+            .map((el) => el.toLowerCase())
+            .sort();
+
+          setListDataAOnly(sortedListA.join("\n"));
+          setListAnBDups(sortedListAnB.join("\n"));
+          setListDataBOnly(sortedListB.join("\n"));
+          setListDataAuB(sortedListAuB.join("\n"));
+        } else if (sortOptions === "za" && caseOptions === "no-change") {
+          // List A
+          const descSortedListA = newListA.sort().reverse();
+          // List B
+          const descSortedListB = newListB.sort().reverse();
+          // List Dups
+          const descSortedListAnB = cleanedDups.sort().reverse();
+          // List AuB
+          const descSortedList = cleanedAuBList.sort().reverse();
+
+          setListDataAOnly(descSortedListA.join("\n"));
+          setListAnBDups(descSortedListAnB.join("\n"));
+          setListDataBOnly(descSortedListB.join("\n"));
+          setListDataAuB(descSortedList.join("\n"));
+        } else if (sortOptions === "za" && caseOptions === "capitalize") {
+          const descSortedListA = newListA
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          const capitalizedListA = descSortedListA.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List B
+          const descSortedListB = newListB
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          const capitalizedListB = descSortedListB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List Dups
+          const descSortedListDups = cleanedDups
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          const capitalizedListDups = descSortedListDups.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List AuB
+          const descSortedListAuB = cleanedAuBList
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          const capitalizedListAuB = descSortedListAuB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          setListDataAOnly(capitalizedListA.join("\n"));
+          setListAnBDups(capitalizedListDups.join("\n"));
+          setListDataBOnly(capitalizedListB.join("\n"));
+          setListDataAuB(capitalizedListAuB.join("\n"));
+        } else if (sortOptions === "za" && caseOptions === "uppercase") {
+          // List A
+          const descSortedListA = newListA
+            .map((el) => el.toUpperCase())
+            .sort()
+            .reverse();
+          // List B
+          const descSortedListB = newListB
+            .map((el) => el.toUpperCase())
+            .sort()
+            .reverse();
+          // List Dups
+          const descSortedListDups = cleanedDups
+            .map((el) => el.toUpperCase())
+            .sort()
+            .reverse();
+          // List AuB
+          const descSortedListAuB = cleanedAuBList
+            .map((el) => el.toUpperCase())
+            .sort()
+            .reverse();
+
+          setListDataAOnly(descSortedListA.join("\n"));
+          setListAnBDups(descSortedListDups.join("\n"));
+          setListDataAuB(descSortedListAuB.join("\n"));
+          setListDataBOnly(descSortedListB.join("\n"));
+        } else if (sortOptions === "za" && caseOptions === "lowercase") {
+          // List A
+          const descSortedListA = newListA
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          // List B
+          const descSortedListB = newListB
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          // List Dups
+          const descSortedListDups = cleanedDups
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          // List AuB
+          const descSortedListAuB = cleanedAuBList
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+
+          setListDataAOnly(descSortedListA.join("\n"));
+          setListAnBDups(descSortedListDups.join("\n"));
+          setListDataBOnly(descSortedListB.join("\n"));
+          setListDataAuB(descSortedListAuB.join("\n"));
+        } else {
+          setListDataAOnly(newListA.join("\n"));
+          setListAnBDups(cleanedDups.join("\n"));
+          setListDataBOnly(newListB.join("\n"));
+          setListDataAuB(cleanedAuBList.join("\r\n"));
+        }
+
+        setAOnlyLines(newListA.length);
+        setOnlyBLines(newListB.length);
+        setDuplicatesLines(cleanedDups.length);
         setAuBLines(cleanedAuBList.length);
       } else if (
         !caseSensitive &&
@@ -1751,21 +3902,13 @@ const CompareLists = () => {
         const listAOnly = listA.filter((val) => !listB.includes(val));
         const newListA = [...new Set(listAOnly)];
 
-        setListDataAOnly(listAOnly.join("\n"));
-        setAOnlyLines(newListA.length);
-
         // List data B only
         const listBOnly = listB.filter((val) => !listA.includes(val));
         const newListB = [...new Set(listBOnly)];
 
-        setListDataBOnly(newListB.join("\r\n"));
-        setOnlyBLines(newListB.length);
-
         // Check for duplicates
         const duplicates = listA.filter((element) => listB.includes(element));
         const cleanedDups = [...new Set(duplicates)];
-        setListAnBDups(cleanedDups.join("\r\n"));
-        setDuplicatesLines(cleanedDups.length);
 
         // All items
         const listAuB = listAA.concat(listBB);
@@ -1773,7 +3916,254 @@ const CompareLists = () => {
         const cleanedAuBList = list.filter(
           (val, index) => listAuB.indexOf(val) === index
         );
-        setListDataAuB(cleanedAuBList.join("\r\n"));
+
+        // Sort and Case options
+        if (sortOptions === "no-sort" && caseOptions === "capitalize") {
+          // List A
+          const lowercaseList = newListA.map((el) => el.toLowerCase());
+          const capitalizedList = lowercaseList.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List AnB
+          const lowercaseAnB = cleanedDups.map((el) => el.toLowerCase());
+          const capitalizedAnB = lowercaseAnB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List B
+          const lowercaseB = newListB.map((el) => el.toLowerCase());
+          const capitalizedListB = lowercaseB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // Both list
+          const lowercaseAuB = cleanedAuBList.map((el) => el.toLowerCase());
+          const capitalizedAuB = lowercaseAuB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+
+          setListDataAOnly(capitalizedList.join("\n"));
+          setListAnBDups(capitalizedAnB.join("\n"));
+          setListDataBOnly(capitalizedListB.join("\r\n"));
+          setListDataAuB(capitalizedAuB.join("\n"));
+        } else if (sortOptions === "no-sort" && caseOptions === "uppercase") {
+          // List A
+          const capitalizedList = newListA.map((el) => el.toUpperCase());
+          // List AnB
+          const lowercaseAnB = cleanedDups.map((el) => el.toUpperCase());
+          // List B
+          const uppercaseListB = newListB.map((el) => el.toUpperCase());
+          // Both list
+          const uppercaseAuB = cleanedAuBList.map((el) => el.toUpperCase());
+
+          setListDataAOnly(capitalizedList.join("\n"));
+          setListAnBDups(lowercaseAnB.join("\n"));
+          setListDataBOnly(uppercaseListB.join("\n"));
+          setListDataAuB(uppercaseAuB.join("\n"));
+        } else if (sortOptions === "no-sort" && caseOptions === "lowercase") {
+          // List A
+          const lowercaseListA = newListA.map((el) => el.toLowerCase());
+          // List AnB
+          const lowercaseAnB = cleanedDups.map((el) => el.toLowerCase());
+          // List B
+          const lowercaseListB = newListB.map((el) => el.toLowerCase());
+          // Both list
+          const lowercaseAuB = cleanedAuBList.map((el) => el.toLowerCase());
+
+          setListDataAOnly(lowercaseListA.join("\n"));
+          setListAnBDups(lowercaseAnB.join("\n"));
+          setListDataBOnly(lowercaseListB.join("\n"));
+          setListDataAuB(lowercaseAuB.join("\n"));
+        } else if (sortOptions === "az" && caseOptions === "no-change") {
+          // List A
+          const sortedListA = newListA.sort();
+          // List AnB
+          const sortedListDups = cleanedDups.sort();
+          // List B
+          const sortedListB = newListB.sort();
+          // Both list
+          const sortedListAuB = cleanedAuBList.sort();
+
+          setListDataAOnly(sortedListA.join("\n"));
+          setListAnBDups(sortedListDups.join("\n"));
+          setListDataBOnly(sortedListB.join("\n"));
+          setListDataAuB(sortedListAuB.join("\n"));
+        } else if (sortOptions === "az" && caseOptions === "capitalize") {
+          // List A
+          const sortedList = newListA.map((el) => el.toLowerCase()).sort();
+          const capitalizedList = sortedList.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List B
+          const sortedListBCaps = newListB.map((el) => el.toLowerCase()).sort();
+          const capitalizedListBCaps = sortedListBCaps.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List AnB
+          const sortedListDupsCaps = cleanedDups
+            .map((el) => el.toLowerCase())
+            .sort();
+          const listDupsCaps = sortedListDupsCaps.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List AuB
+          const sortedListAuB = cleanedAuBList
+            .map((el) => el.toLowerCase())
+            .sort();
+          const capitalizedListAuB = sortedListAuB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+
+          setListDataAOnly(capitalizedList.join("\n"));
+          setListAnBDups(listDupsCaps.join("\n"));
+          setListDataBOnly(capitalizedListBCaps.join("\n"));
+          setListDataAuB(capitalizedListAuB.join("\n"));
+        } else if (sortOptions === "az" && caseOptions === "uppercase") {
+          // List A
+          const sortedListA = newListA.map((el) => el.toUpperCase()).sort();
+          // List B
+          const sortedListB = newListB.map((el) => el.toUpperCase()).sort();
+          // List AnB
+          const sortedListAnB = cleanedDups
+            .map((el) => el.toUpperCase())
+            .sort();
+          // List Aub
+          const sortedListAuB = cleanedAuBList
+            .map((el) => el.toUpperCase())
+            .sort();
+
+          setListDataAOnly(sortedListA.join("\n"));
+          setListAnBDups(sortedListAnB.join("\n"));
+          setListDataBOnly(sortedListB.join("\n"));
+          setListDataAuB(sortedListAuB.join("\n"));
+        } else if (sortOptions === "az" && caseOptions === "lowercase") {
+          // List A
+          const sortedListA = newListA.map((el) => el.toLowerCase()).sort();
+          // ListB
+          const sortedListB = newListB.map((el) => el.toLowerCase()).sort();
+          // List AnB
+          const sortedListAnB = cleanedDups
+            .map((el) => el.toLowerCase())
+            .sort();
+          // List Aub
+          const sortedListAuB = cleanedAuBList
+            .map((el) => el.toLowerCase())
+            .sort();
+
+          setListDataAOnly(sortedListA.join("\n"));
+          setListAnBDups(sortedListAnB.join("\n"));
+          setListDataBOnly(sortedListB.join("\n"));
+          setListDataAuB(sortedListAuB.join("\n"));
+        } else if (sortOptions === "za" && caseOptions === "no-change") {
+          // List A
+          const descSortedListA = newListA.sort().reverse();
+          // List B
+          const descSortedListB = newListB.sort().reverse();
+          // List Dups
+          const descSortedListAnB = cleanedDups.sort().reverse();
+          // List AuB
+          const descSortedList = cleanedAuBList.sort().reverse();
+
+          setListDataAOnly(descSortedListA.join("\n"));
+          setListAnBDups(descSortedListAnB.join("\n"));
+          setListDataBOnly(descSortedListB.join("\n"));
+          setListDataAuB(descSortedList.join("\n"));
+        } else if (sortOptions === "za" && caseOptions === "capitalize") {
+          const descSortedListA = newListA
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          const capitalizedListA = descSortedListA.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List B
+          const descSortedListB = newListB
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          const capitalizedListB = descSortedListB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List Dups
+          const descSortedListDups = cleanedDups
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          const capitalizedListDups = descSortedListDups.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List AuB
+          const descSortedListAuB = cleanedAuBList
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          const capitalizedListAuB = descSortedListAuB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          setListDataAOnly(capitalizedListA.join("\n"));
+          setListAnBDups(capitalizedListDups.join("\n"));
+          setListDataBOnly(capitalizedListB.join("\n"));
+          setListDataAuB(capitalizedListAuB.join("\n"));
+        } else if (sortOptions === "za" && caseOptions === "uppercase") {
+          // List A
+          const descSortedListA = newListA
+            .map((el) => el.toUpperCase())
+            .sort()
+            .reverse();
+          // List B
+          const descSortedListB = newListB
+            .map((el) => el.toUpperCase())
+            .sort()
+            .reverse();
+          // List Dups
+          const descSortedListDups = cleanedDups
+            .map((el) => el.toUpperCase())
+            .sort()
+            .reverse();
+          // List AuB
+          const descSortedListAuB = cleanedAuBList
+            .map((el) => el.toUpperCase())
+            .sort()
+            .reverse();
+
+          setListDataAOnly(descSortedListA.join("\n"));
+          setListAnBDups(descSortedListDups.join("\n"));
+          setListDataAuB(descSortedListAuB.join("\n"));
+          setListDataBOnly(descSortedListB.join("\n"));
+        } else if (sortOptions === "za" && caseOptions === "lowercase") {
+          // List A
+          const descSortedListA = newListA
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          // List B
+          const descSortedListB = newListB
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          // List Dups
+          const descSortedListDups = cleanedDups
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          // List AuB
+          const descSortedListAuB = cleanedAuBList
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+
+          setListDataAOnly(descSortedListA.join("\n"));
+          setListAnBDups(descSortedListDups.join("\n"));
+          setListDataBOnly(descSortedListB.join("\n"));
+          setListDataAuB(descSortedListAuB.join("\n"));
+        } else {
+          setListDataAOnly(newListA.join("\n"));
+          setListAnBDups(cleanedDups.join("\n"));
+          setListDataBOnly(newListB.join("\n"));
+          setListDataAuB(cleanedAuBList.join("\r\n"));
+        }
+
+        setAOnlyLines(newListA.length);
+        setOnlyBLines(newListB.length);
+        setDuplicatesLines(cleanedDups.length);
         setAuBLines(cleanedAuBList.length);
       } else if (
         caseSensitive &&
@@ -1782,17 +4172,9 @@ const CompareLists = () => {
         ignoreLeadingZeros
       ) {
         // Make Array
-        const listDataAArr = listDataA
-          // .toLowerCase()
-          .replace(/\r\n\s/gm, "\n")
-          .split("\n");
-        // .map((el) => el.trim());
+        const listDataAArr = listDataA.replace(/\r\n\s/gm, "\n").split("\n");
 
-        const listDataBArr = listDataB
-          // .toLowerCase()
-          .replace(/\r\n\s/gm, "\n")
-          .split("\n");
-        // .map((el) => el.trim());
+        const listDataBArr = listDataB.replace(/\r\n\s/gm, "\n").split("\n");
 
         // Remove extra spaces
         const listAA = listDataAArr.map((item) =>
@@ -1810,21 +4192,13 @@ const CompareLists = () => {
         const listAOnly = listA.filter((val) => !listB.includes(val));
         const newListA = [...new Set(listAOnly)];
 
-        setListDataAOnly(listAOnly.join("\n"));
-        setAOnlyLines(newListA.length);
-
         // List data B only
         const listBOnly = listB.filter((val) => !listA.includes(val));
         const newListB = [...new Set(listBOnly)];
 
-        setListDataBOnly(newListB.join("\r\n"));
-        setOnlyBLines(newListB.length);
-
         // Check for duplicates
         const duplicates = listA.filter((element) => listB.includes(element));
         const cleanedDups = [...new Set(duplicates)];
-        setListAnBDups(cleanedDups.join("\r\n"));
-        setDuplicatesLines(cleanedDups.length);
 
         // All items
         const listAuB = listAA.concat(listBB);
@@ -1832,7 +4206,254 @@ const CompareLists = () => {
         const cleanedAuBList = list.filter(
           (val, index) => listAuB.indexOf(val) === index
         );
-        setListDataAuB(cleanedAuBList.join("\r\n"));
+
+        // Sort and Case options
+        if (sortOptions === "no-sort" && caseOptions === "capitalize") {
+          // List A
+          const lowercaseList = newListA.map((el) => el.toLowerCase());
+          const capitalizedList = lowercaseList.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List AnB
+          const lowercaseAnB = cleanedDups.map((el) => el.toLowerCase());
+          const capitalizedAnB = lowercaseAnB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List B
+          const lowercaseB = newListB.map((el) => el.toLowerCase());
+          const capitalizedListB = lowercaseB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // Both list
+          const lowercaseAuB = cleanedAuBList.map((el) => el.toLowerCase());
+          const capitalizedAuB = lowercaseAuB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+
+          setListDataAOnly(capitalizedList.join("\n"));
+          setListAnBDups(capitalizedAnB.join("\n"));
+          setListDataBOnly(capitalizedListB.join("\r\n"));
+          setListDataAuB(capitalizedAuB.join("\n"));
+        } else if (sortOptions === "no-sort" && caseOptions === "uppercase") {
+          // List A
+          const capitalizedList = newListA.map((el) => el.toUpperCase());
+          // List AnB
+          const lowercaseAnB = cleanedDups.map((el) => el.toUpperCase());
+          // List B
+          const uppercaseListB = newListB.map((el) => el.toUpperCase());
+          // Both list
+          const uppercaseAuB = cleanedAuBList.map((el) => el.toUpperCase());
+
+          setListDataAOnly(capitalizedList.join("\n"));
+          setListAnBDups(lowercaseAnB.join("\n"));
+          setListDataBOnly(uppercaseListB.join("\n"));
+          setListDataAuB(uppercaseAuB.join("\n"));
+        } else if (sortOptions === "no-sort" && caseOptions === "lowercase") {
+          // List A
+          const lowercaseListA = newListA.map((el) => el.toLowerCase());
+          // List AnB
+          const lowercaseAnB = cleanedDups.map((el) => el.toLowerCase());
+          // List B
+          const lowercaseListB = newListB.map((el) => el.toLowerCase());
+          // Both list
+          const lowercaseAuB = cleanedAuBList.map((el) => el.toLowerCase());
+
+          setListDataAOnly(lowercaseListA.join("\n"));
+          setListAnBDups(lowercaseAnB.join("\n"));
+          setListDataBOnly(lowercaseListB.join("\n"));
+          setListDataAuB(lowercaseAuB.join("\n"));
+        } else if (sortOptions === "az" && caseOptions === "no-change") {
+          // List A
+          const sortedListA = newListA.sort();
+          // List AnB
+          const sortedListDups = cleanedDups.sort();
+          // List B
+          const sortedListB = newListB.sort();
+          // Both list
+          const sortedListAuB = cleanedAuBList.sort();
+
+          setListDataAOnly(sortedListA.join("\n"));
+          setListAnBDups(sortedListDups.join("\n"));
+          setListDataBOnly(sortedListB.join("\n"));
+          setListDataAuB(sortedListAuB.join("\n"));
+        } else if (sortOptions === "az" && caseOptions === "capitalize") {
+          // List A
+          const sortedList = newListA.map((el) => el.toLowerCase()).sort();
+          const capitalizedList = sortedList.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List B
+          const sortedListBCaps = newListB.map((el) => el.toLowerCase()).sort();
+          const capitalizedListBCaps = sortedListBCaps.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List AnB
+          const sortedListDupsCaps = cleanedDups
+            .map((el) => el.toLowerCase())
+            .sort();
+          const listDupsCaps = sortedListDupsCaps.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List AuB
+          const sortedListAuB = cleanedAuBList
+            .map((el) => el.toLowerCase())
+            .sort();
+          const capitalizedListAuB = sortedListAuB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+
+          setListDataAOnly(capitalizedList.join("\n"));
+          setListAnBDups(listDupsCaps.join("\n"));
+          setListDataBOnly(capitalizedListBCaps.join("\n"));
+          setListDataAuB(capitalizedListAuB.join("\n"));
+        } else if (sortOptions === "az" && caseOptions === "uppercase") {
+          // List A
+          const sortedListA = newListA.map((el) => el.toUpperCase()).sort();
+          // List B
+          const sortedListB = newListB.map((el) => el.toUpperCase()).sort();
+          // List AnB
+          const sortedListAnB = cleanedDups
+            .map((el) => el.toUpperCase())
+            .sort();
+          // List Aub
+          const sortedListAuB = cleanedAuBList
+            .map((el) => el.toUpperCase())
+            .sort();
+
+          setListDataAOnly(sortedListA.join("\n"));
+          setListAnBDups(sortedListAnB.join("\n"));
+          setListDataBOnly(sortedListB.join("\n"));
+          setListDataAuB(sortedListAuB.join("\n"));
+        } else if (sortOptions === "az" && caseOptions === "lowercase") {
+          // List A
+          const sortedListA = newListA.map((el) => el.toLowerCase()).sort();
+          // ListB
+          const sortedListB = newListB.map((el) => el.toLowerCase()).sort();
+          // List AnB
+          const sortedListAnB = cleanedDups
+            .map((el) => el.toLowerCase())
+            .sort();
+          // List Aub
+          const sortedListAuB = cleanedAuBList
+            .map((el) => el.toLowerCase())
+            .sort();
+
+          setListDataAOnly(sortedListA.join("\n"));
+          setListAnBDups(sortedListAnB.join("\n"));
+          setListDataBOnly(sortedListB.join("\n"));
+          setListDataAuB(sortedListAuB.join("\n"));
+        } else if (sortOptions === "za" && caseOptions === "no-change") {
+          // List A
+          const descSortedListA = newListA.sort().reverse();
+          // List B
+          const descSortedListB = newListB.sort().reverse();
+          // List Dups
+          const descSortedListAnB = cleanedDups.sort().reverse();
+          // List AuB
+          const descSortedList = cleanedAuBList.sort().reverse();
+
+          setListDataAOnly(descSortedListA.join("\n"));
+          setListAnBDups(descSortedListAnB.join("\n"));
+          setListDataBOnly(descSortedListB.join("\n"));
+          setListDataAuB(descSortedList.join("\n"));
+        } else if (sortOptions === "za" && caseOptions === "capitalize") {
+          const descSortedListA = newListA
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          const capitalizedListA = descSortedListA.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List B
+          const descSortedListB = newListB
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          const capitalizedListB = descSortedListB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List Dups
+          const descSortedListDups = cleanedDups
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          const capitalizedListDups = descSortedListDups.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List AuB
+          const descSortedListAuB = cleanedAuBList
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          const capitalizedListAuB = descSortedListAuB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          setListDataAOnly(capitalizedListA.join("\n"));
+          setListAnBDups(capitalizedListDups.join("\n"));
+          setListDataBOnly(capitalizedListB.join("\n"));
+          setListDataAuB(capitalizedListAuB.join("\n"));
+        } else if (sortOptions === "za" && caseOptions === "uppercase") {
+          // List A
+          const descSortedListA = newListA
+            .map((el) => el.toUpperCase())
+            .sort()
+            .reverse();
+          // List B
+          const descSortedListB = newListB
+            .map((el) => el.toUpperCase())
+            .sort()
+            .reverse();
+          // List Dups
+          const descSortedListDups = cleanedDups
+            .map((el) => el.toUpperCase())
+            .sort()
+            .reverse();
+          // List AuB
+          const descSortedListAuB = cleanedAuBList
+            .map((el) => el.toUpperCase())
+            .sort()
+            .reverse();
+
+          setListDataAOnly(descSortedListA.join("\n"));
+          setListAnBDups(descSortedListDups.join("\n"));
+          setListDataAuB(descSortedListAuB.join("\n"));
+          setListDataBOnly(descSortedListB.join("\n"));
+        } else if (sortOptions === "za" && caseOptions === "lowercase") {
+          // List A
+          const descSortedListA = newListA
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          // List B
+          const descSortedListB = newListB
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          // List Dups
+          const descSortedListDups = cleanedDups
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          // List AuB
+          const descSortedListAuB = cleanedAuBList
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+
+          setListDataAOnly(descSortedListA.join("\n"));
+          setListAnBDups(descSortedListDups.join("\n"));
+          setListDataBOnly(descSortedListB.join("\n"));
+          setListDataAuB(descSortedListAuB.join("\n"));
+        } else {
+          setListDataAOnly(newListA.join("\n"));
+          setListAnBDups(cleanedDups.join("\n"));
+          setListDataBOnly(newListB.join("\n"));
+          setListDataAuB(cleanedAuBList.join("\r\n"));
+        }
+
+        setAOnlyLines(newListA.length);
+        setOnlyBLines(newListB.length);
+        setDuplicatesLines(cleanedDups.length);
         setAuBLines(cleanedAuBList.length);
       } else if (
         caseSensitive &&
@@ -1843,13 +4464,11 @@ const CompareLists = () => {
       ) {
         // Make Array
         const listDataAArr = listDataA
-          // .toLowerCase()
           .replace(/\r\n\s/gm, "\n")
           .split("\n")
           .map((el) => el.trim());
 
         const listDataBArr = listDataB
-          // .toLowerCase()
           .replace(/\r\n\s/gm, "\n")
           .split("\n")
           .map((el) => el.trim());
@@ -1870,21 +4489,13 @@ const CompareLists = () => {
         const listAOnly = listA.filter((val) => !listB.includes(val));
         const newListA = [...new Set(listAOnly)];
 
-        setListDataAOnly(listAOnly.join("\n"));
-        setAOnlyLines(newListA.length);
-
         // List data B only
         const listBOnly = listB.filter((val) => !listA.includes(val));
         const newListB = [...new Set(listBOnly)];
 
-        setListDataBOnly(newListB.join("\r\n"));
-        setOnlyBLines(newListB.length);
-
         // Check for duplicates
         const duplicates = listA.filter((el) => listB.includes(el));
         const cleanedDups = [...new Set(duplicates)];
-        setListAnBDups(cleanedDups.join("\r\n"));
-        setDuplicatesLines(cleanedDups.length);
 
         // All items
         const listAuB = listAA.concat(listBB);
@@ -1892,7 +4503,254 @@ const CompareLists = () => {
         const cleanedAuBList = list.filter(
           (val, index) => listAuB.indexOf(val) === index
         );
-        setListDataAuB(cleanedAuBList.join("\r\n"));
+
+        // Sort and Case options
+        if (sortOptions === "no-sort" && caseOptions === "capitalize") {
+          // List A
+          const lowercaseList = newListA.map((el) => el.toLowerCase());
+          const capitalizedList = lowercaseList.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List AnB
+          const lowercaseAnB = cleanedDups.map((el) => el.toLowerCase());
+          const capitalizedAnB = lowercaseAnB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List B
+          const lowercaseB = newListB.map((el) => el.toLowerCase());
+          const capitalizedListB = lowercaseB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // Both list
+          const lowercaseAuB = cleanedAuBList.map((el) => el.toLowerCase());
+          const capitalizedAuB = lowercaseAuB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+
+          setListDataAOnly(capitalizedList.join("\n"));
+          setListAnBDups(capitalizedAnB.join("\n"));
+          setListDataBOnly(capitalizedListB.join("\r\n"));
+          setListDataAuB(capitalizedAuB.join("\n"));
+        } else if (sortOptions === "no-sort" && caseOptions === "uppercase") {
+          // List A
+          const capitalizedList = newListA.map((el) => el.toUpperCase());
+          // List AnB
+          const lowercaseAnB = cleanedDups.map((el) => el.toUpperCase());
+          // List B
+          const uppercaseListB = newListB.map((el) => el.toUpperCase());
+          // Both list
+          const uppercaseAuB = cleanedAuBList.map((el) => el.toUpperCase());
+
+          setListDataAOnly(capitalizedList.join("\n"));
+          setListAnBDups(lowercaseAnB.join("\n"));
+          setListDataBOnly(uppercaseListB.join("\n"));
+          setListDataAuB(uppercaseAuB.join("\n"));
+        } else if (sortOptions === "no-sort" && caseOptions === "lowercase") {
+          // List A
+          const lowercaseListA = newListA.map((el) => el.toLowerCase());
+          // List AnB
+          const lowercaseAnB = cleanedDups.map((el) => el.toLowerCase());
+          // List B
+          const lowercaseListB = newListB.map((el) => el.toLowerCase());
+          // Both list
+          const lowercaseAuB = cleanedAuBList.map((el) => el.toLowerCase());
+
+          setListDataAOnly(lowercaseListA.join("\n"));
+          setListAnBDups(lowercaseAnB.join("\n"));
+          setListDataBOnly(lowercaseListB.join("\n"));
+          setListDataAuB(lowercaseAuB.join("\n"));
+        } else if (sortOptions === "az" && caseOptions === "no-change") {
+          // List A
+          const sortedListA = newListA.sort();
+          // List AnB
+          const sortedListDups = cleanedDups.sort();
+          // List B
+          const sortedListB = newListB.sort();
+          // Both list
+          const sortedListAuB = cleanedAuBList.sort();
+
+          setListDataAOnly(sortedListA.join("\n"));
+          setListAnBDups(sortedListDups.join("\n"));
+          setListDataBOnly(sortedListB.join("\n"));
+          setListDataAuB(sortedListAuB.join("\n"));
+        } else if (sortOptions === "az" && caseOptions === "capitalize") {
+          // List A
+          const sortedList = newListA.map((el) => el.toLowerCase()).sort();
+          const capitalizedList = sortedList.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List B
+          const sortedListBCaps = newListB.map((el) => el.toLowerCase()).sort();
+          const capitalizedListBCaps = sortedListBCaps.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List AnB
+          const sortedListDupsCaps = cleanedDups
+            .map((el) => el.toLowerCase())
+            .sort();
+          const listDupsCaps = sortedListDupsCaps.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List AuB
+          const sortedListAuB = cleanedAuBList
+            .map((el) => el.toLowerCase())
+            .sort();
+          const capitalizedListAuB = sortedListAuB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+
+          setListDataAOnly(capitalizedList.join("\n"));
+          setListAnBDups(listDupsCaps.join("\n"));
+          setListDataBOnly(capitalizedListBCaps.join("\n"));
+          setListDataAuB(capitalizedListAuB.join("\n"));
+        } else if (sortOptions === "az" && caseOptions === "uppercase") {
+          // List A
+          const sortedListA = newListA.map((el) => el.toUpperCase()).sort();
+          // List B
+          const sortedListB = newListB.map((el) => el.toUpperCase()).sort();
+          // List AnB
+          const sortedListAnB = cleanedDups
+            .map((el) => el.toUpperCase())
+            .sort();
+          // List Aub
+          const sortedListAuB = cleanedAuBList
+            .map((el) => el.toUpperCase())
+            .sort();
+
+          setListDataAOnly(sortedListA.join("\n"));
+          setListAnBDups(sortedListAnB.join("\n"));
+          setListDataBOnly(sortedListB.join("\n"));
+          setListDataAuB(sortedListAuB.join("\n"));
+        } else if (sortOptions === "az" && caseOptions === "lowercase") {
+          // List A
+          const sortedListA = newListA.map((el) => el.toLowerCase()).sort();
+          // ListB
+          const sortedListB = newListB.map((el) => el.toLowerCase()).sort();
+          // List AnB
+          const sortedListAnB = cleanedDups
+            .map((el) => el.toLowerCase())
+            .sort();
+          // List Aub
+          const sortedListAuB = cleanedAuBList
+            .map((el) => el.toLowerCase())
+            .sort();
+
+          setListDataAOnly(sortedListA.join("\n"));
+          setListAnBDups(sortedListAnB.join("\n"));
+          setListDataBOnly(sortedListB.join("\n"));
+          setListDataAuB(sortedListAuB.join("\n"));
+        } else if (sortOptions === "za" && caseOptions === "no-change") {
+          // List A
+          const descSortedListA = newListA.sort().reverse();
+          // List B
+          const descSortedListB = newListB.sort().reverse();
+          // List Dups
+          const descSortedListAnB = cleanedDups.sort().reverse();
+          // List AuB
+          const descSortedList = cleanedAuBList.sort().reverse();
+
+          setListDataAOnly(descSortedListA.join("\n"));
+          setListAnBDups(descSortedListAnB.join("\n"));
+          setListDataBOnly(descSortedListB.join("\n"));
+          setListDataAuB(descSortedList.join("\n"));
+        } else if (sortOptions === "za" && caseOptions === "capitalize") {
+          const descSortedListA = newListA
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          const capitalizedListA = descSortedListA.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List B
+          const descSortedListB = newListB
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          const capitalizedListB = descSortedListB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List Dups
+          const descSortedListDups = cleanedDups
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          const capitalizedListDups = descSortedListDups.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List AuB
+          const descSortedListAuB = cleanedAuBList
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          const capitalizedListAuB = descSortedListAuB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          setListDataAOnly(capitalizedListA.join("\n"));
+          setListAnBDups(capitalizedListDups.join("\n"));
+          setListDataBOnly(capitalizedListB.join("\n"));
+          setListDataAuB(capitalizedListAuB.join("\n"));
+        } else if (sortOptions === "za" && caseOptions === "uppercase") {
+          // List A
+          const descSortedListA = newListA
+            .map((el) => el.toUpperCase())
+            .sort()
+            .reverse();
+          // List B
+          const descSortedListB = newListB
+            .map((el) => el.toUpperCase())
+            .sort()
+            .reverse();
+          // List Dups
+          const descSortedListDups = cleanedDups
+            .map((el) => el.toUpperCase())
+            .sort()
+            .reverse();
+          // List AuB
+          const descSortedListAuB = cleanedAuBList
+            .map((el) => el.toUpperCase())
+            .sort()
+            .reverse();
+
+          setListDataAOnly(descSortedListA.join("\n"));
+          setListAnBDups(descSortedListDups.join("\n"));
+          setListDataAuB(descSortedListAuB.join("\n"));
+          setListDataBOnly(descSortedListB.join("\n"));
+        } else if (sortOptions === "za" && caseOptions === "lowercase") {
+          // List A
+          const descSortedListA = newListA
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          // List B
+          const descSortedListB = newListB
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          // List Dups
+          const descSortedListDups = cleanedDups
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          // List AuB
+          const descSortedListAuB = cleanedAuBList
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+
+          setListDataAOnly(descSortedListA.join("\n"));
+          setListAnBDups(descSortedListDups.join("\n"));
+          setListDataBOnly(descSortedListB.join("\n"));
+          setListDataAuB(descSortedListAuB.join("\n"));
+        } else {
+          setListDataAOnly(newListA.join("\n"));
+          setListAnBDups(cleanedDups.join("\n"));
+          setListDataBOnly(newListB.join("\n"));
+          setListDataAuB(cleanedAuBList.join("\r\n"));
+        }
+
+        setAOnlyLines(newListA.length);
+        setOnlyBLines(newListB.length);
+        setDuplicatesLines(cleanedDups.length);
         setAuBLines(cleanedAuBList.length);
       } else {
         // Make Array
@@ -1900,13 +4758,11 @@ const CompareLists = () => {
           .toLowerCase()
           .replace(/\r\n/gm, "\n")
           .split("\n");
-        // .map((el) => el.trim());
 
         const listDataBArr = listDataB
           .toLowerCase()
           .replace(/\r\n/gm, "\n")
           .split("\n");
-        // .map((el) => el.trim());
 
         // Filter empty values
         const listA = listDataAArr.filter((item) => item.length > 0);
@@ -1916,21 +4772,13 @@ const CompareLists = () => {
         const listAOnly = listA.filter((val) => !listB.includes(val));
         const newListA = [...new Set(listAOnly)];
 
-        setListDataAOnly(listAOnly.join("\n"));
-        setAOnlyLines(newListA.length);
-
         // List data B only
         const listBOnly = listB.filter((val) => !listA.includes(val));
         const newListB = [...new Set(listBOnly)];
 
-        setListDataBOnly(newListB.join("\r\n"));
-        setOnlyBLines(newListB.length);
-
         // Check for duplicates
         const duplicates = listA.filter((element) => listB.includes(element));
         const cleanedDups = [...new Set(duplicates)];
-        setListAnBDups(cleanedDups.join("\r\n"));
-        setDuplicatesLines(cleanedDups.length);
 
         // All items
         const listAuB = listDataAArr.concat(listDataBArr);
@@ -1938,7 +4786,253 @@ const CompareLists = () => {
         const cleanedAuBList = list.filter(
           (val, index) => listAuB.indexOf(val) === index
         );
-        setListDataAuB(cleanedAuBList.join("\r\n"));
+        // Sort and Case options
+        if (sortOptions === "no-sort" && caseOptions === "capitalize") {
+          // List A
+          const lowercaseList = newListA.map((el) => el.toLowerCase());
+          const capitalizedList = lowercaseList.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List AnB
+          const lowercaseAnB = cleanedDups.map((el) => el.toLowerCase());
+          const capitalizedAnB = lowercaseAnB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List B
+          const lowercaseB = newListB.map((el) => el.toLowerCase());
+          const capitalizedListB = lowercaseB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // Both list
+          const lowercaseAuB = cleanedAuBList.map((el) => el.toLowerCase());
+          const capitalizedAuB = lowercaseAuB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+
+          setListDataAOnly(capitalizedList.join("\n"));
+          setListAnBDups(capitalizedAnB.join("\n"));
+          setListDataBOnly(capitalizedListB.join("\r\n"));
+          setListDataAuB(capitalizedAuB.join("\n"));
+        } else if (sortOptions === "no-sort" && caseOptions === "uppercase") {
+          // List A
+          const capitalizedList = newListA.map((el) => el.toUpperCase());
+          // List AnB
+          const lowercaseAnB = cleanedDups.map((el) => el.toUpperCase());
+          // List B
+          const uppercaseListB = newListB.map((el) => el.toUpperCase());
+          // Both list
+          const uppercaseAuB = cleanedAuBList.map((el) => el.toUpperCase());
+
+          setListDataAOnly(capitalizedList.join("\n"));
+          setListAnBDups(lowercaseAnB.join("\n"));
+          setListDataBOnly(uppercaseListB.join("\n"));
+          setListDataAuB(uppercaseAuB.join("\n"));
+        } else if (sortOptions === "no-sort" && caseOptions === "lowercase") {
+          // List A
+          const lowercaseListA = newListA.map((el) => el.toLowerCase());
+          // List AnB
+          const lowercaseAnB = cleanedDups.map((el) => el.toLowerCase());
+          // List B
+          const lowercaseListB = newListB.map((el) => el.toLowerCase());
+          // Both list
+          const lowercaseAuB = cleanedAuBList.map((el) => el.toLowerCase());
+
+          setListDataAOnly(lowercaseListA.join("\n"));
+          setListAnBDups(lowercaseAnB.join("\n"));
+          setListDataBOnly(lowercaseListB.join("\n"));
+          setListDataAuB(lowercaseAuB.join("\n"));
+        } else if (sortOptions === "az" && caseOptions === "no-change") {
+          // List A
+          const sortedListA = newListA.sort();
+          // List AnB
+          const sortedListDups = cleanedDups.sort();
+          // List B
+          const sortedListB = newListB.sort();
+          // Both list
+          const sortedListAuB = cleanedAuBList.sort();
+
+          setListDataAOnly(sortedListA.join("\n"));
+          setListAnBDups(sortedListDups.join("\n"));
+          setListDataBOnly(sortedListB.join("\n"));
+          setListDataAuB(sortedListAuB.join("\n"));
+        } else if (sortOptions === "az" && caseOptions === "capitalize") {
+          // List A
+          const sortedList = newListA.map((el) => el.toLowerCase()).sort();
+          const capitalizedList = sortedList.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List B
+          const sortedListBCaps = newListB.map((el) => el.toLowerCase()).sort();
+          const capitalizedListBCaps = sortedListBCaps.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List AnB
+          const sortedListDupsCaps = cleanedDups
+            .map((el) => el.toLowerCase())
+            .sort();
+          const listDupsCaps = sortedListDupsCaps.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List AuB
+          const sortedListAuB = cleanedAuBList
+            .map((el) => el.toLowerCase())
+            .sort();
+          const capitalizedListAuB = sortedListAuB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+
+          setListDataAOnly(capitalizedList.join("\n"));
+          setListAnBDups(listDupsCaps.join("\n"));
+          setListDataBOnly(capitalizedListBCaps.join("\n"));
+          setListDataAuB(capitalizedListAuB.join("\n"));
+        } else if (sortOptions === "az" && caseOptions === "uppercase") {
+          // List A
+          const sortedListA = newListA.map((el) => el.toUpperCase()).sort();
+          // List B
+          const sortedListB = newListB.map((el) => el.toUpperCase()).sort();
+          // List AnB
+          const sortedListAnB = cleanedDups
+            .map((el) => el.toUpperCase())
+            .sort();
+          // List Aub
+          const sortedListAuB = cleanedAuBList
+            .map((el) => el.toUpperCase())
+            .sort();
+
+          setListDataAOnly(sortedListA.join("\n"));
+          setListAnBDups(sortedListAnB.join("\n"));
+          setListDataBOnly(sortedListB.join("\n"));
+          setListDataAuB(sortedListAuB.join("\n"));
+        } else if (sortOptions === "az" && caseOptions === "lowercase") {
+          // List A
+          const sortedListA = newListA.map((el) => el.toLowerCase()).sort();
+          // ListB
+          const sortedListB = newListB.map((el) => el.toLowerCase()).sort();
+          // List AnB
+          const sortedListAnB = cleanedDups
+            .map((el) => el.toLowerCase())
+            .sort();
+          // List Aub
+          const sortedListAuB = cleanedAuBList
+            .map((el) => el.toLowerCase())
+            .sort();
+
+          setListDataAOnly(sortedListA.join("\n"));
+          setListAnBDups(sortedListAnB.join("\n"));
+          setListDataBOnly(sortedListB.join("\n"));
+          setListDataAuB(sortedListAuB.join("\n"));
+        } else if (sortOptions === "za" && caseOptions === "no-change") {
+          // List A
+          const descSortedListA = newListA.sort().reverse();
+          // List B
+          const descSortedListB = newListB.sort().reverse();
+          // List Dups
+          const descSortedListAnB = cleanedDups.sort().reverse();
+          // List AuB
+          const descSortedList = cleanedAuBList.sort().reverse();
+
+          setListDataAOnly(descSortedListA.join("\n"));
+          setListAnBDups(descSortedListAnB.join("\n"));
+          setListDataBOnly(descSortedListB.join("\n"));
+          setListDataAuB(descSortedList.join("\n"));
+        } else if (sortOptions === "za" && caseOptions === "capitalize") {
+          const descSortedListA = newListA
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          const capitalizedListA = descSortedListA.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List B
+          const descSortedListB = newListB
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          const capitalizedListB = descSortedListB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List Dups
+          const descSortedListDups = cleanedDups
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          const capitalizedListDups = descSortedListDups.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          // List AuB
+          const descSortedListAuB = cleanedAuBList
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          const capitalizedListAuB = descSortedListAuB.map(
+            (el) => el.charAt(0).toUpperCase() + el.slice(1)
+          );
+          setListDataAOnly(capitalizedListA.join("\n"));
+          setListAnBDups(capitalizedListDups.join("\n"));
+          setListDataBOnly(capitalizedListB.join("\n"));
+          setListDataAuB(capitalizedListAuB.join("\n"));
+        } else if (sortOptions === "za" && caseOptions === "uppercase") {
+          // List A
+          const descSortedListA = newListA
+            .map((el) => el.toUpperCase())
+            .sort()
+            .reverse();
+          // List B
+          const descSortedListB = newListB
+            .map((el) => el.toUpperCase())
+            .sort()
+            .reverse();
+          // List Dups
+          const descSortedListDups = cleanedDups
+            .map((el) => el.toUpperCase())
+            .sort()
+            .reverse();
+          // List AuB
+          const descSortedListAuB = cleanedAuBList
+            .map((el) => el.toUpperCase())
+            .sort()
+            .reverse();
+
+          setListDataAOnly(descSortedListA.join("\n"));
+          setListAnBDups(descSortedListDups.join("\n"));
+          setListDataAuB(descSortedListAuB.join("\n"));
+          setListDataBOnly(descSortedListB.join("\n"));
+        } else if (sortOptions === "za" && caseOptions === "lowercase") {
+          // List A
+          const descSortedListA = newListA
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          // List B
+          const descSortedListB = newListB
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          // List Dups
+          const descSortedListDups = cleanedDups
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+          // List AuB
+          const descSortedListAuB = cleanedAuBList
+            .map((el) => el.toLowerCase())
+            .sort()
+            .reverse();
+
+          setListDataAOnly(descSortedListA.join("\n"));
+          setListAnBDups(descSortedListDups.join("\n"));
+          setListDataBOnly(descSortedListB.join("\n"));
+          setListDataAuB(descSortedListAuB.join("\n"));
+        } else {
+          setListDataAOnly(newListA.join("\n"));
+          setListAnBDups(cleanedDups.join("\n"));
+          setListDataBOnly(newListB.join("\n"));
+          setListDataAuB(cleanedAuBList.join("\r\n"));
+        }
+
+        setAOnlyLines(newListA.length);
+        setOnlyBLines(newListB.length);
+        setDuplicatesLines(cleanedDups.length);
         setAuBLines(cleanedAuBList.length);
       }
     }
