@@ -5354,13 +5354,13 @@ const CompareLists = () => {
   return (
     <Container
       fluid
-      className="d-flex flex-column align-items-center justify-content-center p-5 "
+      className="d-flex flex-column align-items-center justify-content-center main-content-container  "
     >
       <Form className="compare-lists-form w-100">
-        <Row className="d-md-flex gap-5 mb-5 ">
-          <Col className={screenSize && "col-12"}>
+        <Row className="d-flex flex-md-row flex-sm-column gap-2 mb-5 ">
+          <Col className={screenSize ? "col-12" : "col-width" }>
             <FormInputCard
-              cardStyles="green-shades-border-color"
+              cardStyles="green-shades-border-color card-width"
               headerBarClassName="w-100 d-inline-flex justify-content-between p-3 green-shades-header-panel text-success"
               listTitle="List A"
               linesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold px-2 py-1 green-shades-lines "
@@ -5369,22 +5369,22 @@ const CompareLists = () => {
               duplicates={listADuplicates}
               readOnlyTextareaStyles="d-none"
               textareaRows="10"
-              textareaStyles={"p-2"}
+              textareaStyles={"p-2 lists-textarea"}
               data={listDataA}
               onChange={handleChange}
-              buttonGroupStyles="w-100 d-flex justify-content-between d-flex p-2 gap-2"
+              buttonGroupStyles="w-100 d-flex justify-content-between flex-wrap p-2 gap-2"
               fileInputStyles="d-none "
               columnsInputStyle="d-none"
               vLookupColumnsInputStyle="d-none"
               vLookCheckboxStyles="d-none"
               moveBtn={
                 <ButtonComponent
-                  btnTip="Move B To A"
+                  btnTip="Move A To B"
                   toolTipStyles="tip-style rounded"
                   btnStyleClass="fs-6 btns move-btn"
                   text="A "
                   icon={<BsArrowRight className="mb-3 fw-bold fs-5" />}
-                  text2="B"
+                  text2=" B"
                   onClick={moveAValueToB}
                 />
               }
@@ -5445,9 +5445,9 @@ const CompareLists = () => {
               }
             />
           </Col>
-          <Col>
+          <Col className={screenSize ? "col-12" : "col-width"}>
             <FormInputCard
-              cardStyles="green-shades-border-color"
+              cardStyles="green-shades-border-color card-width"
               headerBarClassName="w-100 d-inline-flex justify-content-between p-3 green-shades-header-panel text-success"
               listTitle="List B"
               linesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold px-2 py-1 green-shades-lines "
@@ -5456,10 +5456,10 @@ const CompareLists = () => {
               duplicates={listBDuplicates}
               readOnlyTextareaStyles="d-none"
               textareaRows="10"
-              textareaStyles="p-2"
+              textareaStyles="p-2 lists-textarea"
               data={listDataB}
               onChange={handleChangeB}
-              buttonGroupStyles="w-100 d-flex justify-content-between d-flex p-2 gap-2"
+              buttonGroupStyles="w-100 d-flex justify-content-between flex-wrap p-2 gap-2"
               fileInputStyles="d-none "
               columnsInputStyle="d-none"
               vLookupColumnsInputStyle="d-none"

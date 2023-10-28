@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import FormInputCard from "./FormInputCard";
 import { Container, Row, Col, Form } from "react-bootstrap";
 import ButtonComponent from "./ButtonComponent";
@@ -9,6 +9,7 @@ import {
   MdOutlineSort,
   MdContentCopy,
   MdChecklistRtl,
+  MdOutlineDesktopWindows
 } from "react-icons/md";
 import { LuArrowUpDown, LuLaptop2 } from "react-icons/lu";
 import { RiDeleteBin5Line } from "react-icons/ri";
@@ -16,16 +17,19 @@ import { BsArrowLeft } from "react-icons/bs";
 import { Link } from "react-router-dom";
 
 const Main = () => {
+  const [screenSize, setScreenSize] = useState(false);
+  const [showOptions, setShowOptions] = useState(true);
+
   return (
     <Container
       fluid
-      className="d-flex flex-column align-items-center justify-content-center p-5  "
+      className="d-flex flex-column align-items-center justify-content-center main-content-container"
     >
       <Form className="">
         <Row className="d-md-flex gap-5 mb-5 ">
-          <Col>
+          <Col className={screenSize ? "col-12" : "col-width"}>
             <FormInputCard
-              cardStyles="blue-shades-border-color"
+              cardStyles="blue-shades-border-color card-width"
               headerBarClassName="w-100 d-inline-flex justify-content-between p-3 blue-shades-header-panel  "
               listTitle="Input A"
               linesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold px-2 py-1 blue-shades-lines "
@@ -34,7 +38,7 @@ const Main = () => {
               duplicates="0"
               textareaRows="17"
               readOnlyTextareaStyles="d-none"
-              buttonGroupStyles="w-100 d-inline-flex justify-content-end d-flex p-2"
+              buttonGroupStyles="w-100 d-inline-flex justify-content-end flex-wrap p-2"
               fileInputStyles="d-none "
               columnsInputStyle="d-none"
               vLookupColumnsInputStyle="d-none"
@@ -98,9 +102,9 @@ const Main = () => {
             />
           </Col>
 
-          <Col>
+          <Col className={screenSize ? "col-12" : "col-width"}>
             <FormInputCard
-              cardStyles="green-shades-border-color"
+              cardStyles="green-shades-border-color card-width"
               headerBarClassName="w-100 d-inline-flex justify-content-between p-3 green-shades-header-panel"
               listTitle="Output B"
               linesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold px-2 py-1 green-shades-lines "
@@ -109,7 +113,7 @@ const Main = () => {
               duplicates="0"
               textareaRows="17"
               readOnlyTextareaStyles="d-none"
-              buttonGroupStyles="w-100 d-flex justify-content-between d-flex p-2 gap-2"
+              buttonGroupStyles="w-100 d-flex justify-content-between flex-wrap p-2 gap-2"
               fileInputStyles="d-none "
               columnsInputStyle="d-none"
               vLookupColumnsInputStyle="d-none"
@@ -168,177 +172,187 @@ const Main = () => {
             />
           </Col>
           <Col className="d-flex justify-content-end gap-3 ">
-            <ButtonComponent
+          <ButtonComponent
               btnTip="Options"
               toolTipStyles="tip-style rounded"
-              btnStyleClass="btns"
+              btnStyleClass="btns "
               icon={<MdChecklistRtl className="text-dark fs-4" />}
+              onClick={() => setShowOptions(!showOptions)}
             />
 
             <ButtonComponent
               btnTip="Switch Desktop / Laptop View"
               toolTipStyles="tip-style rounded"
-              btnStyleClass="btns"
-              icon={<LuLaptop2 className="fs-5" />}
+              btnStyleClass="btns "
+              icon={
+                !screenSize ? (
+                  <LuLaptop2 className="fs-5" />
+                ) : (
+                  <MdOutlineDesktopWindows className="fs-5" />
+                )
+              }
+              onClick={() => setScreenSize(!screenSize)}
             />
           </Col>
         </Row>
-        <Row className="mb-5 check-inputs-wrapper p-5">
-          <Col className="d-flex flex-md-row flex-column ">
-            {/* <Form className="d-flex flex-row gap-1"> */}
-            <div className=" d-flex flex-column mb-3 col-md-3 col-sm-8">
-              <Form.Check
-                checked
-                type="checkbox"
-                label="Remove Start Spaces"
-                className="d-inline-flex align-items-center gap-2"
-              />
-              <Form.Check
-                checked
-                type="checkbox"
-                label="Remove End Spaces"
-                className="d-inline-flex align-items-center gap-2"
-              />
-              <Form.Check
-                checked
-                type="checkbox"
-                label="Remove Extra Spaces"
-                className="d-inline-flex align-items-center gap-2"
-              />
-              <Form.Check
-                checked
-                type="checkbox"
-                label="Remove Leading Zeroes"
-                className="d-inline-flex align-items-center gap-2"
-              />
-              <Form.Check
-                checked
-                type="checkbox"
-                label="Remove Duplicates"
-                className="d-inline-flex align-items-center gap-2"
-              />
-            </div>
-
-            {/* Radio inputs */}
-            <div className="mb-3 col-md-3 col-sm-8 px-2">
-              <div className="mb-3">
+        {showOptions && (
+          <Row className="mb-5 check-inputs-wrapper p-5">
+            <Col className="d-flex flex-md-row flex-column ">
+              <div className=" d-flex flex-column mb-3 col-md-3 col-sm-8">
                 <Form.Check
-                  type="radio"
-                  label="Remove BEFORE including:"
-                  className="d-inline-flex align-items-center gap-2"
-                />
-                <br />
-                <Form.Check
-                  type="radio"
-                  label="Remove BEFORE  excluding:"
-                  className="d-inline-flex align-items-center gap-2"
-                />
-                <br />
-                <Form.Control
-                  type="text"
-                  placeholder="Text"
-                  className="d-inline-flex align-items-center gap-2 w-75 ms-4 p-2"
-                />
-              </div>
-
-              <div>
-                <Form.Check
-                  type="radio"
-                  label="Remove BEFORE including:"
-                  className="d-inline-flex align-items-center gap-2"
-                />
-                <br />
-                <Form.Check
-                  type="radio"
-                  label="Remove BEFORE  excluding:"
-                  className="d-inline-flex align-items-center gap-2"
-                />
-                <br />
-                <Form.Control
-                  type="text"
-                  placeholder="Text"
-                  className="d-inline-flex align-items-center gap-2 w-75 ms-4 p-2"
-                />
-              </div>
-            </div>
-
-            {/* Checkbox */}
-            <div className="d-flex flex-column col-md-3 col-sm-8 px-2 mb-3">
-              <div className="d-flex flex-column mb-2">
-                <Form.Check
+                  checked
                   type="checkbox"
-                  label="Append at Start"
-                  className="d-inline-flex align-items-center gap-2 "
-                />
-                <Form.Control
-                  type="text"
-                  placeholder="Text"
-                  className="d-inline-flex align-items-center gap-2 w-75 ms-4 p-2 rounded-0"
-                />
-              </div>
-
-              {/* Append at End */}
-              <div className="d-flex flex-column mb-2">
-                <Form.Check
-                  type="checkbox"
-                  label="Append at End"
+                  label="Remove Start Spaces"
                   className="d-inline-flex align-items-center gap-2"
                 />
-                <Form.Control
-                  type="text"
-                  placeholder="Text"
-                  className="d-inline-flex align-items-center gap-2 w-75 ms-4 p-2 rounded-0"
-                />
-              </div>
-
-              {/* Split lines at */}
-              <div className="d-flex flex-column mb-2">
                 <Form.Check
+                  checked
                   type="checkbox"
-                  label="Split lines at:"
+                  label="Remove End Spaces"
                   className="d-inline-flex align-items-center gap-2"
                 />
-                <Form.Control
-                  type="text"
-                  placeholder="Punctuation"
-                  className="d-inline-flex align-items-center gap-2 w-75 ms-4 p-2 rounded-0"
+                <Form.Check
+                  checked
+                  type="checkbox"
+                  label="Remove Extra Spaces"
+                  className="d-inline-flex align-items-center gap-2"
+                />
+                <Form.Check
+                  checked
+                  type="checkbox"
+                  label="Remove Leading Zeroes"
+                  className="d-inline-flex align-items-center gap-2"
+                />
+                <Form.Check
+                  checked
+                  type="checkbox"
+                  label="Remove Duplicates"
+                  className="d-inline-flex align-items-center gap-2"
                 />
               </div>
-            </div>
 
-            {/* Dropdowns */}
-            <div className="col-md-3 col-sm-12 mb-3 ">
-              <div className="ps-4 bg-body-secondary rounded border border-secondary-subtle border-2">
-                <Form.Select className="p-2 rounded-0">
-                  <option>No Space</option>
-                  <option>Capitalize</option>
-                  <option>Uppercase</option>
-                  <option>Lowercase</option>
-                </Form.Select>
+              {/* Radio inputs */}
+              <div className="mb-3 col-md-3 col-sm-8 px-2">
+                <div className="mb-3">
+                  <Form.Check
+                    type="radio"
+                    label="Remove BEFORE including:"
+                    className="d-inline-flex align-items-center gap-2"
+                  />
+                  <br />
+                  <Form.Check
+                    type="radio"
+                    label="Remove BEFORE  excluding:"
+                    className="d-inline-flex align-items-center gap-2"
+                  />
+                  <br />
+                  <Form.Control
+                    type="text"
+                    placeholder="Text"
+                    className="d-inline-flex align-items-center gap-2 w-75 ms-4 p-2"
+                  />
+                </div>
+
+                <div>
+                  <Form.Check
+                    type="radio"
+                    label="Remove BEFORE including:"
+                    className="d-inline-flex align-items-center gap-2"
+                  />
+                  <br />
+                  <Form.Check
+                    type="radio"
+                    label="Remove BEFORE  excluding:"
+                    className="d-inline-flex align-items-center gap-2"
+                  />
+                  <br />
+                  <Form.Control
+                    type="text"
+                    placeholder="Text"
+                    className="d-inline-flex align-items-center gap-2 w-75 ms-4 p-2"
+                  />
+                </div>
               </div>
 
-              <div className="ps-4 bg-body-secondary rounded border border-secondary-subtle border-2">
-                <Form.Select className="p-2 rounded-0">
-                  <option>No Sort</option>
-                  <option>Sort A - z </option>
-                  <option>Sort Z - a </option>
-                </Form.Select>
+              {/* Checkbox */}
+              <div className="d-flex flex-column col-md-3 col-sm-8 px-2 mb-3">
+                <div className="d-flex flex-column mb-2">
+                  <Form.Check
+                    type="checkbox"
+                    label="Append at Start"
+                    className="d-inline-flex align-items-center gap-2 "
+                  />
+                  <Form.Control
+                    type="text"
+                    placeholder="Text"
+                    className="d-inline-flex align-items-center gap-2 w-75 ms-4 p-2 rounded-0"
+                  />
+                </div>
+
+                {/* Append at End */}
+                <div className="d-flex flex-column mb-2">
+                  <Form.Check
+                    type="checkbox"
+                    label="Append at End"
+                    className="d-inline-flex align-items-center gap-2"
+                  />
+                  <Form.Control
+                    type="text"
+                    placeholder="Text"
+                    className="d-inline-flex align-items-center gap-2 w-75 ms-4 p-2 rounded-0"
+                  />
+                </div>
+
+                {/* Split lines at */}
+                <div className="d-flex flex-column mb-2">
+                  <Form.Check
+                    type="checkbox"
+                    label="Split lines at:"
+                    className="d-inline-flex align-items-center gap-2"
+                  />
+                  <Form.Control
+                    type="text"
+                    placeholder="Punctuation"
+                    className="d-inline-flex align-items-center gap-2 w-75 ms-4 p-2 rounded-0"
+                  />
+                </div>
               </div>
 
-              <div className="ps-4 bg-body-secondary rounded border border-secondary-subtle border-2 ">
-                <Form.Select className="p-2 rounded-0">
-                  <option className="">No Format</option>
-                  <option>Line Numbered</option>
-                  <option>As Unordered List</option>
-                  <option>As Ordered List</option>
-                  <option>As Table</option>
-                  <option>Join All Lines</option>
-                </Form.Select>
+              {/* Dropdowns */}
+              <div className="col-md-3 col-sm-12 mb-3 ">
+                <div className="ps-4 bg-body-secondary rounded border border-secondary-subtle border-2">
+                  <Form.Select className="p-2 rounded-0">
+                    <option>No Space</option>
+                    <option>Capitalize</option>
+                    <option>Uppercase</option>
+                    <option>Lowercase</option>
+                  </Form.Select>
+                </div>
+
+                <div className="ps-4 bg-body-secondary rounded border border-secondary-subtle border-2">
+                  <Form.Select className="p-2 rounded-0">
+                    <option>No Sort</option>
+                    <option>Sort A - z </option>
+                    <option>Sort Z - a </option>
+                  </Form.Select>
+                </div>
+
+                <div className="ps-4 bg-body-secondary rounded border border-secondary-subtle border-2 ">
+                  <Form.Select className="p-2 rounded-0">
+                    <option className="">No Format</option>
+                    <option>Line Numbered</option>
+                    <option>As Unordered List</option>
+                    <option>As Ordered List</option>
+                    <option>As Table</option>
+                    <option>Join All Lines</option>
+                  </Form.Select>
+                </div>
               </div>
-            </div>
-            {/* </Form> */}
-          </Col>
-        </Row>
+              {/* </Form> */}
+            </Col>
+          </Row>
+        )}
+
         <Row className="mb-4">
           <Col>
             <h1 className="mb-4">Text Data Formatting Tool</h1>

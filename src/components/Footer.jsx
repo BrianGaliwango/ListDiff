@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <Container fluid className="px-5">
+    <Container fluid className="main-content-container">
       <Row className="">
-        <Col className="py-4 px-5 border-top">
+        <Col className="py-4 border-top ">
           &copy; Copyright 2023 ListDiff.com | <Link>Privacy Policy</Link>
         </Col>
       </Row>

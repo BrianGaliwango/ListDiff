@@ -1,30 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import FormInputCard from "./FormInputCard";
 import { Container, Row, Col, Form, ListGroup } from "react-bootstrap";
 import ButtonComponent from "./ButtonComponent";
-import { MdOutlineSort, MdContentCopy, MdLockOpen } from "react-icons/md";
-import { LuArrowUpDown } from "react-icons/lu";
-import { RiDeleteBin5Line } from "react-icons/ri";
 import {
-  BsArrowLeft,
-  BsFileEarmarkArrowUp,
-  BsEyeSlash,
-  BsLaptop,
-} from "react-icons/bs";
+  MdOutlineSort,
+  MdContentCopy,
+  MdLockOpen,
+  MdOutlineDesktopWindows,
+} from "react-icons/md";
+import { LuArrowUpDown, LuLaptop2 } from "react-icons/lu";
+import { RiDeleteBin5Line } from "react-icons/ri";
+import { BsArrowLeft, BsEyeSlash } from "react-icons/bs";
+
 import { AiOutlineMergeCells } from "react-icons/ai";
 
-
 const CompareText = () => {
+  const [showResults, setShowResults] = useState(true);
+  const [screenSize, setScreenSize] = useState(false);
+
   return (
     <Container
       fluid
-      className="d-flex flex-column align-items-center justify-content-center p-5  "
+      className="d-flex flex-column align-items-center justify-content-center main-content-container  "
     >
       <Form className=" compare-lists-form w-100">
         <Row className="d-md-flex gap-5 mb-5 ">
-          <Col>
+          <Col className={screenSize ? "col-12" : "col-width"}>
             <FormInputCard
-              cardStyles="blue-shades-border-color"
+              cardStyles="blue-shades-border-color card-width"
               headerBarClassName="w-100 d-inline-flex justify-content-between p-3 blue-shades-header-panel"
               listTitle="Input A"
               linesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold px-2 py-1 blue-shades-lines "
@@ -32,8 +35,8 @@ const CompareText = () => {
               lines="0"
               textareaRows="15"
               readOnlyTextareaStyles="position-absolute top-0 start-0 border-0 rounded-0 text-center readonly-textarea"
-              textareaStyles="p-2 border-0 rounded-0 "
-              buttonGroupStyles="w-100 d-flex justify-content-between d-flex p-2 gap-2"
+              textareaStyles="p-2 border-0 rounded-0 lists-textarea"
+              buttonGroupStyles="w-100 d-flex justify-content-between flex-wrap p-2 gap-2"
               columnsInputStyle="d-none"
               vLookupColumnsInputStyle="d-none"
               vLookCheckboxStyles="d-none"
@@ -46,13 +49,6 @@ const CompareText = () => {
                   text="A "
                   icon={<BsArrowLeft className="mb-3 fw-bold fs-5" />}
                   text2=" B"
-                />
-              }
-              uploadFileBtn={
-                <ButtonComponent
-                  btnTip="Upload from file"
-                  btnStyleClass="btns"
-                  icon={<BsFileEarmarkArrowUp className="mb-3 fw-bold fs-5" />}
                 />
               }
               trimDuplicatesBtn={
@@ -99,7 +95,7 @@ const CompareText = () => {
           </Col>
           <Col>
             <FormInputCard
-              cardStyles="green-shades-border-color"
+              cardStyles="green-shades-border-color card-width"
               headerBarClassName="w-100 d-inline-flex justify-content-between p-3 green-shades-header-panel text-success"
               listTitle="Input B"
               linesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold px-2 py-1 green-shades-lines "
@@ -108,7 +104,7 @@ const CompareText = () => {
               readOnlyTextareaStyles="position-absolute top-0 start-0 border-0 rounded-0 text-center readonly-textarea p-2"
               textareaRows="15"
               textareaStyles="p-2 border-0 rounded-0 "
-              buttonGroupStyles="w-100 d-flex justify-content-between d-flex p-2 gap-2"
+              buttonGroupStyles="w-100 d-flex justify-content-between flex-wrap p-2 gap-2"
               columnsInputStyle="d-none"
               vLookupColumnsInputStyle="d-none"
               vLookCheckboxStyles="d-none"
@@ -126,8 +122,8 @@ const CompareText = () => {
                 <ButtonComponent
                   btnTip="Lock Scrolling"
                   toolTipStyles="tip-style rounded"
-                  btnStyleClass="btns"
-                  icon={<MdLockOpen className="mb-3 fw-bold fs-4" />}
+                  btnStyleClass="btns "
+                  icon={<MdLockOpen className="fw-bold fs-5" />}
                 />
               }
               trimDuplicatesBtn={
@@ -188,21 +184,27 @@ const CompareText = () => {
               toolTipStyles="tip-style rounded"
               btnStyleClass="btns "
               icon={<BsEyeSlash className="text-dark fs-4 fw-bolder" />}
-              
+              onClick={() => setShowResults(!showResults)}
             />
 
             <ButtonComponent
               btnTip="Switch Desktop / Laptop View"
               toolTipStyles="tip-style rounded"
               btnStyleClass="btns "
-              icon={<BsLaptop className="fs-4 fw-bolder" />}
-              
+              icon={
+                !screenSize ? (
+                  <LuLaptop2 className="fs-5" />
+                ) : (
+                  <MdOutlineDesktopWindows className="fs-5" />
+                )
+              }
+              onClick={() => setScreenSize(!screenSize)}
             />
           </Col>
         </Row>
 
         <Row className="empty-inputs-wrapper">
-          <Col sm={12} className="empty-inputs-col p-4"></Col>
+          {showResults && <Col sm={12} className="empty-inputs-col p-4"></Col>}
         </Row>
 
         <Row className="d-flex align-items-center justify-content-center mb-4">

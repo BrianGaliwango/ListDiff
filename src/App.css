@@ -1,7 +1,10 @@
-/* only-cards */
-
-/* bottom-only-card */
-/* aub-wrapper */
+/* textarea */
+/* compare-lists-form */
+/* file-form-group */
+/* text-columnizer-options-wrapper */
+/* text-columnizer-btn-wrapper */
+/* csv-textarea */
+/* text-columnizer-img  */
 
 * {
   padding: 0 !important;
@@ -20,12 +23,18 @@ form {
   max-width: 1280px !important;
 }
 
+.main-content-container {
+  padding: 50px !important;
+}
+
 .card-title {
   font-size: 18px !important;
 }
 
 .btns {
-  display: inline-block !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
   width: 50px !important;
   min-width: 50px !important;
   height: 45px !important;
@@ -63,14 +72,14 @@ label {
   font-size: 14px !important;
 }
 
-.move-btn ,
-.vLookup-btn ,
-.compare-lists-btn ,
+.move-btn,
+.vLookup-btn,
+.compare-lists-btn,
 .compare-text-btn {
   height: 45px !important;
   min-width: 80px !important;
   text-wrap: nowrap !important;
-  font-size: 18px !important;  
+  font-size: 18px !important;
   padding: 8px 14px !important;
   font-weight: 500 !important;
 }
@@ -150,7 +159,6 @@ button:active {
 }
 
 textarea {
-  /* height: 350px !important; */
   font-family: Consolas, Lucida Console, courier !important;
   white-space: pre !important;
   overflow-wrap: normal !important;
@@ -158,6 +166,11 @@ textarea {
   resize: none !important;
   border: 0.12rem solid #ccc !important;
   padding: 10px !important;
+}
+
+.lists-textarea ,
+.card-width {
+  min-width: 300px !important;
 }
 
 textarea:focus,
@@ -186,8 +199,8 @@ select {
   font-size: 14px !important;
 }
 
-.check-inputs-wrapper  ,
-.footer-panel ,
+.check-inputs-wrapper,
+.footer-panel,
 .table-wrapper {
   background: #f5f5f5 !important;
 }
@@ -205,7 +218,7 @@ select {
 }
 
 .go-btn:hover,
-.compare-text-btn:hover ,
+.compare-text-btn:hover,
 .vLookup-btn:hover {
   background-color: #4f9a4f !important;
 }
@@ -219,7 +232,7 @@ select {
   background-color: #4388c5 !important;
 }
 
-.compare-text-btn ,
+.compare-text-btn,
 .vLookup-btn {
   background-color: #5cb85c !important;
   border-color: #4cae4c !important;
@@ -290,9 +303,9 @@ em {
 
 .text-columnizer-checkbox-wrapper {
   min-height: 45px !important;
-  display: flex !important;
+  /* display: flex !important;
   align-items: center !important;
-  justify-content: end !important;
+  justify-content: end !important; */
 }
 
 .text-columnizer-select {
@@ -300,8 +313,12 @@ em {
   min-width: 120px !important;
 }
 
+.csv-list-col {
+  padding-left: 50px !important;
+}
+
 .text-columnizer-img {
-  width: 400px !important;
+  max-width: 400px !important;
 }
 
 .column-extractor-control {
@@ -337,7 +354,7 @@ em {
   font-size: 14px !important;
 }
 
-.tip-style ,
+.tip-style,
 .tip-style2 {
   display: flex !important;
   align-items: center !important;
@@ -345,7 +362,7 @@ em {
   max-width: 130px !important;
   text-align: center !important;
   font-size: 12px !important;
-  padding:5px 8px !important;
+  padding: 5px 8px !important;
   background: #000 !important;
 }
 
@@ -382,7 +399,7 @@ em {
   display: flex !important;
   justify-content: center !important;
   align-items: center !important;
-  color: #333 !important; 
+  color: #333 !important;
   border-radius: 0 !important;
 }
 
@@ -394,19 +411,20 @@ em {
   border: 1px solid #ccc !important;
 }
 
-th, td, tr {
+th,
+td,
+tr {
   border: none !important;
   background: transparent !important;
   font-size: 13px !important;
-  font-family: Menlo,Monaco,Consolas,"Courier New",monospace !important;
+  font-family: Menlo, Monaco, Consolas, "Courier New", monospace !important;
   font-weight: normal !important;
 }
 
 .vLookup-email-example {
-  font-family: Menlo,Monaco,Consolas,"Courier New",monospace !important;
+  font-family: Menlo, Monaco, Consolas, "Courier New", monospace !important;
   font-size: 13px !important;
-} 
-
+}
 
 .full-width {
   width: 100% !important;
@@ -431,6 +449,7 @@ th, td, tr {
   }
   .csv-textarea {
     max-height: 400px !important;
+    /* max-width: 200px !important; */
   }
 
   .vLookup-left-col {
@@ -451,4 +470,52 @@ th, td, tr {
     justify-content: center !important;
     align-items: center !important;
   }
+}
+
+@media screen and (max-width: 550px) {
+  .main-content-container {
+    padding: 50px 20px !important;
+  }
+
+  .csv-list-col {
+    padding-left: 30px !important;
+  }
+}
+
+@media screen and (max-width: 414px) {
+  .col-width {
+    min-width: 100% !important;
+  }
+
+  .btns ,
+  .file-form-group {
+    display: inline-block !important;
+    width: 40px !important;
+    min-width: 30px !important;
+    height: 35px !important;
+    padding: 0 10px !important;
+    font-size: 12px !important;
+  }
+
+  .move-btn,
+  .vLookup-btn,
+  .compare-lists-btn,
+  .compare-text-btn {
+    height: 35px !important;
+    padding: 0 10px !important;
+    min-width: 80px !important;
+  }
+
+}
+
+@media screen and (max-width: 280px) {
+  .main-content-container {
+    padding: 50px 10px !important;
+  }
+
+  .card-width ,
+  .lists-textarea {
+    min-width: 250px !important;
+  }
+
 }

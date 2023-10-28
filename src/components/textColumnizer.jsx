@@ -19,13 +19,13 @@ const textColumnizer = () => {
   return (
     <Container
       fluid
-      className="d-flex flex-column align-items-center justify-content-center p-5  "
+      className="d-flex flex-column align-items-center justify-content-center main-content-container"
     >
       <Form className="">
         <Row className="d-md-flex gap-3 mb-5 ">
-          <Col xs={12}>
+          <Col xs={12} className="">
             <FormInputCard
-              cardStyles="blue-shades-border-color"
+              cardStyles="blue-shades-border-color card-width"
               headerBarClassName="w-100 d-inline-flex justify-content-between p-3 blue-shades-header-panel  "
               listTitle="Input A"
               linesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold fs-4 px-2 py-1 blue-shades-lines "
@@ -35,7 +35,7 @@ const textColumnizer = () => {
               readOnlyTextareaStyles="d-none"
               textareaRows="14"
               textareaStyles="csv-textarea"
-              buttonGroupStyles="w-100 d-inline-flex justify-content-end d-flex p-2"
+              buttonGroupStyles="w-100 d-inline-flex justify-content-end flex-wrap p-2"
               fileInputStyles="d-none "
               columnsInputStyle="d-none"
               vLookCheckboxStyles="d-none"
@@ -82,8 +82,11 @@ const textColumnizer = () => {
               }
             />
           </Col>
-          <Col xs={12} className="d-flex text-columnizer-options-wrapper">
-            <div className="d-flex justify-content-center rounded-3 mb-3 gap-4 text-columnizer-btn-wrapper">
+          <Col
+            xs={12}
+            className="d-flex flex-wrap text-columnizer-options-wrapper"
+          >
+            <div className="d-flex justify-content-center flex-wrap rounded-3 mb-3 gap-4 text-columnizer-btn-wrapper">
               <OverlayTrigger
                 placement="top"
                 overlay={<Tooltip>&nbsp;Input delimited by...&nbsp;</Tooltip>}
@@ -159,7 +162,7 @@ const textColumnizer = () => {
               />
             </div>
 
-            <div className="gap-3 mb-2 pe-3 text-columnizer-checkbox-wrapper">
+            <div className="d-flex align-items-center justify-content-end flex-wrap gap-3 mb-2 pe-3 text-columnizer-checkbox-wrapper">
               <Form.Check
                 type="checkbox"
                 label="2x Spacers"
@@ -191,7 +194,7 @@ const textColumnizer = () => {
               readOnlyTextareaStyles="d-none"
               textareaRows="14"
               textareaStyles="csv-textarea"
-              buttonGroupStyles="w-100 d-flex justify-content-between d-flex p-2 gap-2"
+              buttonGroupStyles="w-100 d-flex justify-content-between flex-wrap p-2 gap-2"
               fileInputStyles="d-none "
               columnsInputStyle="d-none"
               vLookCheckboxStyles="d-none"
@@ -244,7 +247,7 @@ const textColumnizer = () => {
           <h2 className="mb-4">
             Columnizer - Align Text Columns & Format String Alignments
           </h2>
-          <Col className="ps-5">
+          <Col className="csv-list-col">
             <Card className="border-0 mb-4 d-flex flex-column ">
               <ul className="mb-3 text-list text-start">
                 <li className="">
@@ -263,9 +266,9 @@ const textColumnizer = () => {
                     {" "}
                     List Comparison Tool, Text Fixer{" "}
                   </span>{" "}
-                  and <span className="text-blue"> CSV Delimiter Tool</span>
-                  , aligning columns of data can be frustratingly tedious
-                  but highly useful
+                  and <span className="text-blue"> CSV Delimiter Tool</span>,
+                  aligning columns of data can be frustratingly tedious but
+                  highly useful
                 </li>
                 <li>
                   Whether you want to fix a Cut & Paste string formatting issue
@@ -287,7 +290,7 @@ const textColumnizer = () => {
                   There are a few options which you can use as part of this tool
                   <br />
                   <br />
-                  <ul className="ps-5">
+                  <ul className="csv-list-col">
                     <li>
                       Select the Separation delimiter of your data, this is
                       usually TABS or CSV, but could be one of the many other

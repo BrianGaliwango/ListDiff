@@ -17,13 +17,13 @@ const CSVSplitter = () => {
   return (
     <Container
       fluid
-      className="d-flex flex-column align-items-center justify-content-center p-5  "
+      className="d-flex flex-column align-items-center justify-content-center main-content-container"
     >
       <Form className="">
         <Row className="d-md-flex gap-3 mb-5 ">
           <Col>
             <FormInputCard
-              cardStyles="blue-shades-border-color"
+              cardStyles="blue-shades-border-color card-width"
               headerBarClassName="w-100 d-inline-flex justify-content-between p-3 blue-shades-header-panel  "
               listTitle="Input A"
               linesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold fs-4 px-2 py-1 blue-shades-lines "
@@ -33,7 +33,7 @@ const CSVSplitter = () => {
               readOnlyTextareaStyles="d-none"
               textareaRows="25"
               textareaStyles="csv-textarea"
-              buttonGroupStyles="w-100 d-inline-flex justify-content-end d-flex p-2"
+              buttonGroupStyles="w-100 d-inline-flex justify-content-end flex-wrap p-2"
               fileInputStyles="d-none "
               columnsInputStyle="d-none"
               vLookupColumnsInputStyle="d-none"
@@ -199,7 +199,7 @@ const CSVSplitter = () => {
           </Col>
           <Col>
             <FormInputCard
-              cardStyles="green-shades-border-color"
+              cardStyles="green-shades-border-color card-width"
               headerBarClassName="w-100 d-inline-flex justify-content-between p-3 green-shades-header-panel"
               listTitle="Output B"
               linesStyles="d-flex align-items-center justify-content-center rounded-3 fw-bold fs-4 px-2 py-1 green-shades-lines "
@@ -209,7 +209,7 @@ const CSVSplitter = () => {
               readOnlyTextareaStyles="d-none"
               textareaRows="25"
               textareaStyles="csv-textarea"
-              buttonGroupStyles="w-100 d-flex justify-content-between d-flex p-2 gap-2"
+              buttonGroupStyles="w-100 d-flex justify-content-between flex-wrap p-2 gap-2"
               fileInputStyles="d-none "
               columnsInputStyle="d-none"
               vLookCheckboxStyles="d-none"

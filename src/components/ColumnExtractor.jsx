@@ -19,7 +19,7 @@ const ColumnExtractor = () => {
   return (
     <Container
       fluid
-      className="d-flex flex-column align-items-center justify-content-center p-5  "
+      className="d-flex flex-column align-items-center justify-content-center main-content-container "
     >
       <Form className="">
         <Row className="d-md-flex gap-3 mb-5 ">
@@ -35,36 +35,41 @@ const ColumnExtractor = () => {
               readOnlyTextareaStyles="d-none"
               textareaRows="14"
               textareaStyles="csv-textarea"
-              buttonGroupStyles="w-100 d-inline-flex justify-content-end d-flex p-2"
+              buttonGroupStyles="w-100 d-inline-flex justify-content-between flex-wrap p-2"
               fileInputStyles="d-none "
               trimDuplicatesBtn={
                 <ButtonComponent
                   btnTip="Trim Spaces & Duplicates"
                   icon={<MdPlaylistRemove className="fs-4 " />}
+                  btnStyleClass="fs-6 btns"
                 />
               }
               sortBtn={
                 <ButtonComponent
                   btnTip="Sort"
                   icon={<MdOutlineSort className="text-dark fs-4" />}
+                  btnStyleClass="fs-6 btns"
                 />
               }
               reverseOrderBtn={
                 <ButtonComponent
                   btnTip="Reverse Order"
                   icon={<LuArrowUpDown className="fs-5" />}
+                  btnStyleClass="fs-6 btns"
                 />
               }
               copyBtn={
                 <ButtonComponent
                   btnTip="Copy"
                   icon={<MdContentCopy className="fs-5" />}
+                  btnStyleClass="fs-6 btns"
                 />
               }
               deleteBtn={
                 <ButtonComponent
                   btnTip="Clear"
                   icon={<RiDeleteBin5Line className="fs-5" />}
+                  btnStyleClass="fs-6 btns"
                 />
               }
             />
@@ -181,36 +186,41 @@ const ColumnExtractor = () => {
               readOnlyTextareaStyles="d-none"
               textareaRows="14"
               textareaStyles="csv-textarea"
-              buttonGroupStyles="w-100 d-flex justify-content-between d-flex p-2 gap-2"
+              buttonGroupStyles="w-100 d-flex justify-content-between flex-wrap p-2 gap-2"
               fileInputStyles="d-none "
               trimDuplicatesBtn={
                 <ButtonComponent
                   btnTip="Trim Spaces & Duplicates"
                   icon={<MdPlaylistRemove className="fs-4 " />}
+                  btnStyleClass="fs-6 btns"
                 />
               }
               sortBtn={
                 <ButtonComponent
                   btnTip="Sort"
                   icon={<MdOutlineSort className="text-dark fs-4" />}
+                  btnStyleClass="fs-6 btns"
                 />
               }
               reverseOrderBtn={
                 <ButtonComponent
                   btnTip="Reverse Order"
                   icon={<LuArrowUpDown className="fs-5" />}
+                  btnStyleClass="fs-6 btns"
                 />
               }
               copyBtn={
                 <ButtonComponent
                   btnTip="Copy"
                   icon={<MdContentCopy className="fs-5" />}
+                  btnStyleClass="fs-6 btns"
                 />
               }
               deleteBtn={
                 <ButtonComponent
                   btnTip="Clear"
                   icon={<RiDeleteBin5Line className="fs-5" />}
+                  btnStyleClass="fs-6 btns"
                 />
               }
             />

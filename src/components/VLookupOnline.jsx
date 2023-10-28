@@ -21,13 +21,13 @@ const ColumnExtractor = () => {
   return (
     <Container
       fluid
-      className="d-flex flex-column align-items-center justify-content-center p-5  "
+      className="d-flex flex-column align-items-center justify-content-center main-content-container"
     >
       <Form className="">
         <Row className="d-flex gap-3 mb-4 ">
           <Col md={4} className="vLookup-left-col">
             <FormInputCard
-              cardStyles="blue-shades-border-color"
+              cardStyles="blue-shades-border-color card-width"
               headerBarClassName="w-100 d-inline-flex justify-content-between p-3 blue-shades-header-panel  "
               listTitle="VLookup Values"
               linesStyles="d-flex align-items-center justify-content-center rounded-pill fw-bold px-2 blue-shades-lines vLookup-line-styles "
@@ -39,7 +39,7 @@ const ColumnExtractor = () => {
               textareaRows="18"
               textAreaPlaceholder="ValueA &#10;ValueA1"
               textareaStyles="vLookup-values-textarea p-2"
-              buttonGroupStyles="w-100 d-inline-flex justify-content-end d-flex p-2"
+              buttonGroupStyles="w-100 d-inline-flex justify-content-end flex-wrap p-2"
               fileInputStyles="d-none "
               columnsInputStyle="d-none"
               vLookupColumnsInputStyle="d-none"
@@ -97,7 +97,7 @@ const ColumnExtractor = () => {
 
           <Col>
             <FormInputCard
-              cardStyles="green-shades-border-color"
+              cardStyles="green-shades-border-color card-width"
               headerBarClassName="w-100 d-inline-flex justify-content-between p-3 green-shades-header-panel"
               listTitle="Table Values"
               linesStyles="d-flex align-items-center justify-content-center rounded-pill fw-bold px-2 green-shades-lines vLookup-line-styles "
@@ -110,7 +110,7 @@ const ColumnExtractor = () => {
               textareaRows="18"
               textAreaPlaceholder="ValueA , ValueB,...,ValueX &#10;ValueA1,ValueB1,...,ValueX1"
               textareaStyles="vLookup-values-textarea p-2"
-              buttonGroupStyles="w-100 d-flex justify-content-between d-flex p-2 gap-2"
+              buttonGroupStyles="w-100 d-flex justify-content-between flex-wrap p-2 gap-2"
               fileInputStyles="d-none "
               addHeaderRowBtn={
                 <ButtonComponent
@@ -169,7 +169,7 @@ const ColumnExtractor = () => {
         <Row className="mb-3">
           <Col>
             <FormInputCard
-              cardStyles="green-shades-border-color"
+              cardStyles="green-shades-border-color card-width"
               headerBarClassName="w-100 d-inline-flex justify-content-between p-3 green-shades-header-panel"
               listTitle="Output"
               linesStyles="d-flex align-items-center justify-content-center rounded-pill fw-bold px-2 green-shades-lines vLookup-line-styles "
@@ -181,7 +181,7 @@ const ColumnExtractor = () => {
               readOnlyTextareaStyles="d-none"
               textareaRows="18"
               textareaStyles="vLookup-values-textarea p-2"
-              buttonGroupStyles="w-100 d-flex justify-content-between d-flex p-2 gap-2"
+              buttonGroupStyles="w-100 d-flex justify-content-between flex-wrap p-2 gap-2"
               fileInputStyles="d-none "
               vLookCheckboxStyles="d-none"
               vLookupColumnsInputStyle="d-none"

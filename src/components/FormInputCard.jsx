@@ -210,7 +210,7 @@ const FormInputCard = ({
             {alignAsColumnsBtn}
           </div>
 
-          <div className="d-inline-flex gap-1">
+          <div className="d-inline-flex gap-1 flex-wrap">
             {toggleQuotesBtn}
             {splitCSVBtn}
             {joinLinesBtn}
