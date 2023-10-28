@@ -97,6 +97,66 @@ const CompareLists = () => {
     setListDataB(event.target.value);
   };
 
+  // OnChange List A Only func lines
+  const handleChangeAOnly = (event) => {
+    let data = event.target.value;
+    let listData = data.split("\n");
+
+    if (listData[listData.length - 1] === "") {
+      listData.length--;
+    } else {
+      let linesA = listData.filter((e) => e.replace(/(\r\n|\n|\r)/gm, ""));
+      let count = linesA.length;
+      setAOnlyLines(count);
+    }
+    setListDataAOnly(event.target.value);
+  };
+
+  // OnChange List Duplicates func lines
+  const handleChangeDups = (event) => {
+    let data = event.target.value;
+    let listData = data.split("\n");
+
+    if (listData[listData.length - 1] === "") {
+      listData.length--;
+    } else {
+      let linesA = listData.filter((e) => e.replace(/(\r\n|\n|\r)/gm, ""));
+      let count = linesA.length;
+      setDuplicatesLines(count);
+    }
+    setListAnBDups(event.target.value);
+  };
+
+  // OnChange List B Only func lines
+  const handleChangeBOnly = (event) => {
+    let data = event.target.value;
+    let listData = data.split("\n");
+
+    if (listData[listData.length - 1] === "") {
+      listData.length--;
+    } else {
+      let linesA = listData.filter((e) => e.replace(/(\r\n|\n|\r)/gm, ""));
+      let count = linesA.length;
+      setOnlyBLines(count);
+    }
+    setListDataBOnly(event.target.value);
+  };
+
+  // OnChange List AuB func lines
+  const handleChangeAuB = (event) => {
+    let data = event.target.value;
+    let listData = data.split("\n");
+
+    if (listData[listData.length - 1] === "") {
+      listData.length--;
+    } else {
+      let linesA = listData.filter((e) => e.replace(/(\r\n|\n|\r)/gm, ""));
+      let count = linesA.length;
+      setAuBLines(count);
+    }
+    setListDataAuB(event.target.value);
+  };
+
   // Get data func
   const getData = () => {
     if (listDataA && listDataB) {
@@ -5676,7 +5736,7 @@ const CompareLists = () => {
               textareaStyles="p-2"
               textAreaPlaceholder="Values in A Only"
               data={listDataAOnly}
-              onChange={(e) => setListDataAOnly(e.target.value)}
+              onChange={handleChangeAOnly}
               buttonGroupStyles="w-100 d-flex justify-content-between d-flex p-2 gap-2"
               fileInputStyles="d-none "
               columnsInputStyle="d-none"
@@ -5734,7 +5794,7 @@ const CompareLists = () => {
               textareaStyles="p-2"
               textAreaPlaceholder="Values in A AND B"
               data={listAnBDups}
-              onChange={(e) => setListAnBDups(e.target.value)}
+              onChange={handleChangeDups}
               buttonGroupStyles="w-100 d-flex justify-content-between d-flex p-2 gap-2"
               fileInputStyles="d-none "
               columnsInputStyle="d-none"
@@ -5792,7 +5852,7 @@ const CompareLists = () => {
               textareaStyles="p-2"
               textAreaPlaceholder="Values in B Only"
               data={listDataBOnly}
-              onChange={(e) => setListDataBOnly(e.target.value)}
+              onChange={handleChangeBOnly}
               buttonGroupStyles="w-100 d-flex justify-content-between d-flex p-2 gap-2"
               fileInputStyles="d-none "
               columnsInputStyle="d-none"
@@ -5856,7 +5916,7 @@ const CompareLists = () => {
               textareaStyles="p-2"
               textAreaPlaceholder="Values in A OR B"
               data={listDataAuB}
-              onChange={(e) => setListDataAuB(e.target.value)}
+              onChange={handleChangeAuB}
               buttonGroupStyles="w-100 d-flex justify-content-between d-flex p-2 gap-2"
               fileInputStyles="d-none "
               columnsInputStyle="d-none"
